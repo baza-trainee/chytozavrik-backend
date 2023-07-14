@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'user_profile.apps.UserProfileConfig'
 ]
 
@@ -136,3 +137,13 @@ EMAIL_HOST_PASSWORD = str(getenv('PASSWORD_EMAIL'))
 EMAIL_PORT = 587
 
 AUTH_USER_MODEL = 'user_profile.User'
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ],
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',
+    ],
+}
