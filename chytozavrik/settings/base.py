@@ -11,19 +11,20 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv
+from os import getenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# loads the configs from .env
+load_dotenv()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-^71+=8l2+14fk-+b19kh83psr!y$-hqny1nph@l1mx+%dgke9q'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+SECRET_KEY = str(getenv('SECRET_KEY'))
 
 ALLOWED_HOSTS = []
 
@@ -75,8 +76,12 @@ WSGI_APPLICATION = 'chytozavrik.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': str(getenv('SQL_DATABASE')),
+        'USER': str(getenv('SQL_USER')),
+        'PASSWORD': str(getenv('SQL_PASSWORD')),
+        'HOST': str(getenv('SQL_HOST')),
+        'PORT': str(getenv('SQL_PORT')),
     }
 }
 
@@ -121,3 +126,10 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# EMAIL
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = str(getenv('EMAIL'))
+EMAIL_HOST_PASSWORD = str(getenv('PASSWORD_EMAIL'))
+EMAIL_PORT = 587
