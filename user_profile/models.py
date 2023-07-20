@@ -7,7 +7,6 @@ class User(AbstractUser):
     username = None
     first_name = None
     last_name = None
-    is_verify = models.BinaryField(default=False)
     email = models.EmailField(unique=True)
     date_joined = models.DateTimeField(auto_now_add=True)
     USERNAME_FIELD = 'email'
