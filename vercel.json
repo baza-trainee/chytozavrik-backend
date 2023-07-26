@@ -1,0 +1,14 @@
+{
+    "builds": [
+      {
+        "src": "chytozavrik/wsgi.py",
+        "use": "@vercel/python"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "chytozavrik/wsgi.py"
+      }
+    ]
+}
