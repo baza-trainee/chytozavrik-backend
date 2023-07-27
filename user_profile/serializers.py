@@ -4,12 +4,15 @@ from .models import User
 
 class UserSerializer(serializers.ModelSerializer):
 
-    password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
+    password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True, min_length=6)
 
     class Meta:
         model = User
-        exclude = ['groups', "user_permissions"]
-        extra_kwargs = {'password': {'write_only': True}}
+        fields = ['id', 'is_superuser', 'email', 'password', 'password2']
+        extra_kwargs = {
+            'password': {'write_only': True, 'min_length': 6},
+            'email': {'min_length': 3}
+        }
 
     def validate(self, data):
         password = data.get('password')
