@@ -2,9 +2,12 @@ from rest_framework.viewsets import GenericViewSet
 from rest_framework import generics, permissions, mixins
 from drf_yasg.utils import swagger_auto_schema
 from .serializers import UserSerializer
-from .swagger_serializers import UserSwaggerPostSerializer, UserSwaggerGetSerializer
+from .swagger_serializers import UserSwaggerPostSerializer, UserSwaggerGetSerializer, create_custom_response_serializer
 from .models import User
 from .permissions import IsUser
+
+LIST_USER_SERIALIZER = create_custom_response_serializer(UserSwaggerGetSerializer, True)()
+DETAIL_USER_SERIALIZER = create_custom_response_serializer(UserSwaggerGetSerializer)()
 
 
 class UserViewSet(mixins.CreateModelMixin,
@@ -31,13 +34,16 @@ class UserViewSet(mixins.CreateModelMixin,
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
-    @swagger_auto_schema(responses={'200': UserSwaggerGetSerializer(many=True)})
+    @swagger_auto_schema(responses={'200': LIST_USER_SERIALIZER})
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
 
-    @swagger_auto_schema(request_body=UserSwaggerPostSerializer, responses={'201': UserSwaggerGetSerializer()})
-    def create(self, request, *args, **kwargs):
+    @swagger_auto_schema(responses={'200': DETAIL_USER_SERIALIZER})
+    def retrieve(self, request, *args, **kwargs):
+        return super().retrieve(request,  *args, **kwargs)
 
+    @swagger_auto_schema(request_body=UserSwaggerPostSerializer, responses={'201': DETAIL_USER_SERIALIZER})
+    def create(self, request, *args, **kwargs):
         return super().create(request, *args, **kwargs)
 
 
@@ -48,7 +54,7 @@ class MeAPIView(generics.RetrieveAPIView):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = UserSerializer
 
-    @swagger_auto_schema(responses={'200': UserSwaggerGetSerializer()})
+    @swagger_auto_schema(responses={'200': DETAIL_USER_SERIALIZER})
     def get(self, request, *args, **kwargs):
         return super().get(self, request, *args, **kwargs)
 
