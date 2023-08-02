@@ -23,7 +23,7 @@ class UserViewSet(mixins.CreateModelMixin,
         permissions_map = {
             'list': [permissions.IsAdminUser],
             'create': [permissions.AllowAny],
-            'destroy': [IsUser],
+            'destroy': [permissions.IsAdminUser],
             'default': [IsUser | permissions.IsAdminUser],
         }
 
