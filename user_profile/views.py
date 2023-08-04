@@ -1,13 +1,14 @@
 from rest_framework.viewsets import GenericViewSet
 from rest_framework import generics, permissions, mixins
 from drf_yasg.utils import swagger_auto_schema
-from .serializers import UserSerializer
+from .serializers import UserSerializer, ChildAvatarSerializer
 from .swagger_serializers import UserSwaggerPostSerializer, UserSwaggerGetSerializer, create_custom_response_serializer
-from .models import User
+from .models import User, ChildAvatar
 from .permissions import IsUser
 
 LIST_USER_SERIALIZER = create_custom_response_serializer(UserSwaggerGetSerializer, True)()
 DETAIL_USER_SERIALIZER = create_custom_response_serializer(UserSwaggerGetSerializer)()
+AVATAR_SERIALIZER = create_custom_response_serializer(ChildAvatarSerializer, True)()
 
 
 class UserViewSet(mixins.CreateModelMixin,
@@ -63,3 +64,12 @@ class MeAPIView(generics.RetrieveAPIView):
         Return the logged in user
         """
         return self.request.user
+
+
+class ChildAvatarAPIView(generics.ListAPIView):
+    queryset = ChildAvatar.objects.all()
+    serializer_class = ChildAvatarSerializer
+
+    @swagger_auto_schema(responses={'200': AVATAR_SERIALIZER})
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
