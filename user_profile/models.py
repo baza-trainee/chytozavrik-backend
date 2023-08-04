@@ -12,3 +12,19 @@ class User(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
     objects = UserManager()
+
+
+class ChildAvatar(models.Model):
+    avatar = models.ImageField()
+
+    def __str__(self):
+        return str(self.avatar)
+
+
+class Child(models.Model):
+    parent = models.ForeignKey(User, on_delete=models.CASCADE, related_name='children')
+    avatar = models.ForeignKey(ChildAvatar, on_delete=models.RESTRICT)
+    name = models.TextField(max_length=100)
+
+    def __str__(self):
+        return f'{self.name}'
