@@ -1,4 +1,5 @@
 from rest_framework.response import Response
+from rest_framework import status
 
 
 class CustomResponseMiddleware:
@@ -46,7 +47,7 @@ class CustomResponseMiddleware:
 
         if not request.path.startswith('/swagger'):
             if isinstance(response, Response):
-                if response.status_code < 400:
+                if response.status_code < status.HTTP_400_BAD_REQUEST:
                     response.data = {
                         'status': 'success',
                         'data': response.data
@@ -59,6 +60,9 @@ class CustomResponseMiddleware:
                             'message': message or response.data,
                         }
                     }
-            response._is_rendered = False
-            response.render()
+            try:
+                response._is_rendered = False
+                response.render()
+            except AttributeError:
+                return response
         return response
