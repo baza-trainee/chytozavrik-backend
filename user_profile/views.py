@@ -1,14 +1,18 @@
 from rest_framework.viewsets import GenericViewSet
 from rest_framework import generics, permissions, mixins
 from drf_yasg.utils import swagger_auto_schema
-from .serializers import UserSerializer, ChildAvatarSerializer
+from rest_framework.generics import ListCreateAPIView, RetrieveDestroyAPIView
+from rest_framework.permissions import OR
+from .serializers import UserSerializer, ChildAvatarSerializer, ChildSerializer
 from .swagger_serializers import UserSwaggerPostSerializer, UserSwaggerGetSerializer, create_custom_response_serializer
-from .models import User, ChildAvatar
-from .permissions import IsUser
+from .models import User, ChildAvatar, Child
+from .permissions import IsUser, IsParent, IsChildBelongingToParent
 
 LIST_USER_SERIALIZER = create_custom_response_serializer(UserSwaggerGetSerializer, True)()
 DETAIL_USER_SERIALIZER = create_custom_response_serializer(UserSwaggerGetSerializer)()
 AVATAR_SERIALIZER = create_custom_response_serializer(ChildAvatarSerializer, True)()
+LIST_CHILD_SERIALIZER = create_custom_response_serializer(ChildSerializer, True)()
+DETAIL_CHILD_SERIALIZER = create_custom_response_serializer(ChildSerializer)()
 
 
 class UserViewSet(mixins.CreateModelMixin,
@@ -73,3 +77,37 @@ class ChildAvatarAPIView(generics.ListAPIView):
     @swagger_auto_schema(responses={'200': AVATAR_SERIALIZER})
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)
+
+
+class ChildListCreateAPIView(ListCreateAPIView):
+    serializer_class = ChildSerializer
+
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return [OR(IsParent(), permissions.IsAdminUser())]
+        elif self.request.method == 'POST':
+            return [permissions.IsAuthenticated()]
+        return super().get_permission_classes()
+
+    def get_queryset(self):
+        user_pk = self.kwargs.get('user_pk')
+        query = Child.objects.filter(parent=user_pk).all()
+        return query
+
+    @swagger_auto_schema(responses={'200': LIST_CHILD_SERIALIZER})
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+    @swagger_auto_schema(request_body=ChildSerializer, responses={'200': DETAIL_CHILD_SERIALIZER})
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+
+class ChildRetrieveDestroyAPIView(RetrieveDestroyAPIView):
+    queryset = Child.objects.all()
+    serializer_class = ChildSerializer
+    permission_classes = [IsChildBelongingToParent, IsParent | permissions.IsAdminUser]
+
+    @swagger_auto_schema(responses={'200': DETAIL_CHILD_SERIALIZER})
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
