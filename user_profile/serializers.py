@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User, ChildAvatar
+from .models import User, ChildAvatar, Child
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -41,4 +41,10 @@ class UserSerializer(serializers.ModelSerializer):
 class ChildAvatarSerializer(serializers.ModelSerializer):
     class Meta:
         model = ChildAvatar
+        fields = '__all__'
+
+
+class ChildSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Child
         fields = '__all__'
