@@ -12,24 +12,20 @@
       "config": {
         "distDir": "staticfiles_build"
       }
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/media/(.*)",
+      "destination": "/media/$1"
     },
     {
-      "src": "media/(.*)",
-      "use": "@vercel/static",
-      "config": {
-        "headers": {
-          "/media/(.*)": {
-            "Cache-Control": "public, max-age=604800, immutable"
-          }
-        }
-      }
+      "source": "/public/(.*)",
+      "destination": "/public/$1"
     },
     {
-      "src": "public/(.*)"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "chytozavrik/wsgi.py"
+      "source": "/(.*)",
+      "destination": "/chytozavrik/wsgi.py"
     }
   ]
 }
