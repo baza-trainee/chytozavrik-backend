@@ -11,12 +11,9 @@ source venv/bin/activate
 # upgrade pip in the virtual environment
 pip install --upgrade pip
 
-# create staticfiles_build directory if it does not exist
-mkdir -p staticfiles_build
-
-
 # install requirements in the virtual environment
 pip install -r requirements.txt
 
 python manage.py collectstatic --no-input
 python manage.py migrate
+python manage.py create_children_avatars
