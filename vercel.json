@@ -23,16 +23,10 @@
           }
         }
       }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/static/(.*)",
-      "dest": "/static/$1"
     },
     {
-      "src": "/media/(.*)",
-      "dest": "/media/$1"
+      "src": "public/(.*)",
+      "dest": "/public/$1"
     },
     {
       "src": "/(.*)",
