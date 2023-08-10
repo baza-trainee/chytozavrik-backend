@@ -16,16 +16,12 @@
   ],
   "routes": [
     {
-      "src": "^/media/(.*)",
-      "dest": "/media/$1"
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
     },
     {
-      "src": "^/public/(.*)",
-      "dest": "/public/$1"
-    },
-    {
-      "src": ".*",
-      "dest": "/chytozavrik/wsgi.py"
+      "src": "/(.*)",
+      "dest": "chytozavrik/wsgi.py"
     }
   ]
 }
