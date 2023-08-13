@@ -82,17 +82,12 @@ class ChildAvatarAPIView(generics.ListAPIView):
 class ChildListCreateAPIView(ListCreateAPIView):
     serializer_class = ChildSerializer
 
-    def get_permissions(self):
-        if self.request.method == 'GET':
-            return [OR(IsParent(), permissions.IsAdminUser())]
-        elif self.request.method == 'POST':
-            return [permissions.IsAuthenticated()]
-        return super().get_permission_classes()
+    def perform_create(self, serializer):
+        user = self.request.user
+        serializer.save(parent=user)
 
     def get_queryset(self):
-        user_pk = self.kwargs.get('user_pk')
-        query = Child.objects.filter(parent=user_pk).all()
-        return query
+        return Child.objects.filter(parent=self.request.user.pk)
 
     @swagger_auto_schema(responses={'200': LIST_CHILD_SERIALIZER})
     def get(self, request, *args, **kwargs):
@@ -104,9 +99,10 @@ class ChildListCreateAPIView(ListCreateAPIView):
 
 
 class ChildRetrieveDestroyAPIView(RetrieveDestroyAPIView):
-    queryset = Child.objects.all()
     serializer_class = ChildSerializer
-    permission_classes = [IsChildBelongingToParent, IsParent | permissions.IsAdminUser]
+
+    def get_queryset(self):
+        return Child.objects.filter(parent=self.request.user.pk)
 
     @swagger_auto_schema(responses={'200': DETAIL_CHILD_SERIALIZER})
     def get(self, request, *args, **kwargs):
