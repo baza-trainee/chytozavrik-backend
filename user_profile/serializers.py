@@ -24,8 +24,17 @@ class UserSerializer(serializers.ModelSerializer):
         if len(password) < 6:
             raise serializers.ValidationError({"password": "Password must be at least 6 characters long."})
 
+        if len(password) > 30:
+            raise serializers.ValidationError("Password can't be more than 30 characters long.")
+
         if not any(char.isdigit() for char in password):
             raise serializers.ValidationError({"password": "Password must contain at least one digit."})
+
+        if not any(char.isalpha() for char in password):
+            raise serializers.ValidationError({"password": "Password must contain at least one letter."})
+
+        if any(char.isalpha() and not char.isascii() for char in password):
+            raise serializers.ValidationError({"password": "Password must only contain Latin characters."})
 
         return data
 
