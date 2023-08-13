@@ -56,4 +56,4 @@ class ChildAvatarSerializer(serializers.ModelSerializer):
 class ChildSerializer(serializers.ModelSerializer):
     class Meta:
         model = Child
-        fields = '__all__'
+        exclude = ['parent']
