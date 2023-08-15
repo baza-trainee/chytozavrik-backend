@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'drf_yasg',
     'corsheaders',
+    'django_cleanup.apps.CleanupConfig',
     'user_profile.apps.UserProfileConfig',
     'quiz.apps.QuizConfig'
 ]
