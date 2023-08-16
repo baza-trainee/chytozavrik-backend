@@ -2,19 +2,19 @@ from rest_framework import serializers
 from .models import Book, RecommendationBook
 
 
-class BookSerializers(serializers.ModelSerializer):
+class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
         fields = '__all__'
 
 
-class BookPatchSerializer(BookSerializers):
+class BookPatchSerializer(BookSerializer):
     title = serializers.CharField(required=False)
     author = serializers.CharField(required=False)
     cover_image = serializers.ImageField(required=False)
 
 
-class RecommendationBookSerializer(BookSerializers):
+class RecommendationBookSerializer(BookSerializer):
     recommendation_id = serializers.SerializerMethodField()
 
     def get_recommendation_id(self, obj):
