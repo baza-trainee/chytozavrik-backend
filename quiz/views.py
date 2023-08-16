@@ -3,19 +3,18 @@ from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from rest_framework import mixins
 from rest_framework import permissions
 from .models import Book, RecommendationBook
-from .serializers import BookSerializer, BookPatchSerializer, RecommendationBookSerializer, RecommendationBookCreateSerializer
+from . import serializers
 
 
 class BookViewSet(ModelViewSet):
-    serializer_class = BookPatchSerializer
     queryset = Book.objects.all()
     parser_classes = (MultiPartParser, FormParser)
     permission_classes = permissions.IsAdminUser,
 
     def get_serializer_class(self):
         if self.action == 'partial_update':
-            return BookPatchSerializer
-        return BookSerializer
+            return serializers.BookPatchSerializer
+        return serializers.BookSerializer
 
 
 class RecommendationBookViewSet(mixins.CreateModelMixin,
@@ -30,8 +29,8 @@ class RecommendationBookViewSet(mixins.CreateModelMixin,
 
     def get_serializer_class(self):
         if self.action == 'list':
-            return RecommendationBookSerializer
-        return RecommendationBookCreateSerializer
+            return serializers.RecommendationBookSerializer
+        return serializers.RecommendationBookCreateSerializer
 
     def get_permissions(self):
         if self.action == 'list':
