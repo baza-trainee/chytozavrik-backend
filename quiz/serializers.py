@@ -18,7 +18,7 @@ class RecommendationBookSerializer(BookSerializer):
     recommendation_id = serializers.SerializerMethodField()
 
     def get_recommendation_id(self, obj):
-        recommendation = obj.recommendations.first()
+        recommendation = obj.recommendations
         return recommendation.id if recommendation else None
 
 
