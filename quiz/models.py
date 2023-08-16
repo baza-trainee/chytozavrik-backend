@@ -2,7 +2,15 @@ from django.db import models
 from user_profile.models import Child
 
 
-class Book(models.Model):
+class TimeStampMixin(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
+class Book(TimeStampMixin):
     title = models.CharField(max_length=255)
     author = models.CharField(max_length=255)
     cover_image = models.ImageField(upload_to='books/')
@@ -12,13 +20,13 @@ class Book(models.Model):
 
 
 class RecommendationBook(models.Model):
-    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='recommendations')
+    book = models.OneToOneField(Book, on_delete=models.CASCADE, related_name='recommendations')
 
     def __str__(self):
         return f'Recommend {self.book.title}'
 
 
-class Quiz(models.Model):
+class Quiz(TimeStampMixin):
     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='quizzes')
 
     def __str__(self):
