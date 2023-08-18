@@ -27,7 +27,7 @@ class RecommendationBook(models.Model):
 
 
 class Quiz(TimeStampMixin):
-    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='quizzes')
+    book = models.OneToOneField(Book, on_delete=models.CASCADE, related_name='quiz')
 
     def __str__(self):
         return f'Quiz on the book "{self.book.title}"'
