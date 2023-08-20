@@ -4,9 +4,11 @@ from rest_framework import mixins
 from rest_framework import permissions
 from .models import Book, RecommendationBook, Quiz
 from . import serializers
+from .pagination import ResultsSetPagination
 
 
 class BookViewSet(ModelViewSet):
+    pagination_class = ResultsSetPagination
     queryset = Book.objects.all()
     parser_classes = (MultiPartParser, FormParser)
     permission_classes = permissions.IsAdminUser,
@@ -21,6 +23,8 @@ class RecommendationBookViewSet(mixins.CreateModelMixin,
                                  mixins.DestroyModelMixin,
                                  mixins.ListModelMixin,
                                  GenericViewSet):
+
+    pagination_class = ResultsSetPagination
 
     def get_queryset(self):
         if self.action == 'list':
@@ -45,6 +49,8 @@ class QuizViewSet(mixins.CreateModelMixin,
                    mixins.DestroyModelMixin,
                    mixins.ListModelMixin,
                    GenericViewSet):
+
+    pagination_class = ResultsSetPagination
 
     def get_permissions(self):
         if self.action == 'create':
