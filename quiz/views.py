@@ -3,8 +3,19 @@ from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from rest_framework import mixins
 from rest_framework import permissions
 from .models import Book, RecommendationBook, Quiz
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
 from . import serializers
 from .pagination import ResultsSetPagination
+from user_profile.swagger_serializers import create_custom_response_serializer
+
+PAGE_PARAMETER = openapi.Parameter('page', openapi.IN_QUERY, description="Page number", type=openapi.TYPE_INTEGER)
+PAGE_SIZE_PARAMETER = openapi.Parameter('page_size', openapi.IN_QUERY, description="Number of items per page",
+                                        type=openapi.TYPE_INTEGER)
+BOOK_SWAGGER_SERIALIZER = create_custom_response_serializer(serializers.BookSerializer)()
+RECOMMENDATION_BOOK_SWAGGER_SERIALIZER = create_custom_response_serializer(serializers.BookSerializer)()
+CREATE_QUIZ_SWAGGER_SERIALIZER = create_custom_response_serializer(serializers.QuizCreateSerializer)()
+INFO_QUIZ_SWAGGER_SERIALIZER = create_custom_response_serializer(serializers.QuizInfoSerializer)()
 
 
 class BookViewSet(ModelViewSet):
@@ -12,6 +23,29 @@ class BookViewSet(ModelViewSet):
     queryset = Book.objects.all()
     parser_classes = (MultiPartParser, FormParser)
     permission_classes = permissions.IsAdminUser,
+
+    @swagger_auto_schema(manual_parameters=[
+        PAGE_PARAMETER,
+        PAGE_SIZE_PARAMETER,
+    ])
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    @swagger_auto_schema(responses={201: BOOK_SWAGGER_SERIALIZER})
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+
+    @swagger_auto_schema(responses={200: BOOK_SWAGGER_SERIALIZER})
+    def retrieve(self, request, *args, **kwargs):
+        return super().retrieve(request, *args, **kwargs)
+
+    @swagger_auto_schema(responses={200: BOOK_SWAGGER_SERIALIZER})
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
+
+    @swagger_auto_schema(responses={200: BOOK_SWAGGER_SERIALIZER})
+    def partial_update(self, request, *args, **kwargs):
+        return super().partial_update(request, *args, **kwargs)
 
     def get_serializer_class(self):
         if self.action == 'partial_update':
@@ -25,6 +59,17 @@ class RecommendationBookViewSet(mixins.CreateModelMixin,
                                  GenericViewSet):
 
     pagination_class = ResultsSetPagination
+
+    @swagger_auto_schema( manual_parameters=[
+        PAGE_PARAMETER,
+        PAGE_SIZE_PARAMETER,
+    ])
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    @swagger_auto_schema(responses={201: RECOMMENDATION_BOOK_SWAGGER_SERIALIZER})
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
 
     def get_queryset(self):
         if self.action == 'list':
@@ -51,6 +96,21 @@ class QuizViewSet(mixins.CreateModelMixin,
                    GenericViewSet):
 
     pagination_class = ResultsSetPagination
+
+    @swagger_auto_schema(manual_parameters=[
+        PAGE_PARAMETER,
+        PAGE_SIZE_PARAMETER,
+    ])
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    @swagger_auto_schema(responses={201: CREATE_QUIZ_SWAGGER_SERIALIZER})
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+
+    @swagger_auto_schema(responses={200: INFO_QUIZ_SWAGGER_SERIALIZER})
+    def retrieve(self, request, *args, **kwargs):
+        return super().retrieve(request, *args, **kwargs)
 
     def get_permissions(self):
         if self.action == 'create':
