@@ -7,6 +7,7 @@ app_name = 'quiz'
 router = DefaultRouter()
 router.register(r'books', views.BookViewSet, basename='book')
 router.register(r'recommendation-books', views.RecommendationBookViewSet, basename='recommendation-books')
+router.register(r'quizzes', views.QuizViewSet, basename='quizz')
 
 urlpatterns = []
 urlpatterns += router.urls
