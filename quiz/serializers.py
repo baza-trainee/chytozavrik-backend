@@ -15,7 +15,18 @@ class BookPatchSerializer(BookSerializer):
     cover_image = serializers.ImageField(required=False)
 
 
-class RecommendationBookSerializer(BookSerializer):
+class BookWithIDSerializer(BookSerializer):
+    book_id = serializers.SerializerMethodField(read_only=True)
+
+    def get_book_id(self, obj):
+        return obj.id
+
+    class Meta:
+        model = Book
+        exclude = ('id',)
+
+
+class RecommendationBookSerializer(BookWithIDSerializer):
     recommendation_id = serializers.SerializerMethodField()
 
     def get_recommendation_id(self, obj):
@@ -29,7 +40,7 @@ class RecommendationBookCreateSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class QuizSerializer(BookSerializer):
+class QuizSerializer(BookWithIDSerializer):
     quizz_id = serializers.SerializerMethodField()
 
     def get_quizz_id(self, obj):
