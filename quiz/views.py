@@ -2,9 +2,11 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from rest_framework import mixins
 from rest_framework import permissions
-from .models import Book, RecommendationBook, Quiz
+from rest_framework.exceptions import MethodNotAllowed
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
+
+from .models import Book, RecommendationBook, Quiz, QuizReward
 from . import serializers
 from .pagination import ResultsSetPagination
 from user_profile.swagger_serializers import create_custom_response_serializer
@@ -16,7 +18,8 @@ BOOK_SWAGGER_SERIALIZER = create_custom_response_serializer(serializers.BookSeri
 RECOMMENDATION_BOOK_SWAGGER_SERIALIZER = create_custom_response_serializer(serializers.BookSerializer)()
 CREATE_QUIZ_SWAGGER_SERIALIZER = create_custom_response_serializer(serializers.QuizCreateSerializer)()
 INFO_QUIZ_SWAGGER_SERIALIZER = create_custom_response_serializer(serializers.QuizInfoSerializer)()
-
+QUIZ_REWARD_SWAGGER_SERIALIZER = create_custom_response_serializer(serializers.QuizRewardSerializer)()
+LIST_QUIZ_REWARD_SWAGGER_SERIALIZER = create_custom_response_serializer(serializers.QuizRewardSerializer, True)()
 
 class BookViewSet(ModelViewSet):
     pagination_class = ResultsSetPagination
@@ -132,3 +135,30 @@ class QuizViewSet(mixins.CreateModelMixin,
         elif self.action == 'retrieve':
             return serializers.QuizInfoSerializer
         return serializers.QuizCreateSerializer
+
+
+class QuizRewardViewSet(ModelViewSet):
+    http_method_names = ['get', 'post', 'put', 'delete']
+    parser_classes = (MultiPartParser, FormParser)
+    serializer_class = serializers.QuizRewardSerializer
+    queryset = QuizReward.objects.all()
+    permission_classes = [permissions.IsAdminUser]
+
+    @swagger_auto_schema(responses={200: LIST_QUIZ_REWARD_SWAGGER_SERIALIZER})
+    def list(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+
+    @swagger_auto_schema(responses={201: QUIZ_REWARD_SWAGGER_SERIALIZER})
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+
+    @swagger_auto_schema(responses={200: QUIZ_REWARD_SWAGGER_SERIALIZER})
+    def retrieve(self, request, *args, **kwargs):
+        return super().retrieve(request, *args, **kwargs)
+
+    @swagger_auto_schema(responses={200: QUIZ_REWARD_SWAGGER_SERIALIZER})
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
+
+    def partial_update(self, request, *args, **kwargs):
+        raise MethodNotAllowed("PATCH")
