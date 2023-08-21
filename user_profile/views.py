@@ -1,12 +1,11 @@
 from rest_framework.viewsets import GenericViewSet
 from rest_framework import generics, permissions, mixins
 from drf_yasg.utils import swagger_auto_schema
-from rest_framework.generics import ListCreateAPIView, RetrieveDestroyAPIView
-from rest_framework.permissions import OR
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from .serializers import UserSerializer, ChildAvatarSerializer, ChildSerializer
 from .swagger_serializers import UserSwaggerPostSerializer, UserSwaggerGetSerializer, create_custom_response_serializer
 from .models import User, ChildAvatar, Child
-from .permissions import IsUser, IsParent, IsChildBelongingToParent
+from .permissions import IsUser
 
 LIST_USER_SERIALIZER = create_custom_response_serializer(UserSwaggerGetSerializer, True)()
 DETAIL_USER_SERIALIZER = create_custom_response_serializer(UserSwaggerGetSerializer)()
@@ -98,8 +97,9 @@ class ChildListCreateAPIView(ListCreateAPIView):
         return self.create(request, *args, **kwargs)
 
 
-class ChildRetrieveDestroyAPIView(RetrieveDestroyAPIView):
+class ChildRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     serializer_class = ChildSerializer
+    http_method_names = ['get', 'put', 'delete']
 
     def get_queryset(self):
         return Child.objects.filter(parent=self.request.user.pk)
@@ -107,3 +107,7 @@ class ChildRetrieveDestroyAPIView(RetrieveDestroyAPIView):
     @swagger_auto_schema(responses={'200': DETAIL_CHILD_SERIALIZER})
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
+
+    @swagger_auto_schema(responses={'200': DETAIL_CHILD_SERIALIZER})
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
