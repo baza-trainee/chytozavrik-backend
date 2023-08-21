@@ -16,6 +16,7 @@ pip install -r requirements.txt
 
 mkdir -p media
 chmod 777 media
+mkdir -p media/books
 chmod 777 media/books
 
 python manage.py collectstatic --no-input
