@@ -115,3 +115,10 @@ class QuizCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Quiz
         fields = '__all__'
+
+
+class QuizRewardSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QuizReward
+        fields = '__all__'
+
