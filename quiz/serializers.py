@@ -4,6 +4,18 @@ from .models import Book, RecommendationBook, Quiz, Question, Answer, TrueAnswer
 
 
 class BookSerializer(serializers.ModelSerializer):
+    state = serializers.SerializerMethodField()
+
+    def get_state(self, obj):
+        state = []
+        if RecommendationBook.objects.filter(book=obj).exists():
+            state.append('Рекомендована')
+
+        if Quiz.objects.filter(book=obj).exists():
+            state.append('Вікторина')
+
+        return state
+
     class Meta:
         model = Book
         fields = '__all__'
@@ -17,6 +29,7 @@ class BookPatchSerializer(BookSerializer):
 
 class BookWithIDSerializer(BookSerializer):
     book_id = serializers.SerializerMethodField(read_only=True)
+    state = None
 
     def get_book_id(self, obj):
         return obj.id
