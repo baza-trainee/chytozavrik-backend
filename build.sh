@@ -14,6 +14,9 @@ pip install --upgrade pip
 # install requirements in the virtual environment
 pip install -r requirements.txt
 
+mkdir media
+chmod 777 media
+
 python manage.py collectstatic --no-input
 python manage.py migrate
 python manage.py create_children_avatars
