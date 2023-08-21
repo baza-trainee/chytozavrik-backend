@@ -15,7 +15,6 @@ pip install --upgrade pip
 pip install -r requirements.txt
 
 mkdir media
-chmod 777 media
 
 python manage.py collectstatic --no-input
 python manage.py migrate
