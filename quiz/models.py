@@ -69,6 +69,7 @@ class ChildReward(models.Model):
     child = models.ForeignKey(Child, on_delete=models.CASCADE)
     reward = models.ForeignKey(QuizReward, on_delete=models.CASCADE)
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+    received_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.reward
