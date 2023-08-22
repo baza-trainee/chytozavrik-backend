@@ -10,6 +10,6 @@ urlpatterns = [
     path('users/me/', views.MeAPIView.as_view(), name='me'),
     path('avatars/', views.ChildAvatarAPIView.as_view(), name='avatars'),
     path('users/me/children/', views.ChildListCreateAPIView.as_view(), name='children'),
-    path('users/me/children/<int:pk>/', views.ChildRetrieveDestroyAPIView.as_view(), name='child'),
+    path('users/me/children/<int:pk>/', views.ChildRetrieveUpdateDestroyAPIView.as_view(), name='child'),
 ]
 urlpatterns += router.urls

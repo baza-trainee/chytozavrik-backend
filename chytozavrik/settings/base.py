@@ -43,7 +43,11 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'drf_yasg',
     'corsheaders',
-    'user_profile.apps.UserProfileConfig'
+    'django_cleanup.apps.CleanupConfig',
+    'cloudinary_storage',
+    'cloudinary',
+    'user_profile.apps.UserProfileConfig',
+    'quiz.apps.QuizConfig'
 ]
 
 MIDDLEWARE = [
@@ -118,7 +122,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Kiev'
 
 USE_I18N = True
 
@@ -134,6 +138,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles_build' / 'static'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -220,3 +225,9 @@ SIMPLE_JWT = {
 
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': str(getenv('CLOUD_NAME')),
+    'API_KEY': str(getenv('API_KEY')),
+    'API_SECRET': str(getenv('API_SECRET')),
+}
