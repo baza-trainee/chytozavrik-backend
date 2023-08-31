@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.db import transaction
-from .models import Book, RecommendationBook, Quiz, Question, Answer, TrueAnswer, QuizReward
+from .models import Book, RecommendationBook, Quiz, Question, Answer, TrueAnswer, QuizReward, ChildReward
 
 
 class BookSerializer(serializers.ModelSerializer):
@@ -122,3 +122,12 @@ class QuizRewardSerializer(serializers.ModelSerializer):
         model = QuizReward
         fields = '__all__'
 
+
+class SubmitAnswerSerializer(serializers.Serializer):
+    child_id = serializers.IntegerField()
+    answer_id = serializers.IntegerField()
+
+
+class SubmitAnswerResponseSerializer(serializers.Serializer):
+    is_answer_correct = serializers.BooleanField()
+    child_reward_id = serializers.IntegerField(allow_null=True)
