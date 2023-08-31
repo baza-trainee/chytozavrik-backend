@@ -10,5 +10,7 @@ router.register(r'recommendation-books', views.RecommendationBookViewSet, basena
 router.register(r'quizzes', views.QuizViewSet, basename='quizz')
 router.register(r'quizzes-rewards', views.QuizRewardViewSet, basename='quiz-reward')
 
-urlpatterns = []
+urlpatterns = [
+    path('questions/<question_id>/submit-answer', views.submit_answer_api, name='submit-answer')
+]
 urlpatterns += router.urls
