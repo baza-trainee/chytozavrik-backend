@@ -34,8 +34,8 @@ def is_access_to_question(user_question, actual_question):
     return user_question == actual_question
 
 
-def has_reached_max_score(child_attempt, question):
-    return question.answers.count() == child_attempt.score
+def has_reached_max_score(child_attempt, quiz):
+    return quiz.questions.count() == child_attempt.score
 
 
 def reset_quiz(child_attempt):
@@ -73,7 +73,7 @@ def submit_answer_api(request, question_id):
     child_attempt, created = ChildQuizAttempt.objects.get_or_create(child=child, quiz=quiz)
     quiz_questions = list(quiz.questions.all())
 
-    if has_reached_max_score(child_attempt, question):
+    if has_reached_max_score(child_attempt, quiz):
         reset_quiz(child_attempt)
     if not is_access_to_question(question, quiz_questions[child_attempt.score]):
         return Response({'detail': 'You don\'t have access to this question'}, status=status.HTTP_403_FORBIDDEN)
@@ -81,7 +81,7 @@ def submit_answer_api(request, question_id):
     child_reward_id = None
     if is_answer_correct:
         update_score(child_attempt)
-    if has_reached_max_score(child_attempt, question):
+    if has_reached_max_score(child_attempt, quiz):
         child_reward, create = ChildReward.objects.get_or_create(child=child, quiz=quiz, reward=quiz.reward)
         child_reward_id = child_reward.id
     return Response(submit_answer_response(is_answer_correct, child_reward_id))
@@ -192,7 +192,7 @@ class QuizViewSet(mixins.CreateModelMixin,
         if self.action == 'list':
             return Book.objects.filter(quiz__isnull=False)
         elif self.action == 'retrieve':
-            Quiz.objects.all().prefetch_related('questions__answers')
+            Quiz.objects.all().select_related('book').prefetch_related('questions__answers')
         return Quiz.objects.all()
 
     def get_serializer_class(self):
