@@ -212,7 +212,7 @@ class QuizRewardViewSet(ModelViewSet):
 
     @swagger_auto_schema(responses={200: LIST_QUIZ_REWARD_SWAGGER_SERIALIZER})
     def list(self, request, *args, **kwargs):
-        return super().create(request, *args, **kwargs)
+        return super().list(request, *args, **kwargs)
 
     @swagger_auto_schema(responses={201: QUIZ_REWARD_SWAGGER_SERIALIZER})
     def create(self, request, *args, **kwargs):
