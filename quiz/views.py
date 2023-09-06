@@ -6,6 +6,7 @@ from rest_framework.exceptions import MethodNotAllowed
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.generics import ListAPIView, RetrieveAPIView
 from django.shortcuts import get_object_or_404
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
@@ -15,6 +16,7 @@ from .models import Book, RecommendationBook, Quiz, QuizReward, Answer, TrueAnsw
 from . import serializers
 from .pagination import ResultsSetPagination
 from user_profile.swagger_serializers import create_custom_response_serializer
+from .permissions import HasPermissionToViewChildRewards
 
 PAGE_PARAMETER = openapi.Parameter('page', openapi.IN_QUERY, description="Page number", type=openapi.TYPE_INTEGER)
 PAGE_SIZE_PARAMETER = openapi.Parameter('page_size', openapi.IN_QUERY, description="Number of items per page",
@@ -226,3 +228,46 @@ class QuizRewardViewSet(ModelViewSet):
 
     def partial_update(self, request, *args, **kwargs):
         raise MethodNotAllowed("PATCH")
+
+
+class ChildRewardListAPIView(ListAPIView):
+    pagination_class = ResultsSetPagination
+    serializer_class = serializers.ChildRewardSerializer
+    permission_classes = [HasPermissionToViewChildRewards, ]
+
+    def get_queryset(self):
+        child_id = self.kwargs.get('child_id')
+        return ChildReward.objects.select_related('reward').filter(child__parent=self.request.user.pk, child=child_id)
+
+    @swagger_auto_schema(manual_parameters=[
+        PAGE_PARAMETER,
+        PAGE_SIZE_PARAMETER,
+    ])
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+
+class ChildRewardRetrieveAPIView(RetrieveAPIView):
+    serializer_class = serializers.ChildRewardSerializer
+    permission_classes = [HasPermissionToViewChildRewards, ]
+
+    def get_queryset(self):
+        child_id = self.kwargs.get('child_id')
+        return ChildReward.objects.select_related('reward').filter(child__parent=self.request.user.pk, child=child_id)
+
+
+class ChildAttemptListAPIView(ListAPIView):
+    pagination_class = ResultsSetPagination
+    serializer_class = serializers.ChildAttemptSerializer
+    permission_classes = [HasPermissionToViewChildRewards, ]
+
+    def get_queryset(self):
+        child_id = self.kwargs.get('child_id')
+        return ChildQuizAttempt.objects.filter(child__parent=self.request.user.pk, child=child_id)
+
+    @swagger_auto_schema(manual_parameters=[
+        PAGE_PARAMETER,
+        PAGE_SIZE_PARAMETER,
+    ])
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
