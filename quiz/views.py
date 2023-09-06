@@ -192,7 +192,7 @@ class QuizViewSet(mixins.CreateModelMixin,
         if self.action == 'list':
             return Book.objects.filter(quiz__isnull=False)
         elif self.action == 'retrieve':
-            Quiz.objects.all().prefetch_related('questions__answers')
+            Quiz.objects.all().select_related('book').prefetch_related('questions__answers')
         return Quiz.objects.all()
 
     def get_serializer_class(self):
