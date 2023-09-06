@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from django.db import transaction
-from .models import Book, RecommendationBook, Quiz, Question, Answer, TrueAnswer, QuizReward, ChildReward
+from cloudinary import CloudinaryImage
+from .models import (Book, RecommendationBook, Quiz, Question, Answer, TrueAnswer, QuizReward, ChildReward,
+                     ChildQuizAttempt)
 
 
 class BookSerializer(serializers.ModelSerializer):
@@ -131,3 +133,22 @@ class SubmitAnswerSerializer(serializers.Serializer):
 class SubmitAnswerResponseSerializer(serializers.Serializer):
     is_answer_correct = serializers.BooleanField()
     child_reward_id = serializers.IntegerField(allow_null=True)
+
+
+class ChildRewardSerializer(serializers.ModelSerializer):
+    reward = serializers.SerializerMethodField()
+
+    def get_reward(self, obj):
+        reward = str(obj.reward.reward)
+        cloudinary_url = CloudinaryImage(reward).build_url()
+        return str(cloudinary_url)
+
+    class Meta:
+        model = ChildReward
+        fields = '__all__'
+
+
+class ChildAttemptSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ChildQuizAttempt
+        fields = '__all__'
