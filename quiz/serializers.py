@@ -85,12 +85,11 @@ class QuizInfoSerializer(serializers.ModelSerializer):
 
     def get_book_info(self, obj):
         book_info = {
-            'name ': obj.book.title,
+            'name': obj.book.title,
             'author': obj.book.author,
         }
 
         return book_info
-
 
     class Meta:
         model = Quiz
