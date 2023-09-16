@@ -10,6 +10,7 @@ from rest_framework.generics import ListAPIView, RetrieveAPIView
 from django.shortcuts import get_object_or_404
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
+from cloudinary import CloudinaryImage
 
 from user_profile.models import Child
 from .models import Book, RecommendationBook, Quiz, QuizReward, Answer, TrueAnswer, ChildQuizAttempt, ChildReward
@@ -48,10 +49,10 @@ def update_score(child_attempt):
     child_attempt.save()
 
 
-def submit_answer_response(is_correct, child_reward_id=None):
+def submit_answer_response(is_correct, child_reward_url=None):
     return {
         'is_answer_correct': is_correct,
-        'child_reward_id': child_reward_id
+        'child_reward_url': child_reward_url
     }
 
 
@@ -78,13 +79,14 @@ def submit_answer_api(request, question_id):
     if not is_access_to_question(question, quiz_questions[child_attempt.score]):
         return Response({'detail': 'You don\'t have access to this question'}, status=status.HTTP_403_FORBIDDEN)
     is_answer_correct = TrueAnswer.objects.filter(question=question, answer=answer).exists()
-    child_reward_id = None
+    child_reward_url = None
     if is_answer_correct:
         update_score(child_attempt)
     if has_reached_max_score(child_attempt, quiz):
-        child_reward, create = ChildReward.objects.get_or_create(child=child, quiz=quiz, reward=quiz.reward)
-        child_reward_id = child_reward.id
-    return Response(submit_answer_response(is_answer_correct, child_reward_id))
+        child_reward, create = ChildReward.objects.select_related('reward').get_or_create(child=child, quiz=quiz, reward=quiz.reward)
+        reward = str(child_reward.reward.reward)
+        child_reward_url = CloudinaryImage(reward).build_url()
+    return Response(submit_answer_response(is_answer_correct, child_reward_url))
 
 
 class BookViewSet(ModelViewSet):
