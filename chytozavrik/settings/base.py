@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'cloudinary',
     'user_profile.apps.UserProfileConfig',
     'quiz.apps.QuizConfig',
-    'contacts.apps.ContactsConfig'
+    'contacts.apps.ContactsConfig',
+    'partners.apps.PartnersConfig'
 ]
 
 MIDDLEWARE = [
