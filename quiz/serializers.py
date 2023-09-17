@@ -136,12 +136,12 @@ class QuizRewardSerializer(serializers.ModelSerializer):
 
 class SubmitAnswerSerializer(serializers.Serializer):
     child_id = serializers.IntegerField()
-    answer_id = serializers.IntegerField()
+    answer_url = serializers.IntegerField()
 
 
 class SubmitAnswerResponseSerializer(serializers.Serializer):
     is_answer_correct = serializers.BooleanField()
-    child_reward_id = serializers.IntegerField(allow_null=True)
+    child_reward_url = serializers.IntegerField(allow_null=True)
 
 
 class ChildRewardSerializer(serializers.ModelSerializer):
