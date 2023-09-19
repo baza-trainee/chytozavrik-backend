@@ -7,6 +7,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.generics import ListAPIView, RetrieveAPIView
+from rest_framework.decorators import permission_classes
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
 from drf_yasg import openapi
@@ -31,6 +32,7 @@ INFO_QUIZ_SWAGGER_SERIALIZER = create_custom_response_serializer(serializers.Qui
 QUIZ_REWARD_SWAGGER_SERIALIZER = create_custom_response_serializer(serializers.QuizRewardSerializer)()
 LIST_QUIZ_REWARD_SWAGGER_SERIALIZER = create_custom_response_serializer(serializers.QuizRewardSerializer, True)()
 SUBMIT_ANSWER_RESPONSE_SERIALIZER = create_custom_response_serializer(serializers.SubmitAnswerResponseSerializer)
+DETAIL_CHILD_ATTEMPT_SERIALIZER = create_custom_response_serializer(serializers.DetailChildAttemptSerializer)()
 
 
 def is_access_to_question(user_question, actual_question):
@@ -89,6 +91,27 @@ def submit_answer_api(request, question_id):
         reward = str(child_reward.reward.reward)
         child_reward_url = CloudinaryImage(reward).build_url()
     return Response(submit_answer_response(is_answer_correct, child_reward_url))
+
+
+@swagger_auto_schema(
+    method='get',
+    responses={'200': DETAIL_CHILD_ATTEMPT_SERIALIZER}
+)
+@api_view(['GET'])
+@permission_classes([HasPermissionToViewChildRewards])
+def get_child_attempt_by_quiz_api(request, child_id, quiz_id):
+    try:
+        quiz = Quiz.objects.get(pk=quiz_id)
+        attempt = ChildQuizAttempt.objects.get(child__parent=request.user.pk, child=child_id, quiz=quiz)
+    except Quiz.DoesNotExist as e:
+        return Response({'detail': f'Quiz with id {quiz_id} does not exist.'}, 404)
+    except ChildQuizAttempt.DoesNotExist:
+        data = {'score': 0}
+        serializer = serializers.DetailChildAttemptSerializer(data)
+    else:
+        serializer = serializers.DetailChildAttemptSerializer(attempt)
+
+    return Response(serializer.data)
 
 
 class BookViewSet(ModelViewSet):

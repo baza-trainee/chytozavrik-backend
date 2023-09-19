@@ -158,6 +158,14 @@ class ChildRewardSerializer(serializers.ModelSerializer):
 
 
 class ChildAttemptSerializer(serializers.ModelSerializer):
+    quiz_id = serializers.IntegerField()
+
     class Meta:
         model = ChildQuizAttempt
-        fields = '__all__'
+        exclude = ('id', 'child', 'quiz')
+
+
+class DetailChildAttemptSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ChildQuizAttempt
+        exclude = ('id', 'child', 'quiz')
