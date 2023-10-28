@@ -23,18 +23,35 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 from .yasg import urlpatterns as doc_urls
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    # Преобразує email у нижній регистр
+
+    serializer_class = TokenObtainPairSerializer
+
+    def post(self, request, *args, **kwargs):
+        email = request.data.get("email", "").lower()
+        request.data["email"] = email
+        return super().post(request, *args, **kwargs)
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/v1/', include('user_profile.urls')),
-    path('api/v1/', include('quiz.urls')),
-    path('api/v1/', include('contacts.urls')),
-    path('api/v1/', include('partners.urls')),
-    path('api/v1/auth/token/', include([
-        path('', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-        path('refresh/', TokenRefreshView.as_view(), name='token_refresh')]
-    )),
+    path("admin/", admin.site.urls),
+    path("api/v1/", include("user_profile.urls")),
+    path("api/v1/", include("quiz.urls")),
+    path("api/v1/", include("contacts.urls")),
+    path("api/v1/", include("partners.urls")),
+    path(
+        "api/v1/auth/token/",
+        include(
+            [
+                path("", MyTokenObtainPairView.as_view(), name="token_obtain_pair"),
+                path("refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+            ]
+        ),
+    ),
 ]
 
 urlpatterns += doc_urls
