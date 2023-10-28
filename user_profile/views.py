@@ -66,6 +66,15 @@ class UserViewSet(
         for field in data.keys():
             if field not in ["email", "password", "password2"]:
                 return Response({"detail": f"Поле '{field}' не підтримується."}, 400)
+
+        get_email = data.get("email")
+        email = get_email.lower()
+        if User.objects.filter(email=email).exists():
+            return Response(
+                {"detail": "користувач з таким email вже існує."},
+                400,
+            )
+
         return super().create(request, *args, **kwargs)
 
 

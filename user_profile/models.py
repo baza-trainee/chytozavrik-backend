@@ -7,9 +7,11 @@ class User(AbstractUser):
     username = None
     first_name = None
     last_name = None
-    email = models.EmailField(unique=True)
+    email = models.EmailField(
+        unique=True,
+    )
     date_joined = models.DateTimeField(auto_now_add=True)
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
     objects = UserManager()
 
@@ -22,9 +24,9 @@ class ChildAvatar(models.Model):
 
 
 class Child(models.Model):
-    parent = models.ForeignKey(User, on_delete=models.CASCADE, related_name='children')
+    parent = models.ForeignKey(User, on_delete=models.CASCADE, related_name="children")
     avatar = models.ForeignKey(ChildAvatar, on_delete=models.RESTRICT)
     name = models.TextField(max_length=100)
 
     def __str__(self):
-        return f'{self.name}'
+        return f"{self.name}"
