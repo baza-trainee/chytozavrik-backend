@@ -4,7 +4,11 @@ from rest_framework import generics, permissions, mixins
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from .serializers import UserSerializer, ChildAvatarSerializer, ChildSerializer
-from .swagger_serializers import UserSwaggerPostSerializer, UserSwaggerGetSerializer, create_custom_response_serializer
+from .swagger_serializers import (
+    UserSwaggerPostSerializer,
+    UserSwaggerGetSerializer,
+    create_custom_response_serializer,
+)
 from .models import User, ChildAvatar, Child
 from .permissions import IsUser
 
@@ -62,13 +66,13 @@ class UserViewSet(
         for field in data.keys():
             if field not in ["email", "password", "password2"]:
                 return Response({"detail": f"Поле '{field}' не підтримується."}, 400)
-        
+
         get_email = data.get("email")
         email = get_email.lower()
         if User.objects.filter(email=email).exists():
             return Response(
                 {"detail": "користувач з таким email вже існує."},
-                status=status.HTTP_400_BAD_REQUEST,
+                400,
             )
 
         return super().create(request, *args, **kwargs)
