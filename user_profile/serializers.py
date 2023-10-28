@@ -20,31 +20,31 @@ class UserSerializer(serializers.ModelSerializer):
         password2 = data.pop("password2")
 
         if password != password2:
-            raise serializers.ValidationError({"password": "Passwords do not match."})
+            raise serializers.ValidationError({"password": "Паролі не співпадають."})
 
         if len(password) < 6:
             raise serializers.ValidationError(
-                {"password": "Password must be at least 6 characters long."}
+                {"password": "Пароль повинен містити принаймні 6 символів."}
             )
 
         if len(password) > 30:
             raise serializers.ValidationError(
-                "Password can't be more than 30 characters long."
+                "Пароль не може бути довшим за 30 символів."
             )
 
         if not any(char.isdigit() for char in password):
             raise serializers.ValidationError(
-                {"password": "Password must contain at least one digit."}
+                {"password": "Пароль повинен містити принаймні одну цифру."}
             )
 
         if not any(char.isalpha() for char in password):
             raise serializers.ValidationError(
-                {"password": "Password must contain at least one letter."}
+                {"password": "Пароль повинен містити принаймні одну літеру."}
             )
 
         if any(char.isalpha() and not char.isascii() for char in password):
             raise serializers.ValidationError(
-                {"password": "Password must only contain Latin characters."}
+                {"password": "Пароль повинен містити лише латинські символи."}
             )
 
         return data

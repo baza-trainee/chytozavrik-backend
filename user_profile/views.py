@@ -1,15 +1,10 @@
 from rest_framework.viewsets import GenericViewSet
+from rest_framework.response import Response
 from rest_framework import generics, permissions, mixins
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from .serializers import UserSerializer, ChildAvatarSerializer, ChildSerializer
-from .swagger_serializers import (
-    UserSwaggerPostSerializer,
-    UserSwaggerGetSerializer,
-    create_custom_response_serializer,
-)
-from rest_framework import status
-from rest_framework.response import Response
+from .swagger_serializers import UserSwaggerPostSerializer, UserSwaggerGetSerializer, create_custom_response_serializer
 from .models import User, ChildAvatar, Child
 from .permissions import IsUser
 
@@ -63,7 +58,12 @@ class UserViewSet(
         responses={"201": DETAIL_USER_SERIALIZER},
     )
     def create(self, request, *args, **kwargs):
-        get_email = request.data.get("email")
+        data = request.data
+        for field in data.keys():
+            if field not in ["email", "password", "password2"]:
+                return Response({"detail": f"Поле '{field}' не підтримується."}, 400)
+        
+        get_email = data.get("email")
         email = get_email.lower()
         if User.objects.filter(email=email).exists():
             return Response(
