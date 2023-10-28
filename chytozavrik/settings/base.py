@@ -14,8 +14,6 @@ from pathlib import Path
 from dotenv import load_dotenv
 from os import getenv
 from datetime import timedelta
-import os
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -27,7 +25,7 @@ load_dotenv()
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = getenv('SECRET_KEY')
+SECRET_KEY = getenv("SECRET_KEY")
 
 ALLOWED_HOSTS = ["*"]
 
@@ -90,27 +88,17 @@ WSGI_APPLICATION = "chytozavrik.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': str(getenv('SQL_DATABASE')),
-#         'USER': str(getenv('SQL_USER')),
-#         'PASSWORD': str(getenv('SQL_PASSWORD')),
-#         'HOST': str(getenv('SQL_HOST')),
-#         'PORT': str(getenv('SQL_PORT')),
-#     }
-# }
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': str(getenv('SQL_DATABASE')),
-        'USER': str(getenv('SQL_USER')),
-        'PASSWORD': str(getenv('SQL_PASSWORD')),
-        'HOST': str(getenv('SQL_HOST')),
-        'PORT': str(getenv('SQL_PORT')),
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": getenv("SQL_DATABASE"),
+        "USER": getenv("SQL_USER"),
+        "PASSWORD": getenv("SQL_PASSWORD"),
+        "HOST": getenv("SQL_HOST"),
+        "PORT": getenv("SQL_PORT"),
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -134,7 +122,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "uk-ua"
 
 TIME_ZONE = "Europe/Kiev"
 
@@ -161,9 +149,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # EMAIL
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = str(getenv('EMAIL'))
-EMAIL_HOST_PASSWORD = str(getenv('PASSWORD_EMAIL'))
+EMAIL_HOST = getenv("EMAIL_HOST")
+EMAIL_HOST_USER = getenv("EMAIL_USER")
+EMAIL_HOST_PASSWORD = getenv("EMAIL_PASSWORD")
 EMAIL_PORT = 587
 
 AUTH_USER_MODEL = "user_profile.User"
@@ -221,8 +209,8 @@ SIMPLE_JWT = {
     "TOKEN_USER_CLASS": "rest_framework_simplejwt.models.TokenUser",
     "JTI_CLAIM": "jti",
     "SLIDING_TOKEN_REFRESH_EXP_CLAIM": "refresh_exp",
-    "SLIDING_TOKEN_LIFETIME": timedelta(days=30),
-    "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=35),
+    "SLIDING_TOKEN_LIFETIME": timedelta(minutes=5),
+    "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=1),
     "TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainPairSerializer",
     "TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSerializer",
     "TOKEN_VERIFY_SERIALIZER": "rest_framework_simplejwt.serializers.TokenVerifySerializer",
@@ -235,7 +223,7 @@ SIMPLE_JWT = {
 CORS_ALLOW_ALL_ORIGINS = True
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': str(getenv('CLOUD_NAME')),
-    'API_KEY': str(getenv('API_KEY')),
-    'API_SECRET': str(getenv('API_SECRET')),
+    "CLOUD_NAME": getenv("CLOUD_NAME"),
+    "API_KEY": getenv("API_KEY"),
+    "API_SECRET": getenv("API_SECRET"),
 }
