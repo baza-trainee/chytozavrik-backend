@@ -27,7 +27,7 @@ load_dotenv()
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = str(getenv("SECRET_KEY"))
+SECRET_KEY = getenv('SECRET_KEY')
 
 ALLOWED_HOSTS = ["*"]
 
@@ -102,9 +102,13 @@ WSGI_APPLICATION = "chytozavrik.wsgi.application"
 # }
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': str(getenv('SQL_DATABASE')),
+        'USER': str(getenv('SQL_USER')),
+        'PASSWORD': str(getenv('SQL_PASSWORD')),
+        'HOST': str(getenv('SQL_HOST')),
+        'PORT': str(getenv('SQL_PORT')),
     }
 }
 
@@ -130,7 +134,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = "uk-ua"
+LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = "Europe/Kiev"
 
@@ -157,9 +161,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # EMAIL
 EMAIL_USE_TLS = True
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_HOST_USER = str(getenv("EMAIL"))
-EMAIL_HOST_PASSWORD = str(getenv("PASSWORD_EMAIL"))
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = str(getenv('EMAIL'))
+EMAIL_HOST_PASSWORD = str(getenv('PASSWORD_EMAIL'))
 EMAIL_PORT = 587
 
 AUTH_USER_MODEL = "user_profile.User"
@@ -231,7 +235,7 @@ SIMPLE_JWT = {
 CORS_ALLOW_ALL_ORIGINS = True
 
 CLOUDINARY_STORAGE = {
-    "CLOUD_NAME": str(getenv("CLOUD_NAME")),
-    "API_KEY": str(getenv("API_KEY")),
-    "API_SECRET": str(getenv("API_SECRET")),
+    'CLOUD_NAME': str(getenv('CLOUD_NAME')),
+    'API_KEY': str(getenv('API_KEY')),
+    'API_SECRET': str(getenv('API_SECRET')),
 }
