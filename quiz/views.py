@@ -130,7 +130,7 @@ class BookViewSet(ModelViewSet):
     @swagger_auto_schema(responses={201: BOOK_SWAGGER_SERIALIZER})
     def create(self, request, *args, **kwargs):
         data = request.data
-        book_exists = Book.objects.filter(author=data['author'], title=data['title']).exists()
+        book_exists = Book.objects.filter(author__iexact=data['author'], title__iexact=data['title']).exists()
         if book_exists:
             return Response({'detail': f"Книга автора '{data['author']}' з назвою '{data['title']}' вже існує в базі даних."}, 400)
         return super().create(request, *args, **kwargs)
