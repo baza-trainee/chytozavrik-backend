@@ -13,28 +13,22 @@ class TimeStampMixin(models.Model):
 class Book(TimeStampMixin):
     title = models.CharField(max_length=255)
     author = models.CharField(max_length=255)
-    cover_image = models.ImageField(upload_to='books/')
+    cover_image = models.ImageField(upload_to="books/")
+    is_recommended = models.BooleanField(default=False)
 
     def __str__(self):
-        return f'{self.author} {self.title}'
-
-
-class RecommendationBook(models.Model):
-    book = models.OneToOneField(Book, on_delete=models.CASCADE, related_name='recommendations')
-
-    def __str__(self):
-        return f'Recommend {self.book.title}'
+        return f"{self.author} {self.title}"
 
 
 class Quiz(TimeStampMixin):
-    book = models.OneToOneField(Book, on_delete=models.CASCADE, related_name='quiz')
+    book = models.OneToOneField(Book, on_delete=models.CASCADE, related_name="quiz")
 
     def __str__(self):
         return f'Quiz on the book "{self.book.title}"'
 
 
 class Question(models.Model):
-    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name='questions')
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name="questions")
     text = models.TextField(max_length=350)
 
     def __str__(self):
@@ -42,7 +36,9 @@ class Question(models.Model):
 
 
 class Answer(models.Model):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers')
+    question = models.ForeignKey(
+        Question, on_delete=models.CASCADE, related_name="answers"
+    )
     text = models.TextField(max_length=350)
 
     def __str__(self):
@@ -58,8 +54,8 @@ class TrueAnswer(models.Model):
 
 
 class QuizReward(models.Model):
-    quiz = models.OneToOneField(Quiz, on_delete=models.CASCADE, related_name='reward')
-    reward = models.ImageField(upload_to='rewards/')
+    quiz = models.OneToOneField(Quiz, on_delete=models.CASCADE, related_name="reward")
+    reward = models.ImageField(upload_to="rewards/")
 
     def __str__(self):
         return f"Reward for  quiz {self.quiz}"
@@ -82,4 +78,3 @@ class ChildQuizAttempt(models.Model):
 
     def __str__(self):
         return f"{self.child.name} - {self.quiz} - Score: {self.score}"
-
