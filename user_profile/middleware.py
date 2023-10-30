@@ -45,20 +45,17 @@ class CustomResponseMiddleware:
         """
         response = self.get_response(request)
 
-        if not request.path.startswith('/swagger'):
+        if not request.path.startswith("/swagger"):
             if isinstance(response, Response):
                 if response.status_code < status.HTTP_400_BAD_REQUEST:
-                    response.data = {
-                        'status': 'success',
-                        'data': response.data
-                    }
+                    response.data = {"status": "success", "data": response.data}
                 else:
-                    message = response.data.pop('detail', None)
+                    message = response.data.pop("detail", None)
                     response.data = {
-                        'status': 'fail',
-                        'data': {
-                            'message': message or response.data,
-                        }
+                        "status": "fail",
+                        "data": {
+                            "message": message or response.data,
+                        },
                     }
             try:
                 response._is_rendered = False

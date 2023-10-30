@@ -17,39 +17,41 @@ class ContactAPIView(views.APIView):
 
     def get_permissions(self):
         permission_classes = {
-            'GET': [AllowAny()],
-            'POST': [IsAdminUser()],
-            'PUT': [IsAdminUser()],
+            "GET": [AllowAny()],
+            "POST": [IsAdminUser()],
+            "PUT": [IsAdminUser()],
         }
         return permission_classes.get(self.request.method, [])
 
     @swagger_auto_schema(responses={200: CONTACT_SERIALIZER})
     def get(self, request):
         if not Contact.objects.exists():
-            return Response({'detail': 'Not found.'}, 404)
+            return Response({"detail": "Not found."}, 404)
         query = Contact.objects.all().first()
         serializer = self.class_serializer(query)
         return Response(serializer.data)
 
-    @swagger_auto_schema(responses={201: CONTACT_SERIALIZER}, request_body=ContactSerializer)
+    @swagger_auto_schema(
+        responses={201: CONTACT_SERIALIZER}, request_body=ContactSerializer
+    )
     def post(self, request):
         serializer = self.class_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         try:
             serializer.save()
         except ValidationError as e:
-            return Response({'detail': e}, 400)
+            return Response({"detail": e}, 400)
         return Response(serializer.data)
 
-    @swagger_auto_schema(responses={200: CONTACT_SERIALIZER}, request_body=ContactSerializer)
+    @swagger_auto_schema(
+        responses={200: CONTACT_SERIALIZER}, request_body=ContactSerializer
+    )
     def put(self, request):
         if not Contact.objects.exists():
-            return Response({'detail': 'Not found.'}, 404)
+            return Response({"detail": "Not found."}, 404)
 
         query = Contact.objects.all().first()
         serializer = self.class_serializer(data=request.data, instance=query)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
-
-

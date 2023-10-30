@@ -1,13 +1,11 @@
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
-from rest_framework import mixins
-from rest_framework import permissions
+from rest_framework import mixins, filters, permissions
 from rest_framework.exceptions import MethodNotAllowed
-from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.generics import ListAPIView, RetrieveAPIView
-from rest_framework.decorators import permission_classes
+from rest_framework.decorators import permission_classes, api_view
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
 from drf_yasg import openapi
@@ -17,7 +15,6 @@ from cloudinary import CloudinaryImage
 from user_profile.models import Child
 from .models import (
     Book,
-    RecommendationBook,
     Quiz,
     QuizReward,
     Answer,
@@ -156,18 +153,18 @@ def get_child_attempt_by_quiz_api(request, child_id, quiz_id):
     return Response(serializer.data)
 
 
-class BookViewSet(ModelViewSet):
+class BookViewSet(ModelViewSet, GenericViewSet):
     pagination_class = ResultsSetPagination
-    queryset = Book.objects.all()
+    queryset = Book.objects.order_by("id")
     parser_classes = (MultiPartParser, FormParser)
-    permission_classes = (permissions.IsAdminUser,)
+    filter_backends = [filters.SearchFilter]
+    search_fields = ["title", "author"]
 
-    @swagger_auto_schema(
-        manual_parameters=[
-            PAGE_PARAMETER,
-            PAGE_SIZE_PARAMETER,
-        ]
-    )
+    def get_permissions(self):
+        if self.action == "list" or self.action == "retrieve":
+            return [permissions.AllowAny()]
+        return [permissions.IsAdminUser()]
+
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
 
@@ -205,41 +202,28 @@ class BookViewSet(ModelViewSet):
 
 
 class RecommendationBookViewSet(
-    mixins.CreateModelMixin,
-    mixins.DestroyModelMixin,
     mixins.ListModelMixin,
     GenericViewSet,
 ):
     pagination_class = ResultsSetPagination
-
-    @swagger_auto_schema(
-        manual_parameters=[
-            PAGE_PARAMETER,
-            PAGE_SIZE_PARAMETER,
-        ]
-    )
-    def list(self, request, *args, **kwargs):
-        return super().list(request, *args, **kwargs)
-
-    @swagger_auto_schema(responses={201: RECOMMENDATION_BOOK_SWAGGER_SERIALIZER})
-    def create(self, request, *args, **kwargs):
-        return super().create(request, *args, **kwargs)
+    filter_backends = [filters.SearchFilter]
+    search_fields = ["title", "author"]
+    http_method_names = ["get"]
 
     def get_queryset(self):
-        if self.action == "list":
-            return Book.objects.filter(recommendations__isnull=False).distinct()
-        return RecommendationBook.objects.all()
+        queryset = Book.objects.filter(is_recommended=True).order_by("id")
+        search_term = self.request.query_params.get("search", None)
+        if search_term:
+            queryset = queryset.filter(
+                Q(title__icontains=search_term) | Q(author__icontains=search_term)
+            )
+        return queryset
 
     def get_serializer_class(self):
-        if self.action == "list":
-            return serializers.RecommendationBookSerializer
-        return serializers.RecommendationBookCreateSerializer
+        return serializers.BookSerializer
 
     def get_permissions(self):
-        if self.action == "list":
-            permission_classes = [permissions.IsAuthenticated]
-        else:
-            permission_classes = [permissions.IsAdminUser]
+        permission_classes = [permissions.IsAuthenticated]
         return [permission() for permission in permission_classes]
 
 

@@ -12,5 +12,5 @@ class Contact(models.Model):
         if not self.pk and Contact.objects.exists():
             # if you'll not check for self.pk
             # then error will also be raised in the update of exists model
-            raise ValidationError('There is can be only one contact instance')
+            raise ValidationError("There is can be only one contact instance")
         return super().save(*args, **kwargs)

@@ -8,7 +8,7 @@ class HasPermissionToViewChildRewards(BasePermission):
     """
 
     def has_permission(self, request, view):
-        child_id = view.kwargs.get('child_id')
+        child_id = view.kwargs.get("child_id")
 
         if child_id is None:
             return False
