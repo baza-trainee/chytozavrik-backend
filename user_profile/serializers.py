@@ -68,3 +68,7 @@ class ChildSerializer(serializers.ModelSerializer):
     class Meta:
         model = Child
         exclude = ["parent"]
+
+
+class EmptySerializer(serializers.Serializer):
+    pass
