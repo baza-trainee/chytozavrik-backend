@@ -19,22 +19,10 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
     TokenRefreshView,
 )
 from .yasg import urlpatterns as doc_urls
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-
-
-class MyTokenObtainPairView(TokenObtainPairView):
-    # Преобразує email у нижній регистр
-
-    serializer_class = TokenObtainPairSerializer
-
-    def post(self, request, *args, **kwargs):
-        email = request.data.get("email", "").lower()
-        request.data["email"] = email
-        return super().post(request, *args, **kwargs)
+from .views import MyTokenObtainPairView
 
 
 urlpatterns = [
