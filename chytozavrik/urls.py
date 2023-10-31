@@ -43,6 +43,7 @@ urlpatterns = [
     path("api/v1/", include("quiz.urls")),
     path("api/v1/", include("contacts.urls")),
     path("api/v1/", include("partners.urls")),
+    path("api/v1/", include("documents.urls")),
     path(
         "api/v1/auth/token/",
         include(

@@ -29,6 +29,8 @@ SECRET_KEY = getenv("SECRET_KEY")
 
 ALLOWED_HOSTS = ["*"]
 
+DJANGO_SUPERUSER_EMAIL = getenv("DJANGO_SUPERUSER_EMAIL")
+DJANGO_SUPERUSER_PASSWORD = getenv("DJANGO_SUPERUSER_PASSWORD")
 
 # Application definition
 
@@ -50,6 +52,7 @@ INSTALLED_APPS = [
     "quiz.apps.QuizConfig",
     "contacts.apps.ContactsConfig",
     "partners.apps.PartnersConfig",
+    "documents.apps.DocumentsConfig",
 ]
 
 MIDDLEWARE = [
