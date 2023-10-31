@@ -6,7 +6,6 @@ app_name = "documents"
 
 router = DefaultRouter()
 router.register(r"documents", views.DocumentViewSet, basename="document")
-urlpatterns = [
-]
+urlpatterns = []
 
 urlpatterns += router.urls

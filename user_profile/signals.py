@@ -3,6 +3,7 @@ from django.dispatch import receiver
 from user_profile.models import User
 from chytozavrik.settings import base
 
+
 @receiver(post_migrate)
 def populate_initial_data(sender, **kwargs):
     if User.objects.count() == 0:

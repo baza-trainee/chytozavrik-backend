@@ -8,7 +8,7 @@ from django.core.files import File
 @receiver(post_migrate)
 def populate_initial_data(sender, **kwargs):
     if Document.objects.count() == 0:
-        media_directory = 'media/documents'
+        media_directory = "media/documents"
         try:
             for filename in os.listdir(media_directory):
                 file_path = os.path.join(media_directory, filename)
@@ -17,5 +17,10 @@ def populate_initial_data(sender, **kwargs):
         except Exception:
             pass
         with open(f"static/documents/blank.pdf", "rb") as f:
-            Document.objects.create(name="Політика конфіденційності", file=File(f, name='privacy_policy.pdf'))
-            Document.objects.create(name="Правила користування сайтом", file=File(f, name='site_rules.pdf'))
+            Document.objects.create(
+                name="Політика конфіденційності",
+                file=File(f, name="privacy_policy.pdf"),
+            )
+            Document.objects.create(
+                name="Правила користування сайтом", file=File(f, name="site_rules.pdf")
+            )

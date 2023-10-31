@@ -18,8 +18,11 @@ class DocumentViewSet(viewsets.ModelViewSet):
         new_file = request.data.get("file")
 
         if new_file:
-            if not new_file.name.endswith('.pdf'):
-                return Response({"detail": "Файл повинен бути у форматі '.pdf'."}, status=status.HTTP_400_BAD_REQUEST)
+            if not new_file.name.endswith(".pdf"):
+                return Response(
+                    {"detail": "Файл повинен бути у форматі '.pdf'."},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
 
             old_filename = instance.file.name.split("/")[-1]
 
@@ -33,7 +36,10 @@ class DocumentViewSet(viewsets.ModelViewSet):
 
             return Response(serialized_object.data, status=status.HTTP_200_OK)
         else:
-            return Response({"detail": "Не знайдено документу для оновлення."}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {"detail": "Не знайдено документу для оновлення."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
     @action(detail=False, methods=["get"], url_path="privacy-policy")
     def get_privacy_policy(self, request):
@@ -42,7 +48,9 @@ class DocumentViewSet(viewsets.ModelViewSet):
             serializer = DocumentSerializer(document)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Document.DoesNotExist:
-            return Response({"detail": "Файл не знайдено."}, status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {"detail": "Файл не знайдено."}, status=status.HTTP_404_NOT_FOUND
+            )
 
     @action(detail=False, methods=["get"], url_path="site-rules")
     def get_site_rules(self, request):
@@ -51,4 +59,6 @@ class DocumentViewSet(viewsets.ModelViewSet):
             serializer = DocumentSerializer(document)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Document.DoesNotExist:
-            return Response({"detail": "Файл не знайдено."}, status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {"detail": "Файл не знайдено."}, status=status.HTTP_404_NOT_FOUND
+            )
