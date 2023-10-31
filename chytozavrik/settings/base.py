@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "contacts.apps.ContactsConfig",
     "partners.apps.PartnersConfig",
     "documents.apps.DocumentsConfig",
+    "stats.apps.StatsConfig",
 ]
 
 MIDDLEWARE = [
