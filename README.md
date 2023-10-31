@@ -35,7 +35,7 @@ python manage.py makemigrations
 ```
 3. Update the database using migrations.
 ```
-python manage.py migration
+python manage.py migrate
 ```
 4. Create a super user and add it to the database.
 ```
