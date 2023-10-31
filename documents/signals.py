@@ -1,14 +1,17 @@
 import os
+
 from django.db.models.signals import post_migrate
 from django.dispatch import receiver
-from documents.models import Document
 from django.core.files import File
+
+from documents.models import Document
+from chytozavrik.settings.base import MEDIA_URL
 
 
 @receiver(post_migrate)
 def populate_initial_data(sender, **kwargs):
     if Document.objects.count() == 0:
-        media_directory = "media/documents"
+        media_directory = MEDIA_URL + "/documents"
         try:
             for filename in os.listdir(media_directory):
                 file_path = os.path.join(media_directory, filename)

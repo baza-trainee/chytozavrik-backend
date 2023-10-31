@@ -141,8 +141,8 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = (BASE_DIR / "static",)
 STATIC_ROOT = BASE_DIR / "staticfiles_build" / "static"
 
-MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_URL = ".vercel/output/media/"
+MEDIA_ROOT = BASE_DIR / MEDIA_URL
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 # Default primary key field type
