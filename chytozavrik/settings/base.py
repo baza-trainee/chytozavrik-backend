@@ -142,7 +142,7 @@ STATICFILES_DIRS = (BASE_DIR / "static",)
 STATIC_ROOT = BASE_DIR / "staticfiles_build" / "static"
 
 MEDIA_URL = "media/"
-MEDIA_ROOT = BASE_DIR /"staticfiles_build"/ MEDIA_URL
+MEDIA_ROOT = BASE_DIR / MEDIA_URL
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 # Default primary key field type
