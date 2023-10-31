@@ -121,7 +121,7 @@ class QuizCreateSerializer(serializers.ModelSerializer):
         if true_answer != 1:
             raise serializers.ValidationError(
                 {
-                    "detail": f"You need to mark exactly one true answer for question {question.text}"
+                    "detail": f"Вам потрібно позначити рівно одну правильну відповідь на питання {question.text}"
                 }
             )
 
