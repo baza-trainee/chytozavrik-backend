@@ -16,13 +16,13 @@ class MyTokenObtainPairView(TokenObtainPairView):
         user = User.objects.filter(email=email).first()
         if not user:
             return Response(
-                {"detail": "Такого користувача не існує"},
+                {"detail": "Помилка входу. Неправильна адреса електронної пошти"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
         if not check_password(password_data, user.password):
             return Response(
-                {"detail": "Не вірно вказаний пароль."},
+                {"detail": "Помилка входу. Неправильний пароль."},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 

@@ -380,7 +380,10 @@ class QuizSearchViewSet(
         search_term = self.request.query_params.get("search", None)
         if search_term:
             queryset = queryset.filter(
-                Q(title__icontains=search_term) | Q(author__icontains=search_term)
+                Q(title__icontains=search_term)
+                | Q(author__icontains=search_term)
+                | Q(title__iexact=search_term)
+                | Q(author__iexact=search_term)
             )
         return queryset
 
