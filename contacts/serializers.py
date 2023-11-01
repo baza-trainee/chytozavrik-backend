@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from .models import Contact
-from datetime import date
 
 
 class ContactSerializer(serializers.ModelSerializer):
@@ -8,5 +7,5 @@ class ContactSerializer(serializers.ModelSerializer):
         model = Contact
         fields = "__all__"
 
-    current_date = serializers.DateField(default=serializers.CreateOnlyDefault(date.today))
+    current_date = serializers.DateField(read_only=True)
 
