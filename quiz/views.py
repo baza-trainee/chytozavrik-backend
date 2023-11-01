@@ -377,7 +377,6 @@ class QuizSearchViewSet(
 
     def get_queryset(self):
         queryset = Book.objects.filter(quiz__isnull=False).all()
-        # queryset = Book.objects.all()
         search_term = self.request.query_params.get("search", None)
         if search_term:
             queryset = queryset.filter(
