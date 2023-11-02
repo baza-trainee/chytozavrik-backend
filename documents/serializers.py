@@ -3,6 +3,8 @@ from .models import Document
 
 
 class DocumentSerializer(serializers.ModelSerializer):
+    file = serializers.FileField(required=False)
+
     class Meta:
         model = Document
         fields = "__all__"
