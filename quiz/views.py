@@ -202,9 +202,11 @@ class QuizViewSet(
     mixins.RetrieveModelMixin,
     mixins.DestroyModelMixin,
     mixins.ListModelMixin,
+    mixins.UpdateModelMixin,
     GenericViewSet,
 ):
     pagination_class = ResultsSetPagination
+    http_method_names = ["get", "post", "patch", "delete"]
 
     @swagger_auto_schema(
         manual_parameters=[PAGE_PARAMETER, PAGE_SIZE_PARAMETER, SEARCH]
@@ -350,8 +352,17 @@ class QuizRewardViewSet(ModelViewSet):
         return super().create(request, *args, **kwargs)
 
     @swagger_auto_schema(responses={200: QUIZ_REWARD_SWAGGER_SERIALIZER})
-    def retrieve(self, request, *args, **kwargs):
-        return super().retrieve(request, *args, **kwargs)
+    def retrieve(self, request, pk):
+        try:
+            quiz_reward = QuizReward.objects.get(pk=pk)
+        except QuizReward.DoesNotExist:
+            return Response(
+                {"detail": "Винагороди з таким ID не існує."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        serializer = serializers.QuizRewardSerializer(quiz_reward)
+        return Response(serializer.data)
 
     @swagger_auto_schema(responses={200: QUIZ_REWARD_SWAGGER_SERIALIZER})
     def update(self, request, *args, **kwargs):
