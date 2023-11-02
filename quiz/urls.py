@@ -16,11 +16,6 @@ router.register(r"quizzes-rewards", views.QuizRewardViewSet, basename="quiz-rewa
 
 urlpatterns = [
     path(
-        "questions/<question_id>/submit-answer",
-        views.submit_answer_api,
-        name="submit-answer",
-    ),
-    path(
         "users/me/children/<int:child_id>/rewards/",
         views.ChildRewardListAPIView.as_view(),
         name="list-child-rewards",
