@@ -87,6 +87,22 @@ def submit_answer_response(is_correct, child_reward_url=None):
     return {"is_answer_correct": is_correct, "child_reward_url": child_reward_url}
 
 
+def get_child(user, child_id):
+    child_query_set = Child.objects.select_related("parent")
+    try:
+        return child_query_set.get(pk=child_id, parent=user)
+    except Child.DoesNotExist:
+        return None
+
+
+def get_answer(answer_id, question_id):
+    answer_query_set = Answer.objects.select_related("question__quiz")
+    try:
+        return answer_query_set.get(pk=answer_id, question=question_id)
+    except Answer.DoesNotExist:
+        return None
+
+
 @swagger_auto_schema(
     method="post",
     request_body=serializers.SubmitAnswerSerializer,
@@ -96,28 +112,52 @@ def submit_answer_response(is_correct, child_reward_url=None):
 def submit_answer_api(request, question_id):
     serializer = serializers.SubmitAnswerSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
-    child_query_set = Child.objects.select_related("parent")
-    child = get_object_or_404(
-        child_query_set, pk=serializer.data.get("child_id"), parent=request.user
-    )
-    answer_query_set = Answer.objects.select_related("question__quiz")
-    answer = get_object_or_404(
-        answer_query_set, pk=serializer.data.get("answer_id"), question=question_id
-    )
+
+    child = get_child(request.user, serializer.data.get("child_id"))
+    if not child:
+        return Response(
+            {
+                "detail": f"У поточного користувача немає дитини з ID: {serializer.data.get('child_id')}."
+            },
+            status=status.HTTP_404_NOT_FOUND,
+        )
+
+    answer = get_answer(serializer.data.get("answer_id"), question_id)
+    if not answer:
+        return Response(
+            {
+                "detail": f"Запитання з ID: {question_id} не має варіанту відповіді з ID: {serializer.data.get('answer_id')}"
+            },
+            status=status.HTTP_404_NOT_FOUND,
+        )
+
     question = answer.question
     quiz = answer.question.quiz
+    quiz_questions = list(quiz.questions.all())
+    current_question_index = quiz_questions.index(question)
     child_attempt, created = ChildQuizAttempt.objects.get_or_create(
         child=child, quiz=quiz
     )
-    quiz_questions = list(quiz.questions.all())
 
     if has_reached_max_score(child_attempt, quiz):
         reset_quiz(child_attempt)
-    if not is_access_to_question(question, quiz_questions[child_attempt.score]):
+
+    if current_question_index < child_attempt.score:
         return Response(
-            {"detail": "You don't have access to this question"},
-            status=status.HTTP_403_FORBIDDEN,
+            {
+                "detail": "Ви вже дали правильну відповідь на це питання, перейдіть до наступного."
+            },
+            status=status.HTTP_400_BAD_REQUEST,
         )
+
+    elif current_question_index > child_attempt.score:
+        return Response(
+            {
+                "detail": f"Спочатку дайте відповідь на поточне питання: {quiz_questions[child_attempt.score]}"
+            },
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
     is_answer_correct = TrueAnswer.objects.filter(
         question=question, answer=answer
     ).exists()
@@ -125,6 +165,13 @@ def submit_answer_api(request, question_id):
     if is_answer_correct:
         update_score(child_attempt)
     if has_reached_max_score(child_attempt, quiz):
+        if not (hasattr(quiz, "reward") and quiz.reward):
+            return Response(
+                submit_answer_response(
+                    is_answer_correct, "Винагорода для цієї книги не додана."
+                ),
+                status=status.HTTP_404_NOT_FOUND,
+            )
         child_reward, create = ChildReward.objects.select_related(
             "reward"
         ).get_or_create(child=child, quiz=quiz, reward=quiz.reward)
@@ -232,9 +279,11 @@ class QuizViewSet(
     mixins.RetrieveModelMixin,
     mixins.DestroyModelMixin,
     mixins.ListModelMixin,
+    mixins.UpdateModelMixin,
     GenericViewSet,
 ):
     pagination_class = ResultsSetPagination
+    http_method_names = ["get", "post", "patch", "delete"]
 
     @swagger_auto_schema(
         manual_parameters=[PAGE_PARAMETER, PAGE_SIZE_PARAMETER, SEARCH]
@@ -303,8 +352,17 @@ class QuizRewardViewSet(ModelViewSet):
         return super().create(request, *args, **kwargs)
 
     @swagger_auto_schema(responses={200: QUIZ_REWARD_SWAGGER_SERIALIZER})
-    def retrieve(self, request, *args, **kwargs):
-        return super().retrieve(request, *args, **kwargs)
+    def retrieve(self, request, pk):
+        try:
+            quiz_reward = QuizReward.objects.get(pk=pk)
+        except QuizReward.DoesNotExist:
+            return Response(
+                {"detail": "Винагороди з таким ID не існує."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        serializer = serializers.QuizRewardSerializer(quiz_reward)
+        return Response(serializer.data)
 
     @swagger_auto_schema(responses={200: QUIZ_REWARD_SWAGGER_SERIALIZER})
     def update(self, request, *args, **kwargs):
