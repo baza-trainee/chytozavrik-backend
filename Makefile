@@ -1,7 +1,6 @@
 init: down build run
-	sleep 0.5
+	sleep 1
 	python manage.py migrate
-	python manage.py createsuperuser --noinput
 	python manage.py runserver
 	@echo "Init done, containers running"
 

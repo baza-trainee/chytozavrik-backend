@@ -5,13 +5,12 @@ from rest_framework import filters, status
 from rest_framework.response import Response
 
 from .models import Partner
-from .serializers import PartnerSerializer
+from .serializers import PartnerPatchSerializer, PartnerSerializer
 from .pagination import PartnerPagination
 
 
 class PartnerViewSet(ModelViewSet):
     queryset = Partner.objects.order_by("id")
-    serializer_class = PartnerSerializer
     parser_classes = (MultiPartParser, FormParser)
     pagination_class = PartnerPagination
     filter_backends = [filters.SearchFilter]
@@ -33,3 +32,8 @@ class PartnerViewSet(ModelViewSet):
                 status=status.HTTP_409_CONFLICT,
             )
         return super().create(request, *args, **kwargs)
+
+    def get_serializer_class(self):
+        if self.action == "partial_update":
+            return PartnerPatchSerializer
+        return PartnerSerializer
