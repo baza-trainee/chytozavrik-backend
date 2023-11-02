@@ -254,17 +254,8 @@ class RecommendationBookViewSet(
 ):
     pagination_class = ResultsSetPagination
     filter_backends = [filters.SearchFilter]
-    search_fields = ["title", "author"]
+    search_fields = ["title__icontains", "author__icontains"]
     http_method_names = ["get"]
-
-    def get_queryset(self):
-        queryset = Book.objects.filter(is_recommended=True).order_by("id")
-        search_term = self.request.query_params.get("search", None)
-        if search_term:
-            queryset = queryset.filter(
-                Q(title__icontains=search_term) | Q(author__icontains=search_term)
-            )
-        return queryset
 
     def get_serializer_class(self):
         return serializers.BookSerializer
