@@ -199,30 +199,26 @@ def get_child_attempt_by_quiz_api(request, child_id, quiz_id):
 
     return Response(serializer.data)
 
-from rest_framework.filters import BaseFilterBackend
-class CaseInsensitiveSearchFilter(BaseFilterBackend):
-    def filter_queryset(self, request, queryset, view):
-        search_term = request.query_params.get('search', None)
 
-        if search_term is not None:
-            search_fields = ["title", "author"]
-            search_term = search_term.lower()
-
-            q_objects = Q()
-
-            for field in search_fields:
-                q_objects |= Q(**{f"{field}__icontains": search_term})
-
-            queryset = queryset.filter(q_objects)
-
-        return queryset
 class BookViewSet(ModelViewSet, GenericViewSet):
     pagination_class = ResultsSetPagination
     queryset = Book.objects.order_by("id")
     parser_classes = (MultiPartParser, FormParser)
-    filter_backends = [CaseInsensitiveSearchFilter]
+    filter_backends = [filters.SearchFilter]
     search_fields = ["title", "author"]
 
+    def get_queryset(self):
+            queryset = Book.objects.all()
+            search_term = self.request.query_params.get('search', None)
+
+            if search_term is not None:
+                queryset = queryset.filter(
+                    Q(title__icontains=search_term) | 
+                    Q(author__icontains=search_term)
+                )
+
+            return queryset
+    
     def get_permissions(self):
         if self.action == "list" or self.action == "retrieve":
             return [permissions.AllowAny()]
@@ -272,15 +268,6 @@ class RecommendationBookViewSet(
     filter_backends = [filters.SearchFilter]
     search_fields = ["title", "author"]
     http_method_names = ["get"]
-
-    def get_queryset(self):
-        queryset = Book.objects.filter(is_recommended=True).order_by("id")
-        search_term = self.request.query_params.get("search", None)
-        if search_term:
-            queryset = queryset.filter(
-                Q(title__icontains=search_term) | Q(author__icontains=search_term)
-            )
-        return queryset
 
     def get_serializer_class(self):
         return serializers.BookSerializer
