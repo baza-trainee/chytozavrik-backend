@@ -12,7 +12,6 @@ router.register(
     basename="recommendation-books",
 )
 router.register(r"quizzes", views.QuizViewSet, basename="quizz")
-router.register(r"quizzes-search", views.QuizSearchViewSet, basename="quizzes-search")
 router.register(r"quizzes-rewards", views.QuizRewardViewSet, basename="quiz-reward")
 
 urlpatterns = [

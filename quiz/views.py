@@ -263,7 +263,14 @@ class QuizViewSet(
             if search:
                 return Book.objects.filter(
                     Q(quiz__isnull=False)
-                    & (Q(title__startswith=search) | Q(author__startswith=search))
+                    & (
+                        Q(title__startswith=search)
+                        | Q(author__startswith=search)
+                        | Q(title__icontains=search)
+                        | Q(author__icontains=search)
+                        | Q(title__iexact=search)
+                        | Q(author__iexact=search)
+                    )
                 )
             return Book.objects.filter(quiz__isnull=False)
         elif self.action == "retrieve":
@@ -364,32 +371,3 @@ class ChildAttemptListAPIView(ListAPIView):
     )
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
-
-
-class QuizSearchViewSet(
-    mixins.ListModelMixin,
-    GenericViewSet,
-):
-    pagination_class = ResultsSetPagination
-    filter_backends = [filters.SearchFilter]
-    search_fields = ["title", "author"]
-    http_method_names = ["get"]
-
-    def get_queryset(self):
-        queryset = Book.objects.filter(quiz__isnull=False).all()
-        search_term = self.request.query_params.get("search", None)
-        if search_term:
-            queryset = queryset.filter(
-                Q(title__icontains=search_term)
-                | Q(author__icontains=search_term)
-                | Q(title__iexact=search_term)
-                | Q(author__iexact=search_term)
-            )
-        return queryset
-
-    def get_serializer_class(self):
-        return serializers.BookSerializer
-
-    def get_permissions(self):
-        permission_classes = [permissions.IsAuthenticated]
-        return [permission() for permission in permission_classes]
