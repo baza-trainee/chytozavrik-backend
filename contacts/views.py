@@ -5,7 +5,7 @@ from rest_framework.permissions import AllowAny, IsAdminUser
 from drf_yasg.utils import swagger_auto_schema
 from .models import Contact
 from .serializers import ContactSerializer
-
+from rest_framework import status
 
 from user_profile.swagger_serializers import create_custom_response_serializer
 
@@ -18,8 +18,7 @@ class ContactAPIView(views.APIView):
     def get_permissions(self):
         permission_classes = {
             "GET": [AllowAny()],
-            "POST": [IsAdminUser()],
-            "PUT": [IsAdminUser()],
+            "PATCH": [IsAdminUser()],
         }
         return permission_classes.get(self.request.method, [])
 
@@ -32,26 +31,40 @@ class ContactAPIView(views.APIView):
         return Response(serializer.data)
 
     @swagger_auto_schema(
-        responses={201: CONTACT_SERIALIZER}, request_body=ContactSerializer
+        responses={200: CONTACT_SERIALIZER},
+        request_body=ContactSerializer,
     )
-    def post(self, request):
-        serializer = self.class_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
+    def patch(self, request):
+        first_phone = request.data["first_phone"]
         try:
-            serializer.save()
+            second_phone = request.data["second_phone"]
+        except KeyError:
+            second_phone = None
+        try:
+            contact = Contact.objects.first()
+
+            if contact is None:
+                contact = self.class_serializer(data=request.data)
+            else:
+                contact = self.class_serializer(contact, data=request.data)
+
+            if second_phone:
+                if first_phone == second_phone:
+                    return Response(
+                        {"detail": "Номери телефонів співпадають"},
+                        status=status.HTTP_400_BAD_REQUEST,
+                    )
+
+            if contact.is_valid():
+                contact.save()
+                return Response(contact.data, status=status.HTTP_200_OK)
+
+            return Response(contact.errors, status=status.HTTP_400_BAD_REQUEST)
+
         except ValidationError as e:
-            return Response({"detail": e}, 400)
-        return Response(serializer.data)
+            return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
-    @swagger_auto_schema(
-        responses={200: CONTACT_SERIALIZER}, request_body=ContactSerializer
-    )
-    def put(self, request):
-        if not Contact.objects.exists():
-            return Response({"detail": "Not found."}, 404)
-
-        query = Contact.objects.all().first()
-        serializer = self.class_serializer(data=request.data, instance=query)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
+        except Exception as e:
+            return Response(
+                {"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )

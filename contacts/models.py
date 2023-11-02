@@ -7,6 +7,7 @@ class Contact(models.Model):
     first_phone = PhoneNumberField(null=False, blank=False)
     second_phone = PhoneNumberField(null=True, blank=True)
     email = models.EmailField()
+    current_date = models.DateField(auto_now=True)
 
     def save(self, *args, **kwargs):
         if not self.pk and Contact.objects.exists():
