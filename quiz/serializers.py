@@ -3,7 +3,6 @@ from django.db import transaction
 from cloudinary import CloudinaryImage
 from .models import (
     Book,
-    # RecommendationBook,
     Quiz,
     Question,
     Answer,
@@ -19,9 +18,6 @@ class BookSerializer(serializers.ModelSerializer):
 
     def get_state(self, obj):
         state = []
-        # if RecommendationBook.objects.filter(book=obj).exists():
-        #     state.append("Рекомендована")
-
         if Quiz.objects.filter(book=obj).exists():
             state.append("Вікторина")
 
@@ -58,6 +54,33 @@ class QuizSerializer(BookWithIDSerializer):
         return quiz.id if quiz else None
 
 
+class AnswerAdminSerializer(serializers.ModelSerializer):
+    is_true = serializers.SerializerMethodField()
+
+    def get_is_true(self, obj):
+        return TrueAnswer.objects.filter(question=obj.question, answer=obj).exists()
+
+    class Meta:
+        model = Answer
+        exclude = ("question",)
+
+
+class QuestionAdminSerializer(serializers.ModelSerializer):
+    answers = AnswerAdminSerializer(many=True)
+
+    class Meta:
+        model = Question
+        exclude = ("quiz",)
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        if not self.context["request"].user.is_staff:
+            for answer in data["answers"]:
+                if "is_true" in answer:
+                    del answer["is_true"]
+        return data
+
+
 class AnswerSerializer(serializers.ModelSerializer):
     is_true = serializers.BooleanField(default=False, write_only=True)
 
@@ -75,7 +98,7 @@ class QuestionSerializer(serializers.ModelSerializer):
 
 
 class QuizInfoSerializer(serializers.ModelSerializer):
-    questions = QuestionSerializer(many=True)
+    questions = QuestionAdminSerializer(many=True)
     book_info = serializers.SerializerMethodField()
 
     def get_book_info(self, obj):
@@ -100,6 +123,22 @@ class QuizCreateSerializer(serializers.ModelSerializer):
         questions_data = validated_data.pop("questions")
         self.create_questions(quiz, questions_data)
         return quiz
+
+    @transaction.atomic
+    def update(self, instance, validated_data):
+        questions_data = validated_data.pop("questions", [])
+        instance = self.update_instance(instance, validated_data)
+        self.update_questions(instance, questions_data)
+        return instance
+
+    def update_instance(self, instance, validated_data):
+        instance.book = validated_data.get("book", instance.book)
+        instance.save()
+        return instance
+
+    def update_questions(self, instance, questions_data):
+        instance.questions.all().delete()
+        self.create_questions(instance, questions_data)
 
     def create_questions(self, quiz, questions):
         for question in questions:
