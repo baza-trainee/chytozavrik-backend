@@ -273,7 +273,7 @@ class QuizViewSet(
                     )
                 )
             return Book.objects.filter(quiz__isnull=False)
-        if self.action == "retrieve":
+        elif self.action == "retrieve":
             Quiz.objects.all().select_related("book").prefetch_related(
                 "questions__answers"
             )
