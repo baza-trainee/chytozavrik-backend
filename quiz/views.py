@@ -6,7 +6,6 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.decorators import permission_classes, api_view, action
-from django.shortcuts import get_object_or_404
 from django.db.models import Q
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
@@ -78,8 +77,10 @@ def reset_quiz(child_attempt):
     child_attempt.save()
 
 
-def update_score(child_attempt):
+def update_score(child_attempt, quiz):
     child_attempt.score += 1
+    if child_attempt.score == quiz.questions.count():
+        child_attempt.total_attempts += 1
     child_attempt.save()
 
 
@@ -222,13 +223,16 @@ class QuizViewSet(
     def retrieve(self, request, *args, **kwargs):
         return super().retrieve(request, *args, **kwargs)
 
-
     @swagger_auto_schema(
         method="post",
         request_body=serializers.SubmitAnswerSerializer,
         responses={"200": SUBMIT_ANSWER_RESPONSE_SERIALIZER},
     )
-    @action(detail=False, methods=['post'], url_path='question/(?P<question_id>[^/.]+)/submit-answer')
+    @action(
+        detail=False,
+        methods=["post"],
+        url_path="question/(?P<question_id>[^/.]+)/submit-answer",
+    )
     def submit_answer(self, request, question_id=None):
         serializer = serializers.SubmitAnswerSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -283,7 +287,7 @@ class QuizViewSet(
         ).exists()
         child_reward_url = None
         if is_answer_correct:
-            update_score(child_attempt)
+            update_score(child_attempt, quiz)
         if has_reached_max_score(child_attempt, quiz):
             if not (hasattr(quiz, "reward") and quiz.reward):
                 return Response(

@@ -9,6 +9,6 @@ def populate_initial_data(sender, **kwargs):
         contact = Contact.objects.create(
             first_phone="+380951111111",
             second_phone="+380951111112",
-            email='user@example.com',
+            email="user@example.com",
         )
         contact.save()

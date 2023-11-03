@@ -75,6 +75,7 @@ class ChildQuizAttempt(models.Model):
     child = models.ForeignKey(Child, on_delete=models.CASCADE)
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
     score = models.PositiveIntegerField(default=0)
+    total_attempts = models.PositiveIntegerField(default=0)
 
     def __str__(self):
-        return f"{self.child.name} - {self.quiz} - Score: {self.score}"
+        return f"{self.child.name} - {self.quiz} - Score: {self.score} - Total: {self.total_attempts}"

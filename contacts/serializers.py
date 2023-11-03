@@ -8,4 +8,3 @@ class ContactSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     current_date = serializers.DateField(read_only=True)
-
