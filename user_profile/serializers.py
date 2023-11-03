@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from .models import User, ChildAvatar, Child
+from django.utils import timezone
+from django.db.models import Count
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -65,9 +67,46 @@ class ChildAvatarSerializer(serializers.ModelSerializer):
 
 
 class ChildSerializer(serializers.ModelSerializer):
+    unique_quizzes_passed = serializers.SerializerMethodField()
+    total_successful_attempts = serializers.SerializerMethodField()
+    last_quiz_id = serializers.SerializerMethodField()
+    quizzes_passed_today_max_score = serializers.SerializerMethodField()
+
+    def get_total_successful_attempts(self, obj):
+        attempts = obj.childquizattempt_set.all()
+        total_successful_attempts = sum(attempt.total_attempts for attempt in attempts)
+        return total_successful_attempts
+
+    def get_unique_quizzes_passed(self, obj):
+        attempts = obj.childquizattempt_set.filter(total_attempts__gte=1)
+        return attempts.count()
+
+    def get_last_quiz_id(self, obj):
+        attempts = obj.childquizattempt_set.all()
+        if attempts:
+            last_attempt = max(attempts, key=lambda x: x.last_attempt_date)
+            return last_attempt.quiz.id
+        return None
+
+    def get_quizzes_passed_today_max_score(self, obj):
+        today = timezone.now().date()
+        attempts = obj.childquizattempt_set.filter(
+            last_attempt_date__date=today, score=Count("quiz__questions")
+        )
+        return attempts.count()
+
     class Meta:
         model = Child
-        exclude = ["parent"]
+        fields = [
+            "id",
+            "name",
+            "registration_date",
+            "avatar",
+            "unique_quizzes_passed",
+            "total_successful_attempts",
+            "last_quiz_id",
+            "quizzes_passed_today_max_score",
+        ]
 
 
 class EmptySerializer(serializers.Serializer):

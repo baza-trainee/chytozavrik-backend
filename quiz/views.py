@@ -10,6 +10,7 @@ from django.db.models import Q
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from cloudinary import CloudinaryImage
+from django.utils import timezone
 
 from user_profile.models import Child
 from .models import (
@@ -81,6 +82,7 @@ def update_score(child_attempt, quiz):
     child_attempt.score += 1
     if child_attempt.score == quiz.questions.count():
         child_attempt.total_attempts += 1
+    child_attempt.last_attempt_date = timezone.now()
     child_attempt.save()
 
 

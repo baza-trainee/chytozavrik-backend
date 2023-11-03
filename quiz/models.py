@@ -1,6 +1,6 @@
 from django.db import models
 from user_profile.models import Child
-
+from django.utils import timezone
 
 class TimeStampMixin(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
@@ -76,6 +76,7 @@ class ChildQuizAttempt(models.Model):
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
     score = models.PositiveIntegerField(default=0)
     total_attempts = models.PositiveIntegerField(default=0)
+    last_attempt_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return f"{self.child.name} - {self.quiz} - Score: {self.score} - Total: {self.total_attempts}"
