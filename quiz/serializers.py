@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from django.db import transaction
+from drf_yasg.utils import swagger_serializer_method
 from cloudinary import CloudinaryImage
+
 from .models import (
     Book,
     Quiz,
@@ -97,16 +99,23 @@ class QuestionSerializer(serializers.ModelSerializer):
         exclude = ("quiz",)
 
 
+class BookInfoSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    name = serializers.CharField()
+    author = serializers.CharField()
+
+
 class QuizInfoSerializer(serializers.ModelSerializer):
     questions = QuestionAdminSerializer(many=True)
     book_info = serializers.SerializerMethodField()
 
+    @swagger_serializer_method(serializer_or_field=BookInfoSerializer)
     def get_book_info(self, obj):
         book_info = {
+            "id": obj.book.id,
             "name": obj.book.title,
             "author": obj.book.author,
         }
-
         return book_info
 
     class Meta:
@@ -119,6 +128,8 @@ class QuizCreateSerializer(serializers.ModelSerializer):
 
     @transaction.atomic
     def create(self, validated_data):
+        for question in validated_data["questions"]:
+            self.validate_answers(question["text"], question["answers"])
         quiz = Quiz.objects.create(book=validated_data.pop("book"))
         questions_data = validated_data.pop("questions")
         self.create_questions(quiz, questions_data)
@@ -126,6 +137,8 @@ class QuizCreateSerializer(serializers.ModelSerializer):
 
     @transaction.atomic
     def update(self, instance, validated_data):
+        for question in validated_data["questions"]:
+            self.validate_answers(question["text"], question["answers"])
         questions_data = validated_data.pop("questions", [])
         instance = self.update_instance(instance, validated_data)
         self.update_questions(instance, questions_data)
@@ -142,27 +155,30 @@ class QuizCreateSerializer(serializers.ModelSerializer):
 
     def create_questions(self, quiz, questions):
         for question in questions:
+            answers_data = question.pop("answers")
             current_question = Question.objects.create(
                 quiz=quiz, text=question.pop("text")
             )
-            answers_data = question.pop("answers")
             self.create_answers(current_question, answers_data)
 
+    def validate_answers(self, question_text, answers):
+        true_answer = len([answer for answer in answers if answer["is_true"]])
+        if true_answer != 1:
+            if true_answer > 1:
+                detail = f"Можна вказати лише одну вірну відповідь на питання '{question_text}'"
+            else:
+                detail = (
+                    f"Необхідно вказати вірну відповідь на питання '{question_text}'"
+                )
+            raise serializers.ValidationError({"detail": detail})
+
     def create_answers(self, question, answers):
-        true_answer = 0
         for answer in answers:
             current_answer = Answer.objects.create(
                 question=question, text=answer["text"]
             )
             if answer["is_true"]:
-                true_answer += 1
                 TrueAnswer.objects.create(question=question, answer=current_answer)
-        if true_answer != 1:
-            raise serializers.ValidationError(
-                {
-                    "detail": f"Вам потрібно позначити рівно одну правильну відповідь на питання {question.text}"
-                }
-            )
 
     class Meta:
         model = Quiz
