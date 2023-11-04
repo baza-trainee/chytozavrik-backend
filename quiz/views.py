@@ -5,7 +5,7 @@ from rest_framework.exceptions import MethodNotAllowed
 from rest_framework.response import Response
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.decorators import permission_classes, api_view, action
-from django.db.models import Q
+from django.db.models import Q, OuterRef, Subquery, IntegerField
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from cloudinary import CloudinaryImage
@@ -145,7 +145,7 @@ class BookViewSet(ModelViewSet, GenericViewSet):
 
     def get_permissions(self):
         if self.action == "list" or self.action == "retrieve":
-            return [permissions.AllowAny()]
+            return [permissions.IsAuthenticated()]
         return [permissions.IsAdminUser()]
 
     def list(self, request, *args, **kwargs):
@@ -446,3 +446,63 @@ class ChildAttemptListAPIView(ListAPIView):
     )
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
+
+
+class ChildQuizzesListAPIView(ListAPIView):
+    serializer_class = serializers.ChildQuizSerializer
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context["child_id"] = self.kwargs.get("child_id")
+        return context
+
+    def get_queryset(self):
+        child_id = self.kwargs.get("child_id")
+        quizzes = Quiz.objects.annotate(
+            current_score=Subquery(
+                ChildQuizAttempt.objects.filter(
+                    child_id=child_id, quiz=OuterRef("pk")
+                ).values("score")[:1],
+                output_field=IntegerField(),
+            )
+        )
+        reverse: str = self.request.query_params.get("reverse", None)
+        search_query = self.request.query_params.get("search", None)
+        if search_query:
+            quizzes = quizzes.filter(
+                Q(book__title__icontains=search_query)
+                | Q(book__author__icontains=search_query)
+            )
+        if reverse and reverse.lower() == "true":
+            quizzes = quizzes.order_by("-current_score")
+        else:
+            quizzes = quizzes.order_by("current_score")
+
+        return quizzes
+
+    @swagger_auto_schema(
+        manual_parameters=[
+            openapi.Parameter(
+                "reverse",
+                openapi.IN_QUERY,
+                description="Reverse the order of quiz sorting",
+                type=openapi.TYPE_BOOLEAN,
+            ),
+            openapi.Parameter(
+                "search",
+                openapi.IN_QUERY,
+                description="Search query for title or author",
+                type=openapi.TYPE_STRING,
+            ),
+        ]
+    )
+    def get(self, request, *args, **kwargs):
+        child = get_child(request.user, self.kwargs.get("child_id"))
+        if not child:
+            return Response(
+                {
+                    "detail": f"У поточного користувача немає дитини з ID: {self.kwargs.get('child_id')}."
+                },
+                status=status.HTTP_404_NOT_FOUND,
+            )
+        return self.list(request, *args, **kwargs)
