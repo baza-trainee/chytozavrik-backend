@@ -12,6 +12,7 @@ from drf_yasg.utils import swagger_auto_schema
 from cloudinary import CloudinaryImage
 from django.utils import timezone
 
+from stats.models import MonthlyActiveChild
 from user_profile.models import Child
 from .models import (
     Book,
@@ -104,6 +105,16 @@ def get_answer(answer_id, question_id):
         return answer_query_set.get(pk=answer_id, question=question_id)
     except Answer.DoesNotExist:
         return None
+
+
+def update_monthly_active_child(child, last_attempt_date):
+    year = last_attempt_date.year
+    month = last_attempt_date.month
+    active_child, created = MonthlyActiveChild.objects.get_or_create(
+        child=child, year=year, month=month
+    )
+    active_child.is_active = True
+    active_child.save()
 
 
 @swagger_auto_schema(method="get", responses={"200": DETAIL_CHILD_ATTEMPT_SERIALIZER})
@@ -290,6 +301,7 @@ class QuizViewSet(
         child_reward_url = None
         if is_answer_correct:
             update_score(child_attempt, quiz)
+            update_monthly_active_child(child, child_attempt.last_attempt_date)
         if has_reached_max_score(child_attempt, quiz):
             if not (hasattr(quiz, "reward") and quiz.reward):
                 return Response(
