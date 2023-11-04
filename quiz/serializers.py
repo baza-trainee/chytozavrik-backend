@@ -226,3 +226,28 @@ class DetailChildAttemptSerializer(serializers.ModelSerializer):
     class Meta:
         model = ChildQuizAttempt
         exclude = ("id", "child", "quiz")
+
+
+class BookForChildSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Book
+        fields = ["id", "title", "author", "cover_image"]
+
+
+class ChildQuizSerializer(serializers.ModelSerializer):
+    current_score = serializers.SerializerMethodField()
+    book = BookForChildSerializer()
+
+    def get_current_score(self, obj):
+        child_id = self.context["child_id"]
+        try:
+            child_quiz_attempt = ChildQuizAttempt.objects.get(
+                child_id=child_id, quiz=obj
+            )
+            return f"{child_quiz_attempt.score}/5"
+        except ChildQuizAttempt.DoesNotExist:
+            return None
+
+    class Meta:
+        model = Quiz
+        fields = ["id", "current_score", "book"]
