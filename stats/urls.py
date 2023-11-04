@@ -16,6 +16,11 @@ urlpatterns = [
         name="child-statistics",
     ),
     path(
+        "statistics/active-child/",
+        views.ActiveChildrenView.as_view(),
+        name="child-active-statistics",
+    ),
+    path(
         "statistics/quizzes/",
         views.QuizStatisticsView.as_view(),
         name="quizz-statistics",

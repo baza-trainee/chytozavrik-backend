@@ -1,4 +1,4 @@
-from rest_framework import serializers
+from rest_framework import serializers, status
 from .models import User, ChildAvatar, Child
 from django.utils import timezone
 from django.db.models import Count
@@ -71,6 +71,14 @@ class ChildSerializer(serializers.ModelSerializer):
     total_successful_attempts = serializers.SerializerMethodField()
     last_quiz_id = serializers.SerializerMethodField()
     quizzes_passed_today_max_score = serializers.SerializerMethodField()
+
+    def validate(self, attrs):
+        user = self.context["request"].user
+        children_count = Child.objects.filter(parent=user).count()
+        if children_count >= 6:
+            raise serializers.ValidationError(
+                {"detail": "Не можна додати більше ніж 6 дітей."})
+        return attrs
 
     def get_total_successful_attempts(self, obj):
         attempts = obj.childquizattempt_set.all()

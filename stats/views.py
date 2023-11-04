@@ -6,6 +6,7 @@ from drf_yasg.utils import swagger_auto_schema
 from quiz.models import Quiz
 from user_profile.models import Child, User
 from . import serializers
+from stats.models import MonthlyActiveChild
 
 
 class UserStatisticsView(views.APIView):
@@ -74,3 +75,18 @@ class QuizStatisticsView(views.APIView):
             )
 
         return Response(statistics_data)
+
+
+class ActiveChildrenView(views.APIView):
+    permission_classes = [permissions.IsAdminUser]
+    serializer_class = serializers.ActiveChildSerializer
+
+    @swagger_auto_schema(responses={200: serializers.ActiveChildSerializer(many=True)})
+    def get(self, request, *args, **kwargs):
+        queryset = (
+            MonthlyActiveChild.objects.values("year", "month")
+            .annotate(count=Count("child", distinct=True))
+            .order_by("year", "month")
+        )
+        serializer = self.serializer_class(queryset, many=True)
+        return Response(serializer.data)

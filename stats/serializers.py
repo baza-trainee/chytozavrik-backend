@@ -1,3 +1,5 @@
+import calendar
+
 from rest_framework import serializers
 
 
@@ -25,4 +27,18 @@ class QuizStatisticsSerializer(serializers.Serializer):
             "quiz_title": instance["quiz_title"],
             "num_unique_children": instance["num_unique_children"],
             "total_attempts": instance["total_attempts"],
+        }
+
+
+class ActiveChildSerializer(serializers.Serializer):
+    year = serializers.IntegerField()
+    month = serializers.IntegerField()
+    count = serializers.IntegerField()
+
+    def to_representation(self, instance):
+        month_name = calendar.month_name[instance["month"]]
+        return {
+            "year": instance["year"],
+            "month": month_name,
+            "count": instance["count"],
         }
