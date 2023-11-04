@@ -77,7 +77,8 @@ class ChildSerializer(serializers.ModelSerializer):
         children_count = Child.objects.filter(parent=user).count()
         if children_count >= 6:
             raise serializers.ValidationError(
-                {"detail": "Не можна додати більше ніж 6 дітей."})
+                {"detail": "Не можна додати більше ніж 6 дітей."}
+            )
         return attrs
 
     def get_total_successful_attempts(self, obj):

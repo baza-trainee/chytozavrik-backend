@@ -1,6 +1,7 @@
 init: down build run
 	sleep 1
 	python manage.py migrate
+	python manage.py create_children_avatars
 	python manage.py runserver
 	@echo "Init done, containers running"
 
