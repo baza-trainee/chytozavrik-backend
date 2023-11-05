@@ -18,12 +18,12 @@ from .models import (
 class BookSerializer(serializers.ModelSerializer):
     state = serializers.SerializerMethodField()
 
-    def get_state(self, obj):
-        state = []
+    def get_state(self, obj: Book):
+        if obj.is_recommended:
+            return "Рекомендована"
         if Quiz.objects.filter(book=obj).exists():
-            state.append("Вікторина")
-
-        return state
+            return "Вікторина"
+        return []
 
     class Meta:
         model = Book
@@ -240,11 +240,12 @@ class ChildQuizSerializer(serializers.ModelSerializer):
 
     def get_current_score(self, obj):
         child_id = self.context["child_id"]
+        max_questions = obj.questions.count()
         try:
             child_quiz_attempt = ChildQuizAttempt.objects.get(
                 child_id=child_id, quiz=obj
             )
-            return f"{child_quiz_attempt.score}/5"
+            return f"{child_quiz_attempt.score}/{max_questions}"
         except ChildQuizAttempt.DoesNotExist:
             return None
 
