@@ -1,7 +1,7 @@
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from rest_framework import mixins, filters, permissions, status
-from rest_framework.exceptions import MethodNotAllowed
+from rest_framework.exceptions import MethodNotAllowed, ValidationError
 from rest_framework.response import Response
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.decorators import permission_classes, api_view, action
@@ -10,6 +10,7 @@ from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from cloudinary import CloudinaryImage
 from django.utils import timezone
+from django.db import transaction
 
 from stats.models import MonthlyActiveChild
 from user_profile.models import Child
@@ -172,10 +173,31 @@ class BookViewSet(ModelViewSet, GenericViewSet):
 
     @swagger_auto_schema(responses={200: BOOK_SWAGGER_SERIALIZER})
     def update(self, request, *args, **kwargs):
+        book_instance = self.get_object()
+        if (
+            request.data.get("is_recommended") == "true"
+            and Quiz.objects.filter(book=book_instance).exists()
+        ):
+            raise ValidationError(
+                {
+                    "detail": "Книга не може бути рекомендована, оскільки за нею вже закріплена вікторина."
+                }
+            )
         return super().update(request, *args, **kwargs)
 
     @swagger_auto_schema(responses={200: BOOK_SWAGGER_SERIALIZER})
     def partial_update(self, request, *args, **kwargs):
+        book_instance = self.get_object()
+        if (
+            request.data.get("is_recommended") == "true"
+            and Quiz.objects.filter(book=book_instance).exists()
+        ):
+            raise ValidationError(
+                {
+                    "detail": "Книга не може бути рекомендована, оскільки за нею вже закріплена вікторина."
+                }
+            )
+
         return super().partial_update(request, *args, **kwargs)
 
     def get_serializer_class(self):
@@ -229,6 +251,13 @@ class QuizViewSet(
 
     @swagger_auto_schema(responses={201: CREATE_QUIZ_SWAGGER_SERIALIZER})
     def create(self, request, *args, **kwargs):
+        data = request.data
+        book_id = data.get("book")
+        with transaction.atomic():
+            book = Book.objects.filter(id=book_id).first()
+            if book.is_recommended:
+                book.is_recommended = False
+                book.save()
         return super().create(request, *args, **kwargs)
 
     @swagger_auto_schema(responses={200: INFO_QUIZ_SWAGGER_SERIALIZER})
