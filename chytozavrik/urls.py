@@ -23,6 +23,8 @@ from rest_framework_simplejwt.views import (
 )
 from .yasg import urlpatterns as doc_urls
 from .views import MyTokenObtainPairView
+from django.http import JsonResponse
+from rest_framework import status
 
 
 urlpatterns = [
@@ -48,3 +50,15 @@ urlpatterns += doc_urls
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+
+def custom_404(request, exception):
+    message = {
+        "status": "fail",
+        "data": {
+            "message": "Кінцеву точку з заданим шляхом не знайдено."
+        }
+    }
+    return JsonResponse(message, status=status.HTTP_404_NOT_FOUND)
+
+handler404 = custom_404
