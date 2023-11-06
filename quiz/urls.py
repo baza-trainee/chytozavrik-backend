@@ -36,7 +36,7 @@ urlpatterns = [
         name="list-child-attempts",
     ),
     path(
-        "users/me/children/<int:child_id>/attempts/<int:quiz_id>/",
+        "users/me/children/<slug:child_id>/attempts/<int:quiz_id>/",
         views.get_child_attempt_by_quiz_api,
         name="detail-child-attempts",
     ),
