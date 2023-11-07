@@ -1,3 +1,4 @@
+from django.http import Http404
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from rest_framework import mixins, filters, permissions, status
@@ -275,6 +276,13 @@ class QuizViewSet(
         url_path="question/(?P<question_id>[^/.]+)/submit-answer",
     )
     def submit_answer(self, request, question_id=None):
+        if not question_id.isdigit():
+            return Response(
+                {
+                    "detail": f"Кінцеву точку з заданим шляхом не знайдено."
+                },
+                status=status.HTTP_404_NOT_FOUND,
+            )
         serializer = serializers.SubmitAnswerSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
