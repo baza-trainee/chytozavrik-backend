@@ -23,9 +23,13 @@ from rest_framework_simplejwt.views import (
 )
 from .yasg import urlpatterns as doc_urls
 from .views import MyTokenObtainPairView
-
+from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView, PasswordResetDoneView, PasswordResetCompleteView
 
 urlpatterns = [
+    path('user/password_reset/', PasswordResetView.as_view(), name='admin_password_reset'),
+    path('user/password_reset/done/', PasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('user/reset/<uidb64>/<token>/', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('user/reset/done/', PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     path("admin/", admin.site.urls),
     path("api/v1/", include("user_profile.urls")),
     path("api/v1/", include("quiz.urls")),
