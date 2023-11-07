@@ -19,6 +19,8 @@ class BookSerializer(serializers.ModelSerializer):
     state = serializers.SerializerMethodField()
 
     def get_state(self, obj: Book):
+        if all([obj.is_recommended, Quiz.objects.filter(book=obj).exists()]):
+            return ["Рекомендована", "Вікторина"]
         if obj.is_recommended:
             return "Рекомендована"
         if Quiz.objects.filter(book=obj).exists():
