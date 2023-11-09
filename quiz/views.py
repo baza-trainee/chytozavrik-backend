@@ -278,9 +278,7 @@ class QuizViewSet(
     def submit_answer(self, request, question_id=None):
         if not question_id.isdigit():
             return Response(
-                {
-                    "detail": f"Кінцеву точку з заданим шляхом не знайдено."
-                },
+                {"detail": f"Кінцеву точку з заданим шляхом не знайдено."},
                 status=status.HTTP_404_NOT_FOUND,
             )
         serializer = serializers.SubmitAnswerSerializer(data=request.data)

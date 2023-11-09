@@ -1,9 +1,11 @@
-import os
 import random
 import string
 
-from django.shortcuts import get_object_or_404
-from django.core.mail import send_mail
+from dj_rest_auth.views import (
+    PasswordResetConfirmView,
+    PasswordResetView,
+    PasswordChangeView,
+)
 from django.db.models import Q
 from rest_framework import status
 from rest_framework import generics, permissions, mixins, filters
@@ -12,7 +14,6 @@ from rest_framework.response import Response
 from rest_framework.generics import (
     ListCreateAPIView,
     RetrieveUpdateDestroyAPIView,
-    UpdateAPIView,
 )
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
@@ -26,10 +27,10 @@ from .swagger_serializers import (
     create_custom_response_serializer,
 )
 from .serializers import (
+    CustomPasswordResetConfirmSerializer,
     UserSerializer,
     ChildAvatarSerializer,
     ChildSerializer,
-    EmptySerializer,
 )
 
 
@@ -139,36 +140,46 @@ class UserViewSet(
         return super().create(request, *args, **kwargs)
 
 
-class GenerateNewPasswordView(UpdateAPIView):
-    permission_classes = [permissions.IsAdminUser]
-    http_method_names = ["put"]
-    serializer_class = EmptySerializer
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    serializer_class = CustomPasswordResetConfirmSerializer
 
-    def get_queryset(self):
-        return User.objects.none()
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(
+            {"detail": "Пароль змінено на новий."},
+        )
 
-    @swagger_auto_schema(
-        responses={"200": answer_response(user_email="<user_email>").get("detail")}
-    )
-    def put(self, request, pk):
-        if request.data:
+
+class CustomPasswordResetView(PasswordResetView):
+    permission_classes = (permissions.AllowAny,)
+
+    def post(self, request, *args, **kwargs):
+        # Create a serializer with request.data
+        if not User.objects.filter(email=request.data.get("email")):
             return Response(
-                {"detail": "Тіло запиту має бути порожнім."},
+                {"detail": ("Користувач з такою e-mail адресою не зареєстрований.")},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-        user = get_object_or_404(User, pk=pk)
-        new_password = generate_password(12)
-        user.set_password(new_password)
-        user.save()
-        send_mail(
-            subject="Зміна паролю на Chitozavrik.ua",
-            message=f"Ваш новий пароль: {new_password}",
-            from_email=os.getenv("EMAIL_USER"),
-            recipient_list=[user.email],
-            fail_silently=False,
-        )
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        serializer.save()
+        # Return the success message with OK HTTP status
         return Response(
-            answer_response(user_email=user.email),
+            {"detail": ("Лист з інструкціями по відновленню пароля вислано.")},
+            status=status.HTTP_200_OK,
+        )
+
+
+class CustomPasswordChangeView(PasswordChangeView):
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(
+            {"detail": "Новий пароль збережено."},
             status=status.HTTP_200_OK,
         )
 

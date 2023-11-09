@@ -1,19 +1,53 @@
-from rest_framework import serializers, status
-from .models import User, ChildAvatar, Child
+from rest_framework import serializers
+from rest_framework.exceptions import ValidationError
+from dj_rest_auth.serializers import PasswordResetConfirmSerializer
 from django.utils import timezone
 from django.db.models import Count
+from django.utils.encoding import force_str
+from django.contrib.auth import get_user_model
+
+from .models import User, ChildAvatar, Child
+
+
+class CustomPasswordResetConfirmSerializer(PasswordResetConfirmSerializer):
+    def validate(self, attrs):
+        from django.contrib.auth.tokens import default_token_generator
+        from django.utils.http import urlsafe_base64_decode as uid_decoder
+
+        # Get the UserModel
+        UserModel = get_user_model()
+        # Decode the uidb64 (allauth use base36) to uid to get User object
+        try:
+            uid = force_str(uid_decoder(attrs["uid"]))
+            self.user = UserModel._default_manager.get(pk=uid)
+        except (TypeError, ValueError, OverflowError, UserModel.DoesNotExist):
+            raise ValidationError({"uid": "Некоректне значення"})
+
+        if not default_token_generator.check_token(self.user, attrs["token"]):
+            raise ValidationError({"token": "Некоректне значення"})
+
+        self.custom_validation(attrs)
+        # Construct SetPasswordForm instance
+        self.set_password_form = self.set_password_form_class(
+            user=self.user,
+            data=attrs,
+        )
+        if not self.set_password_form.is_valid():
+            raise serializers.ValidationError(self.set_password_form.errors)
+
+        return attrs
 
 
 class UserSerializer(serializers.ModelSerializer):
     password2 = serializers.CharField(
-        style={"input_type": "password"}, write_only=True, min_length=6
+        style={"input_type": "password"}, write_only=True, min_length=8
     )
 
     class Meta:
         model = User
         fields = ["id", "email", "password", "password2"]
         extra_kwargs = {
-            "password": {"write_only": True, "min_length": 6},
+            "password": {"write_only": True, "min_length": 8},
             "email": {"min_length": 3},
         }
 
@@ -26,7 +60,7 @@ class UserSerializer(serializers.ModelSerializer):
 
         if len(password) < 6:
             raise serializers.ValidationError(
-                {"password": "Пароль повинен містити принаймні 6 символів."}
+                {"password": "Пароль повинен містити принаймні 8 символів."}
             )
 
         if len(password) > 30:
@@ -116,7 +150,3 @@ class ChildSerializer(serializers.ModelSerializer):
             "last_quiz_id",
             "quizzes_passed_today_max_score",
         ]
-
-
-class EmptySerializer(serializers.Serializer):
-    pass

@@ -1,5 +1,6 @@
 from rest_framework.routers import DefaultRouter
 from django.urls import path
+
 from . import views
 
 app_name = "user_profile"
@@ -16,9 +17,19 @@ urlpatterns = [
         name="child",
     ),
     path(
-        "users/<int:pk>/generate-new-password/",
-        views.GenerateNewPasswordView.as_view(),
-        name="password",
+        "users/password/reset/",
+        views.CustomPasswordResetView.as_view(),
+        name="rest_password_reset",
+    ),
+    path(
+        "users/password/reset/confirm/",
+        views.CustomPasswordResetConfirmView.as_view(),
+        name="rest_password_reset_confirm",
+    ),
+    path(
+        "users/password/change/",
+        views.CustomPasswordChangeView.as_view(),
+        name="rest_password_change",
     ),
 ]
 urlpatterns += router.urls
