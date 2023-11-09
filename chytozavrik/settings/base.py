@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     "partners.apps.PartnersConfig",
     "documents.apps.DocumentsConfig",
     "stats.apps.StatsConfig",
+    "dj_rest_auth",
+    "rest_framework.authtoken",
 ]
 
 MIDDLEWARE = [
@@ -106,6 +108,9 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
+REST_AUTH = {
+    "OLD_PASSWORD_FIELD_ENABLED": True,
+}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -154,10 +159,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # EMAIL
 EMAIL_USE_TLS = True
 EMAIL_HOST = getenv("EMAIL_HOST")
+EMAIL_PORT = getenv("EMAIL_PORT")
 EMAIL_HOST_USER = getenv("EMAIL_USER")
 EMAIL_HOST_PASSWORD = getenv("EMAIL_PASSWORD")
 DEFAULT_FROM_EMAIL = getenv("EMAIL_USER")
-EMAIL_PORT = 587
 
 AUTH_USER_MODEL = "user_profile.User"
 

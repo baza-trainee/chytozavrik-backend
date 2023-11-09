@@ -18,4 +18,4 @@ clean:
 	sudo find . | grep -E "(__pycache__|\.pyc|\.pyo$$)" | xargs sudo rm -rf
 
 dev:
-	python manage.py runserver
+	python manage.py runserver --insecure
