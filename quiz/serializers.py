@@ -1,7 +1,9 @@
+from datetime import datetime
 from rest_framework import serializers
 from django.db import transaction
 from drf_yasg.utils import swagger_serializer_method
 from cloudinary import CloudinaryImage
+from django.utils import timezone
 
 from .models import (
     Book,
@@ -139,12 +141,19 @@ class QuizCreateSerializer(serializers.ModelSerializer):
 
     @transaction.atomic
     def update(self, instance, validated_data):
-        for question in validated_data["questions"]:
-            self.validate_answers(question["text"], question["answers"])
-        questions_data = validated_data.pop("questions", [])
-        instance = self.update_instance(instance, validated_data)
-        self.update_questions(instance, questions_data)
-        return instance
+        if validated_data.get("questions"):
+            for question in validated_data["questions"]:
+                self.validate_answers(question["text"], question["answers"])
+            questions_data = validated_data.pop("questions", [])
+            instance = self.update_instance(instance, validated_data)
+            self.update_questions(instance, questions_data)
+            model = Book.objects.filter(id=instance.book.id)
+            model.update(updated_at=timezone.now())
+            return instance
+        else:
+            raise serializers.ValidationError(
+                {"detail": "Не передано даних для оновлення."}
+            )
 
     def update_instance(self, instance, validated_data):
         instance.book = validated_data.get("book", instance.book)
@@ -191,6 +200,16 @@ class QuizRewardSerializer(serializers.ModelSerializer):
     class Meta:
         model = QuizReward
         fields = "__all__"
+
+
+class QuizRewardPatchSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QuizReward
+        fields = "__all__"
+        extra_kwargs = {
+            "reward": {"required": False},
+            "quiz": {"required": False},
+        }
 
 
 class SubmitAnswerSerializer(serializers.Serializer):
