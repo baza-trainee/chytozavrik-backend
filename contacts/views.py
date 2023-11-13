@@ -25,7 +25,7 @@ class ContactAPIView(views.APIView):
     @swagger_auto_schema(responses={200: CONTACT_SERIALIZER})
     def get(self, request):
         if not Contact.objects.exists():
-            return Response({"detail": "Not found."}, 404)
+            return Response({"detail": "Номерів телефону не знайдено."}, 404)
         query = Contact.objects.all().first()
         serializer = self.class_serializer(query)
         return Response(serializer.data)

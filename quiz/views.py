@@ -1,8 +1,6 @@
-from django.http import Http404
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from rest_framework import mixins, filters, permissions, status
-from rest_framework.exceptions import MethodNotAllowed, ValidationError
 from rest_framework.response import Response
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.decorators import permission_classes, api_view, action
@@ -11,7 +9,6 @@ from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from cloudinary import CloudinaryImage
 from django.utils import timezone
-from django.db import transaction
 
 from stats.models import MonthlyActiveChild
 from user_profile.models import Child
@@ -139,8 +136,9 @@ def get_child_attempt_by_quiz_api(request, child_id, quiz_id):
 
 
 class BookViewSet(ModelViewSet, GenericViewSet):
+    http_method_names = ["get", "post", "patch", "delete"]
     pagination_class = ResultsSetPagination
-    queryset = Book.objects.order_by("id")
+    queryset = Book.objects.order_by("-updated_at")
     parser_classes = (MultiPartParser, FormParser)
     filter_backends = [filters.SearchFilter]
     search_fields = ["title", "author"]
@@ -243,6 +241,8 @@ class QuizViewSet(
 ):
     pagination_class = ResultsSetPagination
     http_method_names = ["get", "post", "patch", "delete"]
+    filter_backends = [filters.SearchFilter]
+    search_fields = ["title", "author"]
 
     @swagger_auto_schema(
         manual_parameters=[PAGE_PARAMETER, PAGE_SIZE_PARAMETER, SEARCH]
@@ -360,25 +360,12 @@ class QuizViewSet(
 
     def get_queryset(self):
         if self.action == "list":
-            search = self.request.query_params.get("search", None)
-            if search:
-                return Book.objects.filter(
-                    Q(quiz__isnull=False)
-                    & (
-                        Q(title__startswith=search)
-                        | Q(author__startswith=search)
-                        | Q(title__icontains=search)
-                        | Q(author__icontains=search)
-                        | Q(title__iexact=search)
-                        | Q(author__iexact=search)
-                    )
-                )
-            return Book.objects.filter(quiz__isnull=False)
+            return Book.objects.filter(quiz__isnull=False).order_by("-updated_at")
         elif self.action == "retrieve":
             Quiz.objects.all().select_related("book").prefetch_related(
                 "questions__answers"
             )
-        return Quiz.objects.all()
+        return Quiz.objects.order_by("id").all()
 
     def get_serializer_class(self):
         if self.action == "list":
@@ -389,9 +376,8 @@ class QuizViewSet(
 
 
 class QuizRewardViewSet(ModelViewSet):
-    http_method_names = ["get", "post", "put", "delete"]
+    http_method_names = ["get", "post", "patch", "delete"]
     parser_classes = (MultiPartParser, FormParser)
-    serializer_class = serializers.QuizRewardSerializer
     queryset = QuizReward.objects.all()
     permission_classes = [permissions.IsAdminUser]
 
@@ -417,11 +403,13 @@ class QuizRewardViewSet(ModelViewSet):
         return Response(serializer.data)
 
     @swagger_auto_schema(responses={200: QUIZ_REWARD_SWAGGER_SERIALIZER})
-    def update(self, request, *args, **kwargs):
-        return super().update(request, *args, **kwargs)
-
     def partial_update(self, request, *args, **kwargs):
-        raise MethodNotAllowed("PATCH")
+        return super().partial_update(request, *args, **kwargs)
+
+    def get_serializer_class(self):
+        if self.action == "partial_update":
+            return serializers.QuizRewardPatchSerializer
+        return serializers.QuizRewardSerializer
 
 
 class ChildRewardListAPIView(ListAPIView):

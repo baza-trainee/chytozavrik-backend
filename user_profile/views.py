@@ -28,6 +28,7 @@ from .swagger_serializers import (
 )
 from .serializers import (
     CustomPasswordResetConfirmSerializer,
+    PatchChildSerializer,
     UserSerializer,
     ChildAvatarSerializer,
     ChildSerializer,
@@ -41,7 +42,9 @@ DETAIL_USER_SERIALIZER = create_custom_response_serializer(UserSwaggerGetSeriali
 AVATAR_SERIALIZER = create_custom_response_serializer(ChildAvatarSerializer, True)()
 LIST_CHILD_SERIALIZER = create_custom_response_serializer(ChildSerializer, True)()
 DETAIL_CHILD_SERIALIZER = create_custom_response_serializer(ChildSerializer)()
-DETAIL_CHILD_SERIALIZER = create_custom_response_serializer(ChildSerializer)()
+DETAIL_FOR_PATCH_CHILD_SERIALIZER = create_custom_response_serializer(
+    PatchChildSerializer
+)()
 
 PAGE_PARAMETER = openapi.Parameter(
     "page", openapi.IN_QUERY, description="Page number", type=openapi.TYPE_INTEGER
@@ -234,8 +237,7 @@ class ChildListCreateAPIView(ListCreateAPIView):
 
 
 class ChildRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
-    serializer_class = ChildSerializer
-    http_method_names = ["get", "put", "delete"]
+    http_method_names = ["get", "patch", "delete"]
 
     def get_queryset(self):
         return Child.objects.filter(parent=self.request.user.pk)
@@ -247,3 +249,8 @@ class ChildRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     @swagger_auto_schema(responses={"200": DETAIL_CHILD_SERIALIZER})
     def put(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
+
+    def get_serializer_class(self):
+        if self.request.method == "PATCH":
+            return PatchChildSerializer
+        return ChildSerializer

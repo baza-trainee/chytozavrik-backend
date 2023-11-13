@@ -10,6 +10,7 @@ from .pagination import PartnerPagination
 
 
 class PartnerViewSet(ModelViewSet):
+    http_method_names = ["get", "post", "patch", "delete"]
     queryset = Partner.objects.order_by("id")
     parser_classes = (MultiPartParser, FormParser)
     pagination_class = PartnerPagination

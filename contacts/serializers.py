@@ -6,5 +6,4 @@ class ContactSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contact
         fields = "__all__"
-
-    current_date = serializers.DateField(read_only=True)
+        read_only_fields = ["updated_at"]

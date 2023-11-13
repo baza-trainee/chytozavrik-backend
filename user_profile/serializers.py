@@ -150,3 +150,19 @@ class ChildSerializer(serializers.ModelSerializer):
             "last_quiz_id",
             "quizzes_passed_today_max_score",
         ]
+
+
+class PatchChildSerializer(serializers.ModelSerializer):
+    name = serializers.CharField(required=False)
+    avatar = serializers.PrimaryKeyRelatedField(
+        queryset=ChildAvatar.objects.all(), required=False
+    )
+
+    class Meta:
+        model = Child
+        fields = [
+            "id",
+            "name",
+            "registration_date",
+            "avatar",
+        ]
