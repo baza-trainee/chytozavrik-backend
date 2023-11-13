@@ -154,6 +154,8 @@ class BookViewSet(ModelViewSet, GenericViewSet):
     @swagger_auto_schema(responses={201: BOOK_SWAGGER_SERIALIZER})
     def create(self, request, *args, **kwargs):
         data = request.data
+        data["author"] = data["author"].strip()
+        data["title"] = data["title"].strip()
         book_exists = Book.objects.filter(
             author__iexact=data["author"], title__iexact=data["title"]
         ).exists()

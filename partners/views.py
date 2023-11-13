@@ -24,6 +24,8 @@ class PartnerViewSet(ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         data = request.data
+        data["name"] = data["name"].strip()
+        data["link"] = data["link"].strip()
         existing_partner = Partner.objects.filter(
             name__iexact=data["name"], link__iexact=data["link"]
         ).exists()
