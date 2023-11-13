@@ -26,22 +26,42 @@ from .pagination import ResultsSetPagination
 from user_profile.swagger_serializers import create_custom_response_serializer
 from .permissions import HasPermissionToViewChildRewards
 
-PAGE_PARAMETER = openapi.Parameter("page", openapi.IN_QUERY, description="Page number", type=openapi.TYPE_INTEGER)
+PAGE_PARAMETER = openapi.Parameter(
+    "page", openapi.IN_QUERY, description="Page number", type=openapi.TYPE_INTEGER
+)
 PAGE_SIZE_PARAMETER = openapi.Parameter(
     "page_size",
     openapi.IN_QUERY,
     description="Number of items per page",
     type=openapi.TYPE_INTEGER,
 )
-SEARCH = openapi.Parameter("search", openapi.IN_QUERY, description="Quiz search", type=openapi.TYPE_STRING)
-BOOK_SWAGGER_SERIALIZER = create_custom_response_serializer(serializers.BookSerializer)()
-RECOMMENDATION_BOOK_SWAGGER_SERIALIZER = create_custom_response_serializer(serializers.BookSerializer)()
-CREATE_QUIZ_SWAGGER_SERIALIZER = create_custom_response_serializer(serializers.QuizCreateSerializer)()
-INFO_QUIZ_SWAGGER_SERIALIZER = create_custom_response_serializer(serializers.QuizInfoSerializer)()
-QUIZ_REWARD_SWAGGER_SERIALIZER = create_custom_response_serializer(serializers.QuizRewardSerializer)()
-LIST_QUIZ_REWARD_SWAGGER_SERIALIZER = create_custom_response_serializer(serializers.QuizRewardSerializer, True)()
-SUBMIT_ANSWER_RESPONSE_SERIALIZER = create_custom_response_serializer(serializers.SubmitAnswerResponseSerializer)
-DETAIL_CHILD_ATTEMPT_SERIALIZER = create_custom_response_serializer(serializers.DetailChildAttemptSerializer)()
+SEARCH = openapi.Parameter(
+    "search", openapi.IN_QUERY, description="Quiz search", type=openapi.TYPE_STRING
+)
+BOOK_SWAGGER_SERIALIZER = create_custom_response_serializer(
+    serializers.BookSerializer
+)()
+RECOMMENDATION_BOOK_SWAGGER_SERIALIZER = create_custom_response_serializer(
+    serializers.BookSerializer
+)()
+CREATE_QUIZ_SWAGGER_SERIALIZER = create_custom_response_serializer(
+    serializers.QuizCreateSerializer
+)()
+INFO_QUIZ_SWAGGER_SERIALIZER = create_custom_response_serializer(
+    serializers.QuizInfoSerializer
+)()
+QUIZ_REWARD_SWAGGER_SERIALIZER = create_custom_response_serializer(
+    serializers.QuizRewardSerializer
+)()
+LIST_QUIZ_REWARD_SWAGGER_SERIALIZER = create_custom_response_serializer(
+    serializers.QuizRewardSerializer, True
+)()
+SUBMIT_ANSWER_RESPONSE_SERIALIZER = create_custom_response_serializer(
+    serializers.SubmitAnswerResponseSerializer
+)
+DETAIL_CHILD_ATTEMPT_SERIALIZER = create_custom_response_serializer(
+    serializers.DetailChildAttemptSerializer
+)()
 
 
 def is_access_to_question(user_question, actual_question):
@@ -88,7 +108,9 @@ def get_answer(answer_id, question_id):
 def update_monthly_active_child(child, last_attempt_date):
     year = last_attempt_date.year
     month = last_attempt_date.month
-    active_child, created = MonthlyActiveChild.objects.get_or_create(child=child, year=year, month=month)
+    active_child, created = MonthlyActiveChild.objects.get_or_create(
+        child=child, year=year, month=month
+    )
     active_child.is_active = True
     active_child.save()
 
@@ -99,7 +121,9 @@ def update_monthly_active_child(child, last_attempt_date):
 def get_child_attempt_by_quiz_api(request, child_id, quiz_id):
     try:
         quiz = Quiz.objects.get(pk=quiz_id)
-        attempt = ChildQuizAttempt.objects.get(child__parent=request.user.pk, child=child_id, quiz=quiz)
+        attempt = ChildQuizAttempt.objects.get(
+            child__parent=request.user.pk, child=child_id, quiz=quiz
+        )
     except Quiz.DoesNotExist as e:
         return Response({"detail": f"Quiz with id {quiz_id} does not exist."}, 404)
     except ChildQuizAttempt.DoesNotExist:
@@ -132,10 +156,14 @@ class BookViewSet(ModelViewSet, GenericViewSet):
         data = request.data
         data["author"] = data["author"].strip()
         data["title"] = data["title"].strip()
-        book_exists = Book.objects.filter(author__iexact=data["author"], title__iexact=data["title"]).exists()
+        book_exists = Book.objects.filter(
+            author__iexact=data["author"], title__iexact=data["title"]
+        ).exists()
         if book_exists:
             return Response(
-                {"detail": f"Книга автора '{data['author']}' з назвою '{data['title']}' вже існує в базі даних."},
+                {
+                    "detail": f"Книга автора '{data['author']}' з назвою '{data['title']}' вже існує в базі даних."
+                },
                 status=status.HTTP_409_CONFLICT,
             )
         return super().create(request, *args, **kwargs)
@@ -192,7 +220,9 @@ class RecommendationBookViewSet(
         queryset = Book.objects.filter(is_recommended=True).order_by("id")
         search_term = self.request.query_params.get("search", None)
         if search_term:
-            queryset = queryset.filter(Q(title__icontains=search_term) | Q(author__icontains=search_term))
+            queryset = queryset.filter(
+                Q(title__icontains=search_term) | Q(author__icontains=search_term)
+            )
         return queryset
 
     def get_serializer_class(self):
@@ -216,7 +246,9 @@ class QuizViewSet(
     filter_backends = [filters.SearchFilter]
     search_fields = ["title", "author"]
 
-    @swagger_auto_schema(manual_parameters=[PAGE_PARAMETER, PAGE_SIZE_PARAMETER, SEARCH])
+    @swagger_auto_schema(
+        manual_parameters=[PAGE_PARAMETER, PAGE_SIZE_PARAMETER, SEARCH]
+    )
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
 
@@ -257,14 +289,18 @@ class QuizViewSet(
         child = get_child(request.user, serializer.data.get("child_id"))
         if not child:
             return Response(
-                {"detail": f"У поточного користувача немає дитини з ID: {serializer.data.get('child_id')}."},
+                {
+                    "detail": f"У поточного користувача немає дитини з ID: {serializer.data.get('child_id')}."
+                },
                 status=status.HTTP_404_NOT_FOUND,
             )
 
         answer = get_answer(serializer.data.get("answer_id"), question_id)
         if not answer:
             return Response(
-                {"detail": f"Запитання з ID: {question_id} не має варіанту відповіді з ID: {serializer.data.get('answer_id')}"},
+                {
+                    "detail": f"Запитання з ID: {question_id} не має варіанту відповіді з ID: {serializer.data.get('answer_id')}"
+                },
                 status=status.HTTP_404_NOT_FOUND,
             )
 
@@ -272,24 +308,32 @@ class QuizViewSet(
         quiz = answer.question.quiz
         quiz_questions = list(quiz.questions.all())
         current_question_index = quiz_questions.index(question)
-        child_attempt, created = ChildQuizAttempt.objects.get_or_create(child=child, quiz=quiz)
+        child_attempt, created = ChildQuizAttempt.objects.get_or_create(
+            child=child, quiz=quiz
+        )
 
         if has_reached_max_score(child_attempt, quiz):
             reset_quiz(child_attempt)
 
         if current_question_index < child_attempt.score:
             return Response(
-                {"detail": "Ви вже дали правильну відповідь на це питання, перейдіть до наступного."},
+                {
+                    "detail": "Ви вже дали правильну відповідь на це питання, перейдіть до наступного."
+                },
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
         elif current_question_index > child_attempt.score:
             return Response(
-                {"detail": f"Спочатку дайте відповідь на поточне питання: {quiz_questions[child_attempt.score]}"},
+                {
+                    "detail": f"Спочатку дайте відповідь на поточне питання: {quiz_questions[child_attempt.score]}"
+                },
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-        is_answer_correct = TrueAnswer.objects.filter(question=question, answer=answer).exists()
+        is_answer_correct = TrueAnswer.objects.filter(
+            question=question, answer=answer
+        ).exists()
         child_reward_url = None
         if is_answer_correct:
             update_score(child_attempt, quiz)
@@ -297,10 +341,14 @@ class QuizViewSet(
         if has_reached_max_score(child_attempt, quiz):
             if not (hasattr(quiz, "reward") and quiz.reward):
                 return Response(
-                    submit_answer_response(is_answer_correct, "Винагорода для цієї книги не додана."),
+                    submit_answer_response(
+                        is_answer_correct, "Винагорода для цієї книги не додана."
+                    ),
                     status=status.HTTP_404_NOT_FOUND,
                 )
-            child_reward, create = ChildReward.objects.select_related("reward").get_or_create(child=child, quiz=quiz, reward=quiz.reward)
+            child_reward, create = ChildReward.objects.select_related(
+                "reward"
+            ).get_or_create(child=child, quiz=quiz, reward=quiz.reward)
             reward = str(child_reward.reward.reward)
             child_reward_url = CloudinaryImage(reward).build_url()
         return Response(submit_answer_response(is_answer_correct, child_reward_url))
@@ -316,7 +364,9 @@ class QuizViewSet(
         if self.action == "list":
             return Book.objects.filter(quiz__isnull=False).order_by("-updated_at")
         elif self.action == "retrieve":
-            Quiz.objects.all().select_related("book").prefetch_related("questions__answers")
+            Quiz.objects.all().select_related("book").prefetch_related(
+                "questions__answers"
+            )
         return Quiz.objects.order_by("id").all()
 
     def get_serializer_class(self):
@@ -373,7 +423,9 @@ class ChildRewardListAPIView(ListAPIView):
 
     def get_queryset(self):
         child_id = self.kwargs.get("child_id")
-        return ChildReward.objects.select_related("reward").filter(child__parent=self.request.user.pk, child=child_id)
+        return ChildReward.objects.select_related("reward").filter(
+            child__parent=self.request.user.pk, child=child_id
+        )
 
     @swagger_auto_schema(
         manual_parameters=[
@@ -393,7 +445,9 @@ class ChildRewardRetrieveAPIView(RetrieveAPIView):
 
     def get_queryset(self):
         child_id = self.kwargs.get("child_id")
-        return ChildReward.objects.select_related("reward").filter(child__parent=self.request.user.pk, child=child_id)
+        return ChildReward.objects.select_related("reward").filter(
+            child__parent=self.request.user.pk, child=child_id
+        )
 
 
 class ChildAttemptListAPIView(ListAPIView):
@@ -405,7 +459,9 @@ class ChildAttemptListAPIView(ListAPIView):
 
     def get_queryset(self):
         child_id = self.kwargs.get("child_id")
-        return ChildQuizAttempt.objects.filter(child__parent=self.request.user.pk, child=child_id)
+        return ChildQuizAttempt.objects.filter(
+            child__parent=self.request.user.pk, child=child_id
+        )
 
     @swagger_auto_schema(
         manual_parameters=[
@@ -429,14 +485,19 @@ class ChildQuizzesListAPIView(ListAPIView):
         child_id = self.kwargs.get("child_id")
         quizzes = Quiz.objects.annotate(
             current_score=Subquery(
-                ChildQuizAttempt.objects.filter(child_id=child_id, quiz=OuterRef("pk")).values("score")[:1],
+                ChildQuizAttempt.objects.filter(
+                    child_id=child_id, quiz=OuterRef("pk")
+                ).values("score")[:1],
                 output_field=IntegerField(),
             )
         )
         reverse: str = self.request.query_params.get("reverse", None)
         search_query = self.request.query_params.get("search", None)
         if search_query:
-            quizzes = quizzes.filter(Q(book__title__icontains=search_query) | Q(book__author__icontains=search_query))
+            quizzes = quizzes.filter(
+                Q(book__title__icontains=search_query)
+                | Q(book__author__icontains=search_query)
+            )
         if reverse and reverse.lower() == "true":
             quizzes = quizzes.order_by("-current_score")
         else:
@@ -464,7 +525,9 @@ class ChildQuizzesListAPIView(ListAPIView):
         child = get_child(request.user, self.kwargs.get("child_id"))
         if not child:
             return Response(
-                {"detail": f"У поточного користувача немає дитини з ID: {self.kwargs.get('child_id')}."},
+                {
+                    "detail": f"У поточного користувача немає дитини з ID: {self.kwargs.get('child_id')}."
+                },
                 status=status.HTTP_404_NOT_FOUND,
             )
         return self.list(request, *args, **kwargs)
