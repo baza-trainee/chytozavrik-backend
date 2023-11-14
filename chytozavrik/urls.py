@@ -18,9 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from rest_framework_simplejwt.views import (
-    TokenRefreshView,
-)
+from rest_framework_simplejwt.views import TokenRefreshView, TokenBlacklistView
 from .yasg import urlpatterns as doc_urls
 from .views import MyTokenObtainPairView
 from django.contrib.auth.views import (
@@ -31,7 +29,6 @@ from django.contrib.auth.views import (
 )
 from django.http import JsonResponse
 from rest_framework import status
-
 
 urlpatterns = [
     path(
@@ -65,6 +62,7 @@ urlpatterns = [
             [
                 path("", MyTokenObtainPairView.as_view(), name="token_obtain_pair"),
                 path("refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+                path("logout/", TokenBlacklistView.as_view(), name="token_logout"),
             ]
         ),
     ),
