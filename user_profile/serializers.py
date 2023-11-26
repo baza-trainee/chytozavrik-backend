@@ -9,6 +9,25 @@ from django.contrib.auth import get_user_model
 from .models import User, ChildAvatar, Child
 
 
+from django.conf import settings
+from django.utils.translation import gettext as _
+from dj_rest_auth.serializers import PasswordResetSerializer as _PasswordResetSerializer
+
+class PasswordResetSerializer(_PasswordResetSerializer):
+    def save(self):
+        request = self.context.get('request')
+        opts = {
+            'use_https': request.is_secure(),
+            'from_email': getattr(settings, 'DEFAULT_FROM_EMAIL'),
+
+            ###### USE YOUR TEXT FILE ######
+            'email_template_name': 'example_message.txt',
+
+            'request': request,
+        }
+        self.reset_form.save(**opts)
+
+
 class CustomPasswordResetConfirmSerializer(PasswordResetConfirmSerializer):
     def validate(self, attrs):
         from django.contrib.auth.tokens import default_token_generator
@@ -39,9 +58,7 @@ class CustomPasswordResetConfirmSerializer(PasswordResetConfirmSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    password2 = serializers.CharField(
-        style={"input_type": "password"}, write_only=True, min_length=8
-    )
+    password2 = serializers.CharField(style={"input_type": "password"}, write_only=True, min_length=8)
 
     class Meta:
         model = User
@@ -59,29 +76,19 @@ class UserSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({"password": "Паролі не співпадають."})
 
         if len(password) < 6:
-            raise serializers.ValidationError(
-                {"password": "Пароль повинен містити принаймні 8 символів."}
-            )
+            raise serializers.ValidationError({"password": "Пароль повинен містити принаймні 8 символів."})
 
         if len(password) > 30:
-            raise serializers.ValidationError(
-                "Пароль не може бути довшим за 30 символів."
-            )
+            raise serializers.ValidationError("Пароль не може бути довшим за 30 символів.")
 
         if not any(char.isdigit() for char in password):
-            raise serializers.ValidationError(
-                {"password": "Пароль повинен містити принаймні одну цифру."}
-            )
+            raise serializers.ValidationError({"password": "Пароль повинен містити принаймні одну цифру."})
 
         if not any(char.isalpha() for char in password):
-            raise serializers.ValidationError(
-                {"password": "Пароль повинен містити принаймні одну літеру."}
-            )
+            raise serializers.ValidationError({"password": "Пароль повинен містити принаймні одну літеру."})
 
         if any(char.isalpha() and not char.isascii() for char in password):
-            raise serializers.ValidationError(
-                {"password": "Пароль повинен містити лише латинські символи."}
-            )
+            raise serializers.ValidationError({"password": "Пароль повинен містити лише латинські символи."})
 
         return data
 
@@ -110,9 +117,7 @@ class ChildSerializer(serializers.ModelSerializer):
         user = self.context["request"].user
         children_count = Child.objects.filter(parent=user).count()
         if children_count >= 6:
-            raise serializers.ValidationError(
-                {"detail": "Не можна додати більше ніж 6 дітей."}
-            )
+            raise serializers.ValidationError({"detail": "Не можна додати більше ніж 6 дітей."})
         return attrs
 
     def get_total_successful_attempts(self, obj):
@@ -133,9 +138,7 @@ class ChildSerializer(serializers.ModelSerializer):
 
     def get_quizzes_passed_today_max_score(self, obj):
         today = timezone.now().date()
-        attempts = obj.childquizattempt_set.filter(
-            last_attempt_date__date=today, score=Count("quiz__questions")
-        )
+        attempts = obj.childquizattempt_set.filter(last_attempt_date__date=today, score=Count("quiz__questions"))
         return attempts.count()
 
     class Meta:
@@ -154,9 +157,7 @@ class ChildSerializer(serializers.ModelSerializer):
 
 class PatchChildSerializer(serializers.ModelSerializer):
     name = serializers.CharField(required=False)
-    avatar = serializers.PrimaryKeyRelatedField(
-        queryset=ChildAvatar.objects.all(), required=False
-    )
+    avatar = serializers.PrimaryKeyRelatedField(queryset=ChildAvatar.objects.all(), required=False)
 
     class Meta:
         model = Child

@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 from dotenv import load_dotenv
 from os import getenv
@@ -27,8 +28,11 @@ load_dotenv()
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = getenv("SECRET_KEY")
 
-BASE_URL = getenv("BASE_URL")
-
+BASE_URL = getenv("SECRET_KEY")
+REST_AUTH_SERIALIZERS = {
+    'PASSWORD_RESET_SERIALIZER': 
+        'user_profile.serializers.PasswordResetSerializer',
+}
 ALLOWED_HOSTS = ["*"]
 
 DJANGO_SUPERUSER_EMAIL = getenv("DJANGO_SUPERUSER_EMAIL")
@@ -78,7 +82,7 @@ ROOT_URLCONF = "chytozavrik.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, 'chytozavrik/templates')],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [

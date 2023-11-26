@@ -31,21 +31,21 @@ from drf_yasg.utils import swagger_auto_schema
 from django.shortcuts import redirect
 from chytozavrik.settings.base import BASE_URL
 
-@swagger_auto_schema(manual_fields=[])
-class RedirectPasswordResetConfirmView(viewsets.ViewSet):
-    permission_classes = [AllowAny]
-    schema = None
+# @swagger_auto_schema(manual_fields=[])
+# class RedirectPasswordResetConfirmView(viewsets.ViewSet):
+#     permission_classes = [AllowAny]
+#     schema = None
 
-    @action(detail=False, methods=["get"])
-    def redirect_to_frontend(self, request, uidb64, token):
-        return redirect(f'http://{BASE_URL}/?auth=new-password&uid={uidb64}&token={token}', permanent=True)
+#     @action(detail=False, methods=["get"])
+#     def redirect_to_frontend(self, request, uidb64, token):
+#         return redirect(f'http://{BASE_URL}/?auth=new-password&uid={uidb64}&token={token}', permanent=True)
+    # path(
+    #     "user/reset/<uidb64>/<token>/",
+    #     RedirectPasswordResetConfirmView.as_view({"get": "redirect_to_frontend"}),
+    #     name="password_reset_confirm",
+    # ),
 
 urlpatterns = [
-    path(
-        "user/reset/<uidb64>/<token>/",
-        RedirectPasswordResetConfirmView.as_view({"get": "redirect_to_frontend"}),
-        name="password_reset_confirm",
-    ),
     path("admin/", admin.site.urls),
     path("api/v1/", include("user_profile.urls")),
     path("api/v1/", include("quiz.urls")),
