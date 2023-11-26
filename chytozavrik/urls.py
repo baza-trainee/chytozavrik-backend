@@ -30,24 +30,26 @@ from django.contrib.auth.views import (
 from django.http import JsonResponse
 from rest_framework import status
 
+from rest_framework.permissions import AllowAny
+from rest_framework import viewsets
+from rest_framework.decorators import action
+from drf_yasg.utils import swagger_auto_schema
+from django.shortcuts import redirect
+
+@swagger_auto_schema(manual_fields=[])
+class RedirectPasswordResetConfirmView(viewsets.ViewSet):
+    permission_classes = [AllowAny]
+    schema = None
+
+    @action(detail=False, methods=["get"])
+    def redirect_to_frontend(self, request, uidb64, token):
+        return redirect(f'http://{request.get_host()}/?auth=new-password&uid={uidb64}&token={token}', permanent=True)
+
 urlpatterns = [
     path(
-        "user/password_reset/", PasswordResetView.as_view(), name="admin_password_reset"
-    ),
-    path(
-        "user/password_reset/done/",
-        PasswordResetDoneView.as_view(),
-        name="password_reset_done",
-    ),
-    path(
         "user/reset/<uidb64>/<token>/",
-        PasswordResetConfirmView.as_view(),
+        RedirectPasswordResetConfirmView.as_view({"get": "redirect_to_frontend"}),
         name="password_reset_confirm",
-    ),
-    path(
-        "user/reset/done/",
-        PasswordResetCompleteView.as_view(),
-        name="password_reset_complete",
     ),
     path("admin/", admin.site.urls),
     path("api/v1/", include("user_profile.urls")),
