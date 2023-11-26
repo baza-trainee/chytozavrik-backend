@@ -29,10 +29,6 @@ load_dotenv()
 SECRET_KEY = getenv("SECRET_KEY")
 
 BASE_URL = getenv("SECRET_KEY")
-REST_AUTH_SERIALIZERS = {
-    'PASSWORD_RESET_SERIALIZER': 
-        'user_profile.serializers.PasswordResetSerializer',
-}
 ALLOWED_HOSTS = ["*"]
 
 DJANGO_SUPERUSER_EMAIL = getenv("DJANGO_SUPERUSER_EMAIL")
@@ -82,7 +78,7 @@ ROOT_URLCONF = "chytozavrik.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, 'chytozavrik/templates')],
+        "DIRS": [os.path.join(BASE_DIR, "chytozavrik/templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
