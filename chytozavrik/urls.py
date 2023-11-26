@@ -21,12 +21,6 @@ from django.conf.urls.static import static
 from rest_framework_simplejwt.views import TokenRefreshView, TokenBlacklistView
 from .yasg import urlpatterns as doc_urls
 from .views import MyTokenObtainPairView
-from django.contrib.auth.views import (
-    PasswordResetView,
-    PasswordResetConfirmView,
-    PasswordResetDoneView,
-    PasswordResetCompleteView,
-)
 from django.http import JsonResponse
 from rest_framework import status
 
@@ -35,6 +29,7 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from drf_yasg.utils import swagger_auto_schema
 from django.shortcuts import redirect
+from chytozavrik.settings.base import BASE_URL
 
 @swagger_auto_schema(manual_fields=[])
 class RedirectPasswordResetConfirmView(viewsets.ViewSet):
@@ -43,7 +38,7 @@ class RedirectPasswordResetConfirmView(viewsets.ViewSet):
 
     @action(detail=False, methods=["get"])
     def redirect_to_frontend(self, request, uidb64, token):
-        return redirect(f'http://{request.get_host()}/?auth=new-password&uid={uidb64}&token={token}', permanent=True)
+        return redirect(f'http://{BASE_URL}/?auth=new-password&uid={uidb64}&token={token}', permanent=True)
 
 urlpatterns = [
     path(
