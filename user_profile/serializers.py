@@ -1,6 +1,9 @@
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
-from dj_rest_auth.serializers import PasswordResetConfirmSerializer
+from dj_rest_auth.serializers import (
+    PasswordResetConfirmSerializer,
+    PasswordResetSerializer as _PasswordResetSerializer,
+)
 from django.utils import timezone
 from django.db.models import Count
 from django.utils.encoding import force_str
