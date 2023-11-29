@@ -171,6 +171,14 @@ class QuizCreateSerializer(serializers.ModelSerializer):
             )
             self.create_answers(current_question, answers_data)
 
+    def create_answers(self, question, answers):
+        for answer in answers:
+            current_answer = Answer.objects.create(
+                question=question, text=answer["text"]
+            )
+            if answer["is_true"]:
+                TrueAnswer.objects.create(question=question, answer=current_answer)
+                
     def validate_answers(self, question_text, answers):
         true_answer = len([answer for answer in answers if answer["is_true"]])
         if true_answer != 1:
@@ -182,13 +190,6 @@ class QuizCreateSerializer(serializers.ModelSerializer):
                 )
             raise serializers.ValidationError({"detail": detail})
 
-    def create_answers(self, question, answers):
-        for answer in answers:
-            current_answer = Answer.objects.create(
-                question=question, text=answer["text"]
-            )
-            if answer["is_true"]:
-                TrueAnswer.objects.create(question=question, answer=current_answer)
 
     class Meta:
         model = Quiz

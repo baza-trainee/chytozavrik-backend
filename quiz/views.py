@@ -475,6 +475,7 @@ class ChildAttemptListAPIView(ListAPIView):
 
 class ChildQuizzesListAPIView(ListAPIView):
     serializer_class = serializers.ChildQuizSerializer
+    pagination_class = ResultsSetPagination
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
@@ -491,17 +492,26 @@ class ChildQuizzesListAPIView(ListAPIView):
                 output_field=IntegerField(),
             )
         )
+        is_started: str = self.request.query_params.get("is_started", None)
+        is_completed: str = self.request.query_params.get("is_completed", False)
         reverse: str = self.request.query_params.get("reverse", None)
         search_query = self.request.query_params.get("search", None)
+        if is_started and is_started.lower() == "true":
+            quizzes = quizzes.filter(current_score__range=(0, 4))
+        if is_completed and is_completed.lower() == "true":
+            quizzes = quizzes.filter(current_score=5)
+            
         if search_query:
             quizzes = quizzes.filter(
                 Q(book__title__icontains=search_query)
                 | Q(book__author__icontains=search_query)
             )
+
         if reverse and reverse.lower() == "true":
             quizzes = quizzes.order_by("-current_score")
         else:
             quizzes = quizzes.order_by("current_score")
+
 
         return quizzes
 
@@ -518,6 +528,18 @@ class ChildQuizzesListAPIView(ListAPIView):
                 openapi.IN_QUERY,
                 description="Search query for title or author",
                 type=openapi.TYPE_STRING,
+            ),
+            openapi.Parameter(
+                "is_started",
+                openapi.IN_QUERY,
+                description="Filter by is_started parameter",
+                type=openapi.TYPE_BOOLEAN,
+            ),
+            openapi.Parameter(
+                "is_completed",
+                openapi.IN_QUERY,
+                description="Filter by is_completed parameter",
+                type=openapi.TYPE_BOOLEAN,
             ),
         ]
     )
