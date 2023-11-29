@@ -496,7 +496,7 @@ class ChildQuizzesListAPIView(ListAPIView):
         reverse: str = self.request.query_params.get("reverse", None)
         search_query = self.request.query_params.get("search", None)
         if is_started and is_started.lower() == "true":
-            quizzes = quizzes.filter(current_score__range=(1, 4))
+            quizzes = quizzes.filter(current_score__range=(0, 4))
         if is_completed and is_completed.lower() == "true":
             quizzes = quizzes.filter(current_score=5)
             
