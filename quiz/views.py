@@ -475,6 +475,7 @@ class ChildAttemptListAPIView(ListAPIView):
 
 class ChildQuizzesListAPIView(ListAPIView):
     serializer_class = serializers.ChildQuizSerializer
+    pagination_class = ResultsSetPagination
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
