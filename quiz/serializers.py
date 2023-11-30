@@ -3,6 +3,7 @@ from django.db import transaction
 from drf_yasg.utils import swagger_serializer_method
 from cloudinary import CloudinaryImage
 from django.utils import timezone
+from django.core.validators import FileExtensionValidator
 
 from .models import (
     Book,
@@ -178,7 +179,7 @@ class QuizCreateSerializer(serializers.ModelSerializer):
             )
             if answer["is_true"]:
                 TrueAnswer.objects.create(question=question, answer=current_answer)
-                
+
     def validate_answers(self, question_text, answers):
         true_answer = len([answer for answer in answers if answer["is_true"]])
         if true_answer != 1:
@@ -190,23 +191,24 @@ class QuizCreateSerializer(serializers.ModelSerializer):
                 )
             raise serializers.ValidationError({"detail": detail})
 
-
     class Meta:
         model = Quiz
         fields = "__all__"
 
-from django.core.validators import FileExtensionValidator
+
 class QuizRewardSerializer(serializers.ModelSerializer):
     reward = serializers.FileField(
-        validators=[FileExtensionValidator(allowed_extensions=['svg', 'gif', 'png', 'jpg'])]
+        validators=[
+            FileExtensionValidator(allowed_extensions=["svg", "png", "jpg", "webp"])
+        ]
     )
+
     class Meta:
         model = QuizReward
         fields = "__all__"
 
 
 class QuizRewardPatchSerializer(QuizRewardSerializer):
-
     class Meta:
         model = QuizReward
         fields = "__all__"

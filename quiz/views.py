@@ -500,7 +500,7 @@ class ChildQuizzesListAPIView(ListAPIView):
             quizzes = quizzes.filter(current_score__range=(0, 4))
         if is_completed and is_completed.lower() == "true":
             quizzes = quizzes.filter(current_score=5)
-            
+
         if search_query:
             quizzes = quizzes.filter(
                 Q(book__title__icontains=search_query)
@@ -511,7 +511,6 @@ class ChildQuizzesListAPIView(ListAPIView):
             quizzes = quizzes.order_by("-current_score")
         else:
             quizzes = quizzes.order_by("current_score")
-
 
         return quizzes
 

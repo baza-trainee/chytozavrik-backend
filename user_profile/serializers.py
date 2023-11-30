@@ -49,7 +49,7 @@ class UserSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             "password": {"write_only": True, "min_length": 8},
             "email": {"min_length": 3},
-            'is_superuser': {'read_only': True}
+            "is_superuser": {"read_only": True},
         }
 
     def validate(self, data):
