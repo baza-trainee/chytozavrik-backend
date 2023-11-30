@@ -57,7 +57,7 @@ class TrueAnswer(models.Model):
 
 class QuizReward(models.Model):
     quiz = models.OneToOneField(Quiz, on_delete=models.CASCADE, related_name="reward")
-    reward = models.ImageField(upload_to="rewards/")
+    reward = models.FileField(upload_to="rewards/")
 
     def __str__(self):
         return f"Reward for  quiz {self.quiz}"

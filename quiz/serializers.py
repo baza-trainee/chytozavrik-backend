@@ -195,14 +195,18 @@ class QuizCreateSerializer(serializers.ModelSerializer):
         model = Quiz
         fields = "__all__"
 
-
+from django.core.validators import FileExtensionValidator
 class QuizRewardSerializer(serializers.ModelSerializer):
+    reward = serializers.FileField(
+        validators=[FileExtensionValidator(allowed_extensions=['svg', 'gif', 'png', 'jpg'])]
+    )
     class Meta:
         model = QuizReward
         fields = "__all__"
 
 
-class QuizRewardPatchSerializer(serializers.ModelSerializer):
+class QuizRewardPatchSerializer(QuizRewardSerializer):
+
     class Meta:
         model = QuizReward
         fields = "__all__"
