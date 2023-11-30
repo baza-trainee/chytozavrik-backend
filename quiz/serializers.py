@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.db import transaction
 from drf_yasg.utils import swagger_serializer_method
-from cloudinary import CloudinaryImage
+from cloudinary import CloudinaryResource
 from django.utils import timezone
 from django.core.validators import FileExtensionValidator
 
@@ -233,7 +233,7 @@ class ChildRewardSerializer(serializers.ModelSerializer):
 
     def get_reward(self, obj):
         reward = str(obj.reward.reward)
-        cloudinary_url = CloudinaryImage(reward).build_url()
+        cloudinary_url = CloudinaryResource(reward, resource_type="raw").build_url()
         return str(cloudinary_url)
 
     class Meta:
