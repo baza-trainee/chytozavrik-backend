@@ -113,10 +113,10 @@ class ChildSerializer(serializers.ModelSerializer):
 
     def get_avatar_as_url(self, obj):
         avatar = str(obj.avatar.avatar)
-        media_url = self.context['request'].build_absolute_uri('/media/')
-        media_url += avatar
-        # cloudinary_url = CloudinaryResource(avatar, resource_type="raw").build_url()
-        return media_url
+        # media_url = self.context['request'].build_absolute_uri('/media/')
+        # media_url += avatar
+        cloudinary_url = CloudinaryResource(avatar, resource_type="raw").build_url()
+        return cloudinary_url
     
     def validate(self, attrs):
         user = self.context["request"].user
