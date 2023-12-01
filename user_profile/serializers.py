@@ -1,9 +1,9 @@
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from dj_rest_auth.serializers import (
-    PasswordResetConfirmSerializer,
-    PasswordResetSerializer as _PasswordResetSerializer,
+    PasswordResetConfirmSerializer
 )
+from cloudinary import CloudinaryResource
 from django.utils import timezone
 from django.db.models import Count
 from django.utils.encoding import force_str
@@ -109,7 +109,15 @@ class ChildSerializer(serializers.ModelSerializer):
     total_successful_attempts = serializers.SerializerMethodField()
     last_quiz_id = serializers.SerializerMethodField()
     quizzes_passed_today_max_score = serializers.SerializerMethodField()
+    avatar_as_url = serializers.SerializerMethodField()
 
+    def get_avatar_as_url(self, obj):
+        avatar = str(obj.avatar.avatar)
+        media_url = self.context['request'].build_absolute_uri('/media/')
+        media_url += avatar
+        # cloudinary_url = CloudinaryResource(avatar, resource_type="raw").build_url()
+        return media_url
+    
     def validate(self, attrs):
         user = self.context["request"].user
         children_count = Child.objects.filter(parent=user).count()
@@ -149,6 +157,7 @@ class ChildSerializer(serializers.ModelSerializer):
             "name",
             "registration_date",
             "avatar",
+            "avatar_as_url",
             "unique_quizzes_passed",
             "total_successful_attempts",
             "last_quiz_id",
