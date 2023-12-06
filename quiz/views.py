@@ -10,6 +10,7 @@ from drf_yasg.utils import swagger_auto_schema
 from cloudinary import CloudinaryImage
 from django.utils import timezone
 
+from chytozavrik.helpers import ResultsSetPagination
 from stats.models import MonthlyActiveChild
 from user_profile.models import Child
 from .models import (
@@ -22,7 +23,6 @@ from .models import (
     ChildReward,
 )
 from . import serializers
-from .pagination import ResultsSetPagination
 from user_profile.swagger_serializers import create_custom_response_serializer
 from .permissions import HasPermissionToViewChildRewards
 

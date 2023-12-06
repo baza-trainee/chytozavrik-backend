@@ -4,16 +4,16 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework import filters, status
 from rest_framework.response import Response
 
+from chytozavrik.helpers import ResultsSetPagination
 from .models import Partner
 from .serializers import PartnerPatchSerializer, PartnerSerializer
-from .pagination import PartnerPagination
 
 
 class PartnerViewSet(ModelViewSet):
     http_method_names = ["get", "post", "patch", "delete"]
     queryset = Partner.objects.order_by("id")
     parser_classes = (MultiPartParser, FormParser)
-    pagination_class = PartnerPagination
+    pagination_class = ResultsSetPagination
     filter_backends = [filters.SearchFilter]
     search_fields = ["name"]
 
