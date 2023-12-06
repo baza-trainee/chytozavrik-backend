@@ -16,11 +16,7 @@ class Command(BaseCommand):
         avatar_files = os.listdir(avatars_folder)
 
         if ChildAvatar.objects.count() >= 1:
-            self.stdout.write(
-                self.style.WARNING(
-                    f"Skipping '{file_name}' as an instance with this avatar already exists."
-                )
-            )
+            self.stdout.write(self.style.WARNING(f"Avatar is already exists."))
         else:
             for file_name in avatar_files:
                 # Check if an instance with this avatar already exists
