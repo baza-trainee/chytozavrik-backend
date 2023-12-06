@@ -1,8 +1,6 @@
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
-from dj_rest_auth.serializers import (
-    PasswordResetConfirmSerializer
-)
+from dj_rest_auth.serializers import PasswordResetConfirmSerializer
 from cloudinary import CloudinaryResource
 from django.utils import timezone
 from django.db.models import Count
@@ -117,7 +115,7 @@ class ChildSerializer(serializers.ModelSerializer):
         # media_url += avatar
         cloudinary_url = CloudinaryResource(avatar, resource_type="raw").build_url()
         return cloudinary_url
-    
+
     def validate(self, attrs):
         user = self.context["request"].user
         children_count = Child.objects.filter(parent=user).count()
