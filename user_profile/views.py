@@ -18,9 +18,10 @@ from rest_framework.generics import (
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 
+
+from chytozavrik.helpers import ResultsSetPagination
 from .models import User, ChildAvatar, Child
 from .permissions import IsUser
-from .pagination import ResultsSetPagination
 from .swagger_serializers import (
     UserSwaggerPostSerializer,
     UserSwaggerGetSerializer,
