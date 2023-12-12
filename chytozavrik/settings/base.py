@@ -105,6 +105,7 @@ DATABASES = {
         "PASSWORD": getenv("SQL_PASSWORD"),
         "HOST": getenv("SQL_HOST"),
         "PORT": getenv("SQL_PORT"),
+        'OPTIONS': {'sslmode': 'require'},
     }
 }
 
