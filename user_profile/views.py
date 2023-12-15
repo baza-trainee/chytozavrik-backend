@@ -208,7 +208,7 @@ class MeAPIView(generics.RetrieveAPIView):
 
 
 class ChildAvatarAPIView(generics.ListAPIView):
-    queryset = ChildAvatar.objects.all()
+    queryset = ChildAvatar.objects.order_by('id').all()
     serializer_class = ChildAvatarSerializer
 
     @swagger_auto_schema(responses={"200": AVATAR_SERIALIZER})
