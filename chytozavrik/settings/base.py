@@ -194,7 +194,11 @@ SWAGGER_SETTINGS = {
             "in": "header",
             "description": "Enter your token in the format: Bearer {token}",
         }
-    }
+    },
+    'DEFAULT_MODEL_RENDERING': 'example',
+    'USE_SESSION_AUTH': False,
+    'PERSIST_AUTH': True,
+    'DOC_EXPANSION': 'none',
 }
 
 
