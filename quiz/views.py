@@ -217,7 +217,7 @@ class RecommendationBookViewSet(
     http_method_names = ["get"]
 
     def get_queryset(self):
-        queryset = Book.objects.filter(is_recommended=True).order_by("id")
+        queryset = Book.objects.filter(is_recommended=True).order_by("-updated_at")
         search_term = self.request.query_params.get("search", None)
         if search_term:
             queryset = queryset.filter(
