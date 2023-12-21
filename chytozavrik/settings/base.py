@@ -116,16 +116,13 @@ REST_AUTH = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+        'NAME': 'chytozavrik.helpers.CustomPasswordLenValidator',
     },
     {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+        'NAME': 'chytozavrik.helpers.CustomPasswordEqLoginValidator',
     },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+        {
+        'NAME': 'chytozavrik.helpers.CustomPasswordTemplateValidator',
     },
 ]
 
