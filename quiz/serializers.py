@@ -112,6 +112,24 @@ class BookInfoSerializer(serializers.Serializer):
 class QuizInfoSerializer(serializers.ModelSerializer):
     questions = QuestionAdminSerializer(many=True)
     book_info = serializers.SerializerMethodField()
+    reward_id = serializers.SerializerMethodField()
+    reward_as_url = serializers.SerializerMethodField()
+
+    def get_reward_id(self, obj):
+        if getattr(obj, 'reward', None):
+            return obj.reward.id
+        else:
+            return None
+        
+    def get_reward_as_url(self, obj):
+        if getattr(obj, 'reward', None):
+            reward = str(obj.reward.reward)
+            # media_url = self.context['request'].build_absolute_uri('/media/')
+            # media_url += avatar
+            cloudinary_url = CloudinaryResource(reward, resource_type="raw").build_url()
+            return cloudinary_url
+        return None
+
 
     @swagger_serializer_method(serializer_or_field=BookInfoSerializer)
     def get_book_info(self, obj):

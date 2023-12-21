@@ -138,7 +138,6 @@ def get_child_attempt_by_quiz_api(request, child_id, quiz_id):
 class BookViewSet(ModelViewSet, GenericViewSet):
     http_method_names = ["get", "post", "patch", "delete"]
     pagination_class = ResultsSetPagination
-    # queryset = Book.objects.order_by("-updated_at")
     parser_classes = (MultiPartParser, FormParser)
     filter_backends = [filters.SearchFilter]
     search_fields = ["title", "author"]
