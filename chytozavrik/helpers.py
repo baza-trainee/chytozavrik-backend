@@ -16,7 +16,7 @@ class CustomPasswordTemplateValidator:
             r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=!])[A-Za-z\d@#$%^&+=!?]*$"
         )
         if not re.search(regex, password):
-            raise ValidationError({"password": self.message})
+            raise ValidationError(self.message)
 
     def get_help_text(self):
         return self.message

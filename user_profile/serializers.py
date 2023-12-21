@@ -58,15 +58,14 @@ class UserSerializer(serializers.ModelSerializer):
     def validate(self, data):
         password = data.get("password")
         password2 = data.pop("password2")
-
+        eq_err = []
         if password != password2:
             eq_err = serializers.ValidationError("Паролі не співпадають.").detail
         try:
             validate_password(password, self.instance)
         except PasswordValidationError as e:
-            raise serializers.ValidationError(
-                {"password": (eq_err if eq_err else []) + e.messages}
-            )
+            raise serializers.ValidationError({"detail": eq_err + e.messages})
+        return data
 
     def create(self, validated_data):
         user = User.objects.create_user(
