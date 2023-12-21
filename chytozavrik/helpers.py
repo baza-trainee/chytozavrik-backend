@@ -1,5 +1,49 @@
+import re
+
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.exceptions import NotFound
+from django.core.exceptions import ValidationError
+
+
+class CustomPasswordTemplateValidator:
+    message = (
+        "Пароль повинен містити мінімум 1 спецсимвол (#$%^&+=!?), 1 цифру та 1 велику літеру."
+        + " Усі літери повинні бути латиницею."
+    )
+
+    def validate(self, password, user=None):
+        regex = (
+            r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=!])[A-Za-z\d@#$%^&+=!?]*$"
+        )
+        if not re.search(regex, password):
+            raise ValidationError(self.message)
+
+    def get_help_text(self):
+        return self.message
+
+
+class CustomPasswordEqLoginValidator:
+    message = "Пароль не повинен бути схожий на логін."
+
+    def validate(self, password, user=None):
+        if user:
+            if user.email.split("@")[0].lower() in password.lower():
+                raise ValidationError(self.message)
+
+    def get_help_text(self):
+        return self.message
+
+
+class CustomPasswordLenValidator:
+    message = "Довжина пароля повинна бути мінімум 8 та максимум 64 символи."
+
+    def validate(self, password, user=None):
+        pass_len = len(password)
+        if not 8 <= pass_len <= 64:
+            raise ValidationError(self.message)
+
+    def get_help_text(self):
+        return self.message
 
 
 class ResultsSetPagination(PageNumberPagination):

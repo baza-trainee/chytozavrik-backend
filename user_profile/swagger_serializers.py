@@ -3,12 +3,8 @@ from .models import User
 
 
 class UserSwaggerPostSerializer(serializers.ModelSerializer):
-    password2 = serializers.CharField(
-        min_length=6, style={"input_type": "password"}, write_only=True
-    )
-    password = serializers.CharField(
-        min_length=6, style={"input_type": "password"}, write_only=True
-    )
+    password2 = serializers.CharField(style={"input_type": "password"}, write_only=True)
+    password = serializers.CharField(style={"input_type": "password"}, write_only=True)
     email = serializers.EmailField(
         min_length=3,
     )
