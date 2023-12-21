@@ -116,13 +116,13 @@ REST_AUTH = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'chytozavrik.helpers.CustomPasswordLenValidator',
+        "NAME": "chytozavrik.helpers.CustomPasswordLenValidator",
     },
     {
-        'NAME': 'chytozavrik.helpers.CustomPasswordEqLoginValidator',
+        "NAME": "chytozavrik.helpers.CustomPasswordEqLoginValidator",
     },
-        {
-        'NAME': 'chytozavrik.helpers.CustomPasswordTemplateValidator',
+    {
+        "NAME": "chytozavrik.helpers.CustomPasswordTemplateValidator",
     },
 ]
 

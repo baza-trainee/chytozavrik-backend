@@ -64,7 +64,9 @@ class UserSerializer(serializers.ModelSerializer):
         try:
             validate_password(password, self.instance)
         except PasswordValidationError as e:
-            raise serializers.ValidationError({"password": (eq_err if eq_err else []) + e.messages})
+            raise serializers.ValidationError(
+                {"password": (eq_err if eq_err else []) + e.messages}
+            )
 
     def create(self, validated_data):
         user = User.objects.create_user(
@@ -99,7 +101,9 @@ class ChildSerializer(serializers.ModelSerializer):
         user = self.context["request"].user
         children_count = Child.objects.filter(parent=user).count()
         if children_count >= 6:
-            raise serializers.ValidationError({"detail": "Не можна додати більше ніж 6 дітей."})
+            raise serializers.ValidationError(
+                {"detail": "Не можна додати більше ніж 6 дітей."}
+            )
         return attrs
 
     def get_total_successful_attempts(self, obj):
@@ -120,7 +124,9 @@ class ChildSerializer(serializers.ModelSerializer):
 
     def get_quizzes_passed_today_max_score(self, obj):
         today = timezone.now().date()
-        attempts = obj.childquizattempt_set.filter(last_attempt_date__date=today, score=Count("quiz__questions"))
+        attempts = obj.childquizattempt_set.filter(
+            last_attempt_date__date=today, score=Count("quiz__questions")
+        )
         return attempts.count()
 
     class Meta:
@@ -140,7 +146,9 @@ class ChildSerializer(serializers.ModelSerializer):
 
 class PatchChildSerializer(serializers.ModelSerializer):
     name = serializers.CharField(required=False)
-    avatar = serializers.PrimaryKeyRelatedField(queryset=ChildAvatar.objects.all(), required=False)
+    avatar = serializers.PrimaryKeyRelatedField(
+        queryset=ChildAvatar.objects.all(), required=False
+    )
 
     class Meta:
         model = Child

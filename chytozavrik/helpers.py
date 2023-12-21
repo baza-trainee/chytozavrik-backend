@@ -6,13 +6,17 @@ from django.core.exceptions import ValidationError
 
 
 class CustomPasswordTemplateValidator:
-    message = ("Пароль повинен містити мінімум 1 спецсимвол (#$%^&+=!?), 1 цифру та 1 велику літеру."\
-    +" Усі літери повинні бути латиницею.")
+    message = (
+        "Пароль повинен містити мінімум 1 спецсимвол (#$%^&+=!?), 1 цифру та 1 велику літеру."
+        + " Усі літери повинні бути латиницею."
+    )
 
     def validate(self, password, user=None):
-        regex = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=!])[A-Za-z\d@#$%^&+=!?]*$"
+        regex = (
+            r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=!])[A-Za-z\d@#$%^&+=!?]*$"
+        )
         if not re.search(regex, password):
-            raise ValidationError({"password" : self.message})
+            raise ValidationError({"password": self.message})
 
     def get_help_text(self):
         return self.message
