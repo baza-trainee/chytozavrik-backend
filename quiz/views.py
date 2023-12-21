@@ -151,7 +151,7 @@ class BookViewSet(ModelViewSet, GenericViewSet):
         if is_not_quiz:
             query = query.filter(quiz__isnull=True)
         return query
-    
+
     def get_permissions(self):
         if self.action == "list" or self.action == "retrieve":
             return [permissions.IsAuthenticated()]
@@ -375,7 +375,9 @@ class QuizViewSet(
                 "reward"
             ).get_or_create(child=child, quiz=quiz, reward=quiz.reward)
             reward = str(child_reward.reward.reward)
-            child_reward_url = CloudinaryResource(reward, resource_type="raw").build_url()
+            child_reward_url = CloudinaryResource(
+                reward, resource_type="raw"
+            ).build_url()
         return Response(submit_answer_response(is_answer_correct, child_reward_url))
 
     def get_permissions(self):
