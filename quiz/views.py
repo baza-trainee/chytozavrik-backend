@@ -138,16 +138,42 @@ def get_child_attempt_by_quiz_api(request, child_id, quiz_id):
 class BookViewSet(ModelViewSet, GenericViewSet):
     http_method_names = ["get", "post", "patch", "delete"]
     pagination_class = ResultsSetPagination
-    queryset = Book.objects.order_by("-updated_at")
+    # queryset = Book.objects.order_by("-updated_at")
     parser_classes = (MultiPartParser, FormParser)
     filter_backends = [filters.SearchFilter]
     search_fields = ["title", "author"]
 
+    def get_queryset(self):
+        is_recommended: str = self.request.query_params.get("is_recommended", None)
+        is_not_quiz: str = self.request.query_params.get("is_not_quiz", None)
+        query = Book.objects.order_by("-updated_at")
+        if is_recommended:
+            query = query.filter(is_recommended=True)
+        if is_not_quiz:
+            query = query.filter(quiz__isnull=True)
+        return query
+    
     def get_permissions(self):
         if self.action == "list" or self.action == "retrieve":
             return [permissions.IsAuthenticated()]
         return [permissions.IsAdminUser()]
 
+    @swagger_auto_schema(
+        manual_parameters=[
+            openapi.Parameter(
+                "is_recommended",
+                openapi.IN_QUERY,
+                description="filter by is_recommended state",
+                type=openapi.TYPE_BOOLEAN,
+            ),
+            openapi.Parameter(
+                "is_not_quiz",
+                openapi.IN_QUERY,
+                description="Filter by not is_quiz state",
+                type=openapi.TYPE_BOOLEAN,
+            ),
+        ]
+    )
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
 

@@ -6,9 +6,9 @@ services:
     image: postgres:latest
     container_name: postgres_db
     ports:
-      - "5432:5432"
+      - "$SQL_PORT:5432"
     environment:
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=admin
-      - POSTGRES_DB=chitozavrik
+      - POSTGRES_USER=$SQL_USER
+      - POSTGRES_PASSWORD=$SQL_PASSWORD
+      - POSTGRES_DB=$SQL_DATABASE
     restart: always
