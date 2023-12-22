@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "debug_toolbar",
     "rest_framework",
     "rest_framework_simplejwt",
     "rest_framework_simplejwt.token_blacklist",
@@ -61,6 +62,10 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
 ]
 
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
@@ -71,6 +76,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "user_profile.middleware.CustomResponseMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "chytozavrik.urls"
@@ -195,10 +201,10 @@ SWAGGER_SETTINGS = {
             "description": "Enter your token in the format: Bearer {token}",
         }
     },
-    'DEFAULT_MODEL_RENDERING': 'example',
-    'USE_SESSION_AUTH': False,
-    'PERSIST_AUTH': True,
-    'DOC_EXPANSION': 'none',
+    "DEFAULT_MODEL_RENDERING": "example",
+    "USE_SESSION_AUTH": False,
+    "PERSIST_AUTH": True,
+    "DOC_EXPANSION": "none",
 }
 
 
@@ -244,3 +250,29 @@ CLOUDINARY_STORAGE = {
     "API_KEY": getenv("API_KEY"),
     "API_SECRET": getenv("API_SECRET"),
 }
+
+
+CACHES = {
+    "default": {
+        # 'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": f"redis://{getenv('REDIS_HOST')}:{getenv('REDIS_PORT')}",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "MAX_MEMORY_BYTES": 100 * 1024 * 1024,
+            "PASSWORD": getenv('REDIS_PASSWORD'),
+        },
+    }
+}
+
+
+TIME_HALF_DAY = 60 * 60 * 12
+
+# REDIS_HOST = "localhost"
+# REDIS_PASSWORD = getenv("REDIS_PASSWORD")
+# REDIS_USERNAME = getenv("REDIS_USERNAME")
+
+
+CONACTS_CACHE_NAME = "contacts_cache"
+AVATARS_CACHE_NAME = "avatars_cache"
+DOCUMENTS_CACHE_NAME = "document_list_cache"

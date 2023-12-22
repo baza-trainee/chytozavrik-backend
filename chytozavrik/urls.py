@@ -27,6 +27,7 @@ from .views import MyTokenObtainPairView
 
 urlpatterns = [
     # path("admin/", admin.site.urls),
+    path("__debug__/", include("debug_toolbar.urls")),
     path("api/v1/", include("user_profile.urls")),
     path("api/v1/", include("quiz.urls")),
     path("api/v1/", include("contacts.urls")),

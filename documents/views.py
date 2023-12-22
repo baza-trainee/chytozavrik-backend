@@ -5,7 +5,10 @@ from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import AllowAny, IsAdminUser
 from drf_yasg.utils import swagger_auto_schema
+from django.core.cache import cache
 
+from chytozavrik.settings import base
+from chytozavrik.settings.base import TIME_HALF_DAY
 from .models import Document
 from .serializers import DocumentSerializer
 
@@ -22,14 +25,28 @@ class DocumentLinkViewSet(viewsets.ViewSet):
             "site-rules": 2,
         }
         try:
-            document = Document.objects.get(id=document_ids[document_slug])
+            document = self.get_cached_document(document_slug)
+            if not document:
+                document = Document.objects.get(id=document_ids[document_slug])
+                self.cache_document(document_slug, document)
+                
             response = HttpResponse(document.file, content_type="application/pdf")
             response["Content-Disposition"] = f'inline; filename="{document_slug}.pdf"'
             return response
-        except Exception:
+        except Document.DoesNotExist:
             return Response(
                 {"detail": "Файл не знайдено."}, status=status.HTTP_404_NOT_FOUND
             )
+
+    def get_cached_document(self, document_slug):
+        document_cache_key = f"document_{document_slug}"
+        return cache.get(document_cache_key)
+
+    def cache_document(self, document_slug, document):
+        document_cache_key = f"document_{document_slug}"
+        print(document_cache_key)
+        cache.set(document_cache_key, document, timeout=TIME_HALF_DAY)
+
 
 
 class DocumentViewSet(
@@ -48,11 +65,18 @@ class DocumentViewSet(
         return permission_classes.get(self.request.method, [])
 
     def list(self, request):
+        
+        cached_data = cache.get(base.DOCUMENTS_CACHE_NAME)
+        if cached_data:
+            return Response(cached_data, status=status.HTTP_200_OK)
+        
         queryset = self.get_queryset()
         serialized_data = self.get_serializer(queryset, many=True).data
 
         for item in serialized_data:
             item["file"] = self.get_file_url(item["id"])
+            
+        cache.set(base.DOCUMENTS_CACHE_NAME, {"data": serialized_data}, timeout=TIME_HALF_DAY)
 
         return Response({"data": serialized_data}, status=status.HTTP_200_OK)
 
@@ -86,6 +110,8 @@ class DocumentViewSet(
             if instance.file:
                 instance.file = new_file_binary
                 instance.save()
+                
+                cache.delete(base.DOCUMENTS_CACHE_NAME)
 
             updated_object = self.get_object()
             serialized_object = self.serializer_class(updated_object).data
