@@ -256,14 +256,44 @@ CACHES = {
     "default": {
         # 'BACKEND': 'django.core.cache.backends.redis.RedisCache',
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": f"redis://{getenv('REDIS_HOST')}:{getenv('REDIS_PORT')}",
+        "LOCATION": f"redis://{getenv('REDIS_HOST')}:{getenv('REDIS_PORT')}/0",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            "MAX_MEMORY_BYTES": 100 * 1024 * 1024,
-            "PASSWORD": getenv('REDIS_PASSWORD'),
+            "MAX_MEMORY_BYTES": 10 * 1024 * 1024,
+            "PASSWORD": getenv("REDIS_PASSWORD"),
         },
-    }
+    },
+    "partner_cache": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": f"redis://{getenv('REDIS_HOST')}:{getenv('REDIS_PORT')}/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "MAX_MEMORY_BYTES": 10 * 1024 * 1024,
+            "PASSWORD": getenv("REDIS_PASSWORD"),
+        },
+        "KEY_PREFIX": "partner_cache:",  # Префикс для партнеров
+    },
 }
+
+# CACHES = {
+#     'partner_cache': {
+#         'BACKEND': 'django_redis.cache.RedisCache',
+#         'LOCATION': 'redis://localhost:6379/1',
+#         'OPTIONS': {
+#             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+#         },
+#         'KEY_PREFIX': 'partner_cache:',  # Префикс для партнеров
+#     },
+#     'other_cache': {
+#         'BACKEND': 'django_redis.cache.RedisCache',
+#         'LOCATION': 'redis://localhost:6379/2',
+#         'OPTIONS': {
+#             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+#         },
+#         'KEY_PREFIX': 'other_cache:',  # Другой префикс для другой части кеша
+#     },
+#     # Добавьте другие конфигурации кешей при необходимости
+# }
 
 
 TIME_HALF_DAY = 60 * 60 * 12

@@ -9,7 +9,9 @@ from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from cloudinary import CloudinaryResource
 from django.utils import timezone
+from django.core.cache import cache
 
+from chytozavrik.settings.base import TIME_HALF_DAY
 from chytozavrik.helpers import ResultsSetPagination
 from stats.models import MonthlyActiveChild
 from user_profile.models import Child
@@ -149,7 +151,15 @@ class BookViewSet(ModelViewSet, GenericViewSet):
         return [permissions.IsAdminUser()]
 
     def list(self, request, *args, **kwargs):
-        return super().list(request, *args, **kwargs)
+        cache_key = "book_list"
+        cached_data = cache.get(cache_key)
+        if cached_data:
+            return Response(cached_data)
+
+        response = super().list(request, *args, **kwargs)
+        if response.status_code == status.HTTP_200_OK:
+            cache.set(cache_key, response.data, TIME_HALF_DAY)
+        return response
 
     @swagger_auto_schema(responses={201: BOOK_SWAGGER_SERIALIZER})
     def create(self, request, *args, **kwargs):
@@ -166,11 +176,22 @@ class BookViewSet(ModelViewSet, GenericViewSet):
                 },
                 status=status.HTTP_409_CONFLICT,
             )
-        return super().create(request, *args, **kwargs)
+        response = super().create(request, *args, **kwargs)
+        if response.status_code == status.HTTP_201_CREATED:
+            cache.delete("book_list")
+        return response
 
     @swagger_auto_schema(responses={200: BOOK_SWAGGER_SERIALIZER})
     def retrieve(self, request, *args, **kwargs):
-        return super().retrieve(request, *args, **kwargs)
+        cache_key = f'book_{kwargs["pk"]}'
+        cached_data = cache.get(cache_key)
+        if cached_data:
+            return Response(cached_data)
+
+        response = super().retrieve(request, *args, **kwargs)
+        if response.status_code == status.HTTP_200_OK:
+            cache.set(cache_key, response.data, TIME_HALF_DAY)
+        return response
 
     @swagger_auto_schema(responses={200: BOOK_SWAGGER_SERIALIZER})
     def update(self, request, *args, **kwargs):
@@ -184,23 +205,34 @@ class BookViewSet(ModelViewSet, GenericViewSet):
         #             "detail": "Книга не може бути рекомендована, оскільки за нею вже закріплена вікторина."
         #         }
         #     )
-        return super().update(request, *args, **kwargs)
+        response = super().update(request, *args, **kwargs)
+        if response.status_code == status.HTTP_200_OK:
+            cache.delete("book_list")
+            cache.delete(f'book_{kwargs["pk"]}')
+        return response
+    
+    # @swagger_auto_schema(responses={200: BOOK_SWAGGER_SERIALIZER})
+    # def partial_update(self, request, *args, **kwargs):
+    #     # book_instance = self.get_object()
+    #     # if (
+    #     #     request.data.get("is_recommended") == "true"
+    #     #     and Quiz.objects.filter(book=book_instance).exists()
+    #     # ):
+    #     #     raise ValidationError(
+    #     #         {
+    #     #             "detail": "Книга не може бути рекомендована, оскільки за нею вже закріплена вікторина."
+    #     #         }
+    #     #     )
 
-    @swagger_auto_schema(responses={200: BOOK_SWAGGER_SERIALIZER})
-    def partial_update(self, request, *args, **kwargs):
-        # book_instance = self.get_object()
-        # if (
-        #     request.data.get("is_recommended") == "true"
-        #     and Quiz.objects.filter(book=book_instance).exists()
-        # ):
-        #     raise ValidationError(
-        #         {
-        #             "detail": "Книга не може бути рекомендована, оскільки за нею вже закріплена вікторина."
-        #         }
-        #     )
-
-        return super().partial_update(request, *args, **kwargs)
-
+    #     return super().partial_update(request, *args, **kwargs)
+    
+    def destroy(self, request, *args, **kwargs):
+        response = super().destroy(request, *args, **kwargs)
+        if response.status_code == status.HTTP_204_NO_CONTENT:
+            cache.delete("book_list")
+            cache.delete(f'book_{kwargs["pk"]}')
+        return response
+    
     def get_serializer_class(self):
         if self.action == "partial_update":
             return serializers.BookPatchSerializer
@@ -217,6 +249,12 @@ class RecommendationBookViewSet(
     http_method_names = ["get"]
 
     def get_queryset(self):
+        
+        cache_key = "book_recomendation_list"
+        cached_data = cache.get(cache_key)
+        if cached_data:
+            return Response(cached_data)
+        
         queryset = Book.objects.filter(is_recommended=True).order_by("-updated_at")
         search_term = self.request.query_params.get("search", None)
         if search_term:
@@ -350,7 +388,9 @@ class QuizViewSet(
                 "reward"
             ).get_or_create(child=child, quiz=quiz, reward=quiz.reward)
             reward = str(child_reward.reward.reward)
-            child_reward_url = CloudinaryResource(reward, resource_type="raw").build_url()
+            child_reward_url = CloudinaryResource(
+                reward, resource_type="raw"
+            ).build_url()
         return Response(submit_answer_response(is_answer_correct, child_reward_url))
 
     def get_permissions(self):
