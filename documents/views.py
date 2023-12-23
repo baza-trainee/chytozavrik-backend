@@ -29,7 +29,7 @@ class DocumentLinkViewSet(viewsets.ViewSet):
             if not document:
                 document = Document.objects.get(id=document_ids[document_slug])
                 self.cache_document(document_slug, document)
-                
+
             response = HttpResponse(document.file, content_type="application/pdf")
             response["Content-Disposition"] = f'inline; filename="{document_slug}.pdf"'
             return response
@@ -48,7 +48,6 @@ class DocumentLinkViewSet(viewsets.ViewSet):
         cache.set(document_cache_key, document, timeout=TIME_HALF_DAY)
 
 
-
 class DocumentViewSet(
     mixins.UpdateModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet
 ):
@@ -65,18 +64,19 @@ class DocumentViewSet(
         return permission_classes.get(self.request.method, [])
 
     def list(self, request):
-        
         cached_data = cache.get(base.DOCUMENTS_CACHE_NAME)
         if cached_data:
             return Response(cached_data, status=status.HTTP_200_OK)
-        
+
         queryset = self.get_queryset()
         serialized_data = self.get_serializer(queryset, many=True).data
 
         for item in serialized_data:
             item["file"] = self.get_file_url(item["id"])
-            
-        cache.set(base.DOCUMENTS_CACHE_NAME, {"data": serialized_data}, timeout=TIME_HALF_DAY)
+
+        cache.set(
+            base.DOCUMENTS_CACHE_NAME, {"data": serialized_data}, timeout=TIME_HALF_DAY
+        )
 
         return Response({"data": serialized_data}, status=status.HTTP_200_OK)
 
@@ -106,11 +106,15 @@ class DocumentViewSet(
                     {"detail": "Розмір файлу не повинен перевищувати 30 мегабайт."},
                     status=status.HTTP_400_BAD_REQUEST,
                 )
+            document_slug = (
+                "privacy-policy" if kwargs.get("pk") == "1" else "site-rules"
+            )
 
             if instance.file:
                 instance.file = new_file_binary
                 instance.save()
-                
+
+                cache.delete(f"document_{document_slug}")
                 cache.delete(base.DOCUMENTS_CACHE_NAME)
 
             updated_object = self.get_object()

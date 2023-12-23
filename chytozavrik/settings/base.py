@@ -259,7 +259,7 @@ CACHES = {
         "LOCATION": f"redis://{getenv('REDIS_HOST')}:{getenv('REDIS_PORT')}/0",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            "MAX_MEMORY_BYTES": 10 * 1024 * 1024,
+            "MAX_MEMORY_BYTES": 30 * 1024 * 1024,
             "PASSWORD": getenv("REDIS_PASSWORD"),
         },
     },
@@ -268,10 +268,30 @@ CACHES = {
         "LOCATION": f"redis://{getenv('REDIS_HOST')}:{getenv('REDIS_PORT')}/1",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            "MAX_MEMORY_BYTES": 10 * 1024 * 1024,
+            "MAX_MEMORY_BYTES": 15 * 1024 ** 2,
             "PASSWORD": getenv("REDIS_PASSWORD"),
         },
-        "KEY_PREFIX": "partner_cache:",  # Префикс для партнеров
+        "KEY_PREFIX": "partner_cache:",  
+    },
+    "book_cache": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": f"redis://{getenv('REDIS_HOST')}:{getenv('REDIS_PORT')}/2",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "MAX_MEMORY_BYTES": 15 * 1024 ** 2,
+            "PASSWORD": getenv("REDIS_PASSWORD"),
+        },
+        "KEY_PREFIX": "book_cache:",  
+    },
+    "book_recommended_cache": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": f"redis://{getenv('REDIS_HOST')}:{getenv('REDIS_PORT')}/3",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "MAX_MEMORY_BYTES": 15 * 1024 ** 2,
+            "PASSWORD": getenv("REDIS_PASSWORD"),
+        },
+        "KEY_PREFIX": "book_recommended_cache:",  
     },
 }
 

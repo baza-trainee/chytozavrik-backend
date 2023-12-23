@@ -3,8 +3,7 @@ from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework import filters, status
 from rest_framework.response import Response
-from django.core.cache import cache
-from django.core.cache import caches
+from django.core.cache import cache, caches
 
 from chytozavrik.helpers import ResultsSetPagination
 from .models import Partner
@@ -19,8 +18,7 @@ class PartnerViewSet(ModelViewSet):
     pagination_class = ResultsSetPagination
     filter_backends = [filters.SearchFilter]
     search_fields = ["name"]
-    partner_cache = caches['partner_cache']
-
+    partner_cache = caches["partner_cache"]
 
     def get_permissions(self):
         if self.action == "list" or self.action == "retrieve":
@@ -42,25 +40,7 @@ class PartnerViewSet(ModelViewSet):
     #         )
     #     return super().create(request, *args, **kwargs)
 
-    # def list(self, request, *args, **kwargs):
-    #     search_query = request.query_params.get("search", None)
-    #     if search_query:
-    #         cache_key = f"partner_search_{search_query}"
-    #     else:
-    #         cache_key = "partner_list"
-
-    #     cached_data = cache.get(cache_key)
-    #     if cached_data:
-    #         return Response(cached_data)
-
-    #     response = super().list(request, *args, **kwargs)
-    #     if response.status_code == status.HTTP_200_OK:
-            
-    #         cache.set(cache_key, response.data, TIME_HALF_DAY)
-    #     return response
-    
     def list(self, request, *args, **kwargs):
-        
         search_query = request.query_params.get("search", None)
         if search_query:
             cache_key = f"partner_search_{search_query}"
@@ -68,7 +48,6 @@ class PartnerViewSet(ModelViewSet):
         else:
             cache_key = "partner_list"
             cached_data = cache.get(cache_key)
-
 
         if cached_data:
             return Response(cached_data)
@@ -112,14 +91,14 @@ class PartnerViewSet(ModelViewSet):
     def update(self, request, *args, **kwargs):
         response = super().update(request, *args, **kwargs)
         if response.status_code == status.HTTP_200_OK:
-            cache.delete_many(['partner_list', f'partner_{kwargs["pk"]}'])
+            cache.delete_many(["partner_list", f'partner_{kwargs["pk"]}'])
             self.partner_cache.clear()
         return response
 
     def destroy(self, request, *args, **kwargs):
         response = super().destroy(request, *args, **kwargs)
         if response.status_code == status.HTTP_204_NO_CONTENT:
-            cache.delete_many(['partner_list', f'partner_{kwargs["pk"]}'])
+            cache.delete_many(["partner_list", f'partner_{kwargs["pk"]}'])
             self.partner_cache.clear()
         return response
 

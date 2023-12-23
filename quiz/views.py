@@ -9,7 +9,7 @@ from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from cloudinary import CloudinaryResource
 from django.utils import timezone
-from django.core.cache import cache
+from django.core.cache import cache, caches
 
 from chytozavrik.settings.base import TIME_HALF_DAY
 from chytozavrik.helpers import ResultsSetPagination
@@ -144,6 +144,9 @@ class BookViewSet(ModelViewSet, GenericViewSet):
     parser_classes = (MultiPartParser, FormParser)
     filter_backends = [filters.SearchFilter]
     search_fields = ["title", "author"]
+    book_cache = caches["book_cache"]
+    book_recommended_cache = caches["book_recommended_cache"]
+
 
     def get_permissions(self):
         if self.action == "list" or self.action == "retrieve":
@@ -151,14 +154,23 @@ class BookViewSet(ModelViewSet, GenericViewSet):
         return [permissions.IsAdminUser()]
 
     def list(self, request, *args, **kwargs):
-        cache_key = "book_list"
-        cached_data = cache.get(cache_key)
+        search_query = request.query_params.get("search", None)
+        if search_query:
+            cache_key = f"book_search_{search_query}"
+            cached_data = self.book_cache.get(cache_key)
+        else:
+            cache_key = "book_list"
+            cached_data = cache.get(cache_key)
+
         if cached_data:
             return Response(cached_data)
 
         response = super().list(request, *args, **kwargs)
         if response.status_code == status.HTTP_200_OK:
-            cache.set(cache_key, response.data, TIME_HALF_DAY)
+            if cache_key.startswith("book_search_"):
+                self.book_cache.set(cache_key, response.data, TIME_HALF_DAY)
+            else:
+                cache.set(cache_key, response.data, TIME_HALF_DAY)
         return response
 
     @swagger_auto_schema(responses={201: BOOK_SWAGGER_SERIALIZER})
@@ -178,7 +190,7 @@ class BookViewSet(ModelViewSet, GenericViewSet):
             )
         response = super().create(request, *args, **kwargs)
         if response.status_code == status.HTTP_201_CREATED:
-            cache.delete("book_list")
+            cache.delete_many(["book_list", "book_recommended_list"])
         return response
 
     @swagger_auto_schema(responses={200: BOOK_SWAGGER_SERIALIZER})
@@ -207,10 +219,11 @@ class BookViewSet(ModelViewSet, GenericViewSet):
         #     )
         response = super().update(request, *args, **kwargs)
         if response.status_code == status.HTTP_200_OK:
-            cache.delete("book_list")
-            cache.delete(f'book_{kwargs["pk"]}')
+            cache.delete_many(["book_list", f'book_{kwargs["pk"]}', "book_recommended_list"])
+            self.book_cache.clear()
+            self.book_recommended_cache.clear()
         return response
-    
+
     # @swagger_auto_schema(responses={200: BOOK_SWAGGER_SERIALIZER})
     # def partial_update(self, request, *args, **kwargs):
     #     # book_instance = self.get_object()
@@ -225,14 +238,16 @@ class BookViewSet(ModelViewSet, GenericViewSet):
     #     #     )
 
     #     return super().partial_update(request, *args, **kwargs)
-    
+
     def destroy(self, request, *args, **kwargs):
         response = super().destroy(request, *args, **kwargs)
         if response.status_code == status.HTTP_204_NO_CONTENT:
-            cache.delete("book_list")
-            cache.delete(f'book_{kwargs["pk"]}')
+            cache.delete_many(["book_list", f'book_{kwargs["pk"]}', "book_recommended_list"])
+            self.book_cache.clear()
+            self.book_recommended_cache.clear()
+
         return response
-    
+
     def get_serializer_class(self):
         if self.action == "partial_update":
             return serializers.BookPatchSerializer
@@ -247,20 +262,37 @@ class RecommendationBookViewSet(
     filter_backends = [filters.SearchFilter]
     search_fields = ["title", "author"]
     http_method_names = ["get"]
+    book_recommended_cache = caches["book_recommended_cache"]
 
-    def get_queryset(self):
-        
-        cache_key = "book_recomendation_list"
-        cached_data = cache.get(cache_key)
+    def list(self, request, *args, **kwargs):
+        search_query = request.query_params.get("search", None)
+        if search_query:
+            cache_key = f"book_rec_search_{search_query}"
+            cached_data = self.book_recommended_cache.get(cache_key)
+        else:
+            cache_key = "book_recommended_list"
+            cached_data = cache.get(cache_key)
+
         if cached_data:
             return Response(cached_data)
+
+        response = super().list(request, *args, **kwargs)
         
+        if cache_key.startswith("book_rec_search_"):
+            self.book_recommended_cache.set(cache_key, response.data, TIME_HALF_DAY)
+        else:
+            cache.set(cache_key, response.data, TIME_HALF_DAY)
+        return response
+
+    def get_queryset(self):
         queryset = Book.objects.filter(is_recommended=True).order_by("-updated_at")
-        search_term = self.request.query_params.get("search", None)
-        if search_term:
+        search_query = self.request.query_params.get("search", None)
+
+        if search_query:
             queryset = queryset.filter(
-                Q(title__icontains=search_term) | Q(author__icontains=search_term)
+                Q(title__icontains=search_query) | Q(author__icontains=search_query)
             )
+
         return queryset
 
     def get_serializer_class(self):
