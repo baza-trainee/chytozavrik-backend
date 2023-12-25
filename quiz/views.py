@@ -146,9 +146,9 @@ class BookViewSet(ModelViewSet, GenericViewSet):
         is_recommended: str = self.request.query_params.get("is_recommended", None)
         is_not_quiz: str = self.request.query_params.get("is_not_quiz", None)
         query = Book.objects.order_by("-updated_at")
-        if is_recommended:
+        if is_recommended and is_recommended.lower() == "true":
             query = query.filter(is_recommended=True)
-        if is_not_quiz:
+        if is_not_quiz and is_not_quiz.lower() == "true":
             query = query.filter(quiz__isnull=True)
         return query
 
@@ -162,7 +162,7 @@ class BookViewSet(ModelViewSet, GenericViewSet):
             openapi.Parameter(
                 "is_recommended",
                 openapi.IN_QUERY,
-                description="filter by is_recommended state",
+                description="Filter by is_recommended state",
                 type=openapi.TYPE_BOOLEAN,
             ),
             openapi.Parameter(
