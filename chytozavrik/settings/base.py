@@ -293,27 +293,17 @@ CACHES = {
         },
         "KEY_PREFIX": "book_recommended_cache:",  
     },
+    "quiz_cache": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": f"redis://{getenv('REDIS_HOST')}:{getenv('REDIS_PORT')}/4",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "MAX_MEMORY_BYTES": 15 * 1024 ** 2,
+            "PASSWORD": getenv("REDIS_PASSWORD"),
+        },
+        "KEY_PREFIX": "quiz_cache:",  
+    },
 }
-
-# CACHES = {
-#     'partner_cache': {
-#         'BACKEND': 'django_redis.cache.RedisCache',
-#         'LOCATION': 'redis://localhost:6379/1',
-#         'OPTIONS': {
-#             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-#         },
-#         'KEY_PREFIX': 'partner_cache:',  # Префикс для партнеров
-#     },
-#     'other_cache': {
-#         'BACKEND': 'django_redis.cache.RedisCache',
-#         'LOCATION': 'redis://localhost:6379/2',
-#         'OPTIONS': {
-#             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-#         },
-#         'KEY_PREFIX': 'other_cache:',  # Другой префикс для другой части кеша
-#     },
-#     # Добавьте другие конфигурации кешей при необходимости
-# }
 
 
 TIME_HALF_DAY = 60 * 60 * 12

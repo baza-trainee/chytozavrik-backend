@@ -86,6 +86,8 @@ class PartnerViewSet(ModelViewSet):
         response = super().create(request, *args, **kwargs)
         if response.status_code == status.HTTP_201_CREATED:
             cache.delete("partner_list")
+            self.partner_cache.clear()
+
         return response
 
     def update(self, request, *args, **kwargs):
