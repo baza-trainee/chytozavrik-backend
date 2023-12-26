@@ -45,10 +45,15 @@ class UserSerializer(serializers.ModelSerializer):
         style={"input_type": "password"},
         write_only=True,
     )
+    childs = serializers.SerializerMethodField()
+    
+    def get_childs(self, obj):
+        childs = Child.objects.filter(parent=obj.id).values_list('name', flat=True)
+        return childs
 
     class Meta:
         model = User
-        fields = ["id", "email", "is_superuser", "password", "password2"]
+        fields = ["id", "email", "is_superuser", "password", "password2", "childs"]
         extra_kwargs = {
             "password": {"write_only": True},
             "email": {"min_length": 3},
