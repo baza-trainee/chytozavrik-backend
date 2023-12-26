@@ -308,10 +308,6 @@ CACHES = {
 
 TIME_HALF_DAY = 60 * 60 * 12
 
-# REDIS_HOST = "localhost"
-# REDIS_PASSWORD = getenv("REDIS_PASSWORD")
-# REDIS_USERNAME = getenv("REDIS_USERNAME")
-
 
 CONACTS_CACHE_NAME = "contacts_cache"
 AVATARS_CACHE_NAME = "avatars_cache"

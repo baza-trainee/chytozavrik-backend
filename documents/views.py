@@ -44,7 +44,6 @@ class DocumentLinkViewSet(viewsets.ViewSet):
 
     def cache_document(self, document_slug, document):
         document_cache_key = f"document_{document_slug}"
-        print(document_cache_key)
         cache.set(document_cache_key, document, timeout=TIME_HALF_DAY)
 
 
