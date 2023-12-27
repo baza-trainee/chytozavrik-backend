@@ -70,7 +70,7 @@ class QuizStatisticsView(views.APIView):
                 {
                     "quiz_title": quiz.book.title,
                     "num_unique_children": quiz.num_children,
-                    "total_attempts": quiz.total_attempts_sum,
+                    "total_attempts": quiz.total_attempts_sum or 0,
                 }
             )
 
