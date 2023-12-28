@@ -17,7 +17,7 @@ class User(AbstractUser):
 
 
 class ChildAvatar(models.Model):
-    avatar = models.ImageField()
+    avatar = models.ImageField(upload_to="child_avatars/")
 
     def __str__(self):
         return str(self.avatar)

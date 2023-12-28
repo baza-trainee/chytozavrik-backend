@@ -4,6 +4,7 @@ from drf_yasg.utils import swagger_serializer_method
 from cloudinary import CloudinaryResource
 from django.utils import timezone
 from django.core.validators import FileExtensionValidator
+from django.conf import settings
 
 from .models import (
     Book,
@@ -124,10 +125,14 @@ class QuizInfoSerializer(serializers.ModelSerializer):
     def get_reward_as_url(self, obj):
         if getattr(obj, "reward", None):
             reward = str(obj.reward.reward)
-            # media_url = self.context['request'].build_absolute_uri('/media/')
-            # media_url += avatar
-            cloudinary_url = CloudinaryResource(reward, resource_type="raw").build_url()
-            return cloudinary_url
+            media_url = self.context["request"].build_absolute_uri("/media/")
+            media_url += reward
+            if (
+                not settings.DEFAULT_FILE_STORAGE
+                == "django.core.files.storage.FileSystemStorage"
+            ):
+                media_url = CloudinaryResource(reward, resource_type="raw").build_url()
+            return media_url
         return None
 
     @swagger_serializer_method(serializer_or_field=BookInfoSerializer)
@@ -250,8 +255,14 @@ class ChildRewardSerializer(serializers.ModelSerializer):
 
     def get_reward(self, obj):
         reward = str(obj.reward.reward)
-        cloudinary_url = CloudinaryResource(reward, resource_type="raw").build_url()
-        return str(cloudinary_url)
+        media_url = self.context["request"].build_absolute_uri("/media/")
+        media_url += reward
+        if (
+            not settings.DEFAULT_FILE_STORAGE
+            == "django.core.files.storage.FileSystemStorage"
+        ):
+            media_url = CloudinaryResource(reward, resource_type="raw").build_url()
+        return media_url
 
     class Meta:
         model = ChildReward

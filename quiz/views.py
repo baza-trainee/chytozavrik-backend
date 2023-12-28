@@ -1,3 +1,4 @@
+from django.conf import settings
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from rest_framework import mixins, filters, permissions, status
@@ -199,31 +200,10 @@ class BookViewSet(ModelViewSet, GenericViewSet):
 
     @swagger_auto_schema(responses={200: BOOK_SWAGGER_SERIALIZER})
     def update(self, request, *args, **kwargs):
-        # book_instance = self.get_object()
-        # if (
-        #     request.data.get("is_recommended") == "true"
-        #     and Quiz.objects.filter(book=book_instance).exists()
-        # ):
-        #     raise ValidationError(
-        #         {
-        #             "detail": "Книга не може бути рекомендована, оскільки за нею вже закріплена вікторина."
-        #         }
-        #     )
         return super().update(request, *args, **kwargs)
 
     @swagger_auto_schema(responses={200: BOOK_SWAGGER_SERIALIZER})
     def partial_update(self, request, *args, **kwargs):
-        # book_instance = self.get_object()
-        # if (
-        #     request.data.get("is_recommended") == "true"
-        #     and Quiz.objects.filter(book=book_instance).exists()
-        # ):
-        #     raise ValidationError(
-        #         {
-        #             "detail": "Книга не може бути рекомендована, оскільки за нею вже закріплена вікторина."
-        #         }
-        #     )
-
         return super().partial_update(request, *args, **kwargs)
 
     def get_serializer_class(self):
@@ -279,13 +259,6 @@ class QuizViewSet(
 
     @swagger_auto_schema(responses={201: CREATE_QUIZ_SWAGGER_SERIALIZER})
     def create(self, request, *args, **kwargs):
-        # data = request.data
-        # book_id = data.get("book")
-        # with transaction.atomic():
-        #     book = Book.objects.filter(id=book_id).first()
-        #     if book.is_recommended:
-        #         book.is_recommended = False
-        #         book.save()
         return super().create(request, *args, **kwargs)
 
     @swagger_auto_schema(responses={200: INFO_QUIZ_SWAGGER_SERIALIZER})
@@ -378,6 +351,16 @@ class QuizViewSet(
             child_reward_url = CloudinaryResource(
                 reward, resource_type="raw"
             ).build_url()
+            child_reward_url = self.context["request"].build_absolute_uri("/media/")
+            child_reward_url += reward
+            if (
+                not settings.DEFAULT_FILE_STORAGE
+                == "django.core.files.storage.FileSystemStorage"
+            ):
+                child_reward_url = CloudinaryResource(
+                    reward, resource_type="raw"
+                ).build_url()
+            return child_reward_url
         return Response(submit_answer_response(is_answer_correct, child_reward_url))
 
     def get_permissions(self):
