@@ -6,9 +6,18 @@ services:
     image: postgres:latest
     container_name: postgres_db
     ports:
-      - "$SQL_PORT:5432"
+      - ${SQL_PORT:-5432}:5432
     environment:
       - POSTGRES_USER=$SQL_USER
       - POSTGRES_PASSWORD=$SQL_PASSWORD
       - POSTGRES_DB=$SQL_DATABASE
     restart: always
+
+  app:
+    build:
+      context: .
+    container_name: app
+    ports:
+      - ${APP_PORT:-8000}:8000
+    depends_on:
+      - postgres

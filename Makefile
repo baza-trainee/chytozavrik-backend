@@ -4,6 +4,8 @@ init: down build run
 	python manage.py runserver
 	@echo "Init done, containers running"
 
+prod: down build run
+
 build:
 	docker compose build
 
