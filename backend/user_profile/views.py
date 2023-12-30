@@ -17,8 +17,10 @@ from rest_framework.generics import (
 )
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
+from django.core.cache import cache
 
-
+from chytozavrik.settings import base
+from chytozavrik.settings.base import TIME_HALF_DAY
 from chytozavrik.helpers import ResultsSetPagination
 from .models import User, ChildAvatar, Child
 from .permissions import IsUser
@@ -213,7 +215,16 @@ class ChildAvatarAPIView(generics.ListAPIView):
 
     @swagger_auto_schema(responses={"200": AVATAR_SERIALIZER})
     def get(self, request, *args, **kwargs):
-        return super().get(request, *args, **kwargs)
+        avatars_cache = cache.get(base.AVATARS_CACHE_NAME)
+
+        if avatars_cache:
+            avatars_list = avatars_cache
+        else:
+            response = super().get(request, *args, **kwargs)
+            avatars_list = response.data
+            cache.set(base.AVATARS_CACHE_NAME, avatars_list, TIME_HALF_DAY)
+
+        return Response(avatars_list, status=status.HTTP_200_OK)
 
 
 class ChildListCreateAPIView(ListCreateAPIView):

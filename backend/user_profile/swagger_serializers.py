@@ -17,6 +17,8 @@ class UserSwaggerPostSerializer(serializers.ModelSerializer):
 
 
 class UserSwaggerGetSerializer(serializers.ModelSerializer):
+    childs = serializers.SerializerMethodField()
+
     class Meta:
         model = User
         fields = ["id", "is_superuser", "email", "childs", "date_joined"]
@@ -26,7 +28,8 @@ class UserSwaggerGetSerializer(serializers.ModelSerializer):
     def get_childs(self, obj):
         childs = Child.objects.filter(parent=obj.id).values_list("name", flat=True)
         return childs
-    
+
+
 def create_custom_response_serializer(serializer_class, many=False):
     class CustomResponseSerializer(serializers.Serializer):
         """

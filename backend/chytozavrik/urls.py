@@ -17,6 +17,7 @@ Including another URLconf
 # from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
+
 # from django.conf.urls.static import static
 from rest_framework_simplejwt.views import TokenRefreshView, TokenBlacklistView
 from rest_framework import status
@@ -27,7 +28,6 @@ from .views import MyTokenObtainPairView
 from .helpers import static
 
 urlpatterns = [
-    # path("admin/", admin.site.urls),
     path("api/v1/", include("user_profile.urls")),
     path("api/v1/", include("quiz.urls")),
     path("api/v1/", include("contacts.urls")),

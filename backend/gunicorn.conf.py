@@ -5,4 +5,4 @@ bind = f"0.0.0.0:{os.getenv('APP_PORT', default=8000)}"
 worker_class = "gthread"
 workers = cpu_count() * 2 + 1
 threads = 2
-loglevel = "warning"
+loglevel = "debug"

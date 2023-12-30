@@ -69,6 +69,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.urls import re_path
 from django.views.static import serve
 
+
 def static(prefix, view=serve, **kwargs):
     if not prefix:
         raise ImproperlyConfigured("Empty static prefix not permitted")
