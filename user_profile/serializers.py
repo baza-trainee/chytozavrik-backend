@@ -46,6 +46,7 @@ class UserSerializer(serializers.ModelSerializer):
         write_only=True,
     )
     childs = serializers.SerializerMethodField()
+    date_joined = serializers.DateTimeField(read_only=True)
     
     def get_childs(self, obj):
         childs = Child.objects.filter(parent=obj.id).values_list('name', flat=True)
@@ -53,7 +54,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ["id", "email", "is_superuser", "password", "password2", "childs"]
+        fields = ["id", "email", "is_superuser", "password", "password2", "childs", "date_joined"]
         extra_kwargs = {
             "password": {"write_only": True},
             "email": {"min_length": 3},
