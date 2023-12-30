@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User
+from .models import Child, User
 
 
 class UserSwaggerPostSerializer(serializers.ModelSerializer):
@@ -17,11 +17,17 @@ class UserSwaggerPostSerializer(serializers.ModelSerializer):
 
 
 class UserSwaggerGetSerializer(serializers.ModelSerializer):
+    childs = serializers.SerializerMethodField()
+
     class Meta:
         model = User
-        fields = ["id", "is_superuser", "email"]
+        fields = ["id", "is_superuser", "email", "childs", "date_joined"]
         extra_kwargs = {"password": {"write_only": True}}
         ref_name = "UserInfo"
+
+    def get_childs(self, obj):
+        childs = Child.objects.filter(parent=obj.id).values_list("name", flat=True)
+        return childs
 
 
 def create_custom_response_serializer(serializer_class, many=False):
