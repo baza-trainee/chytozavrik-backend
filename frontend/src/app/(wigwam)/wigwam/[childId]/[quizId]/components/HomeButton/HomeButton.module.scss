@@ -1,0 +1,14 @@
+@import '@/scss/utils/func';
+@import '@/scss/utils/mixin';
+@import '@/scss/utils/variables';
+
+.homeButton {
+  width: 327px;
+
+  @include breakpoint(laptop) {
+    width: 291px;
+  }
+  @include breakpoint(desktop) {
+    width: 405px;
+  }
+}

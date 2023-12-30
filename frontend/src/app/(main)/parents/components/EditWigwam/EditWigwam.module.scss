@@ -1,0 +1,53 @@
+@import 'scss/utils/variables';
+@import 'scss/utils/mixin';
+@import '@/scss/utils/func';
+
+.form {
+  background-color: $white;
+  min-width: 328px;
+  min-height: 547px;
+  padding: 36px 16px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+
+  @include breakpoint(tablet) {
+    padding: 24px 20px;
+    min-height: 272px;
+  }
+
+  @include breakpoint(laptop) {
+    width: 749px;
+  }
+
+  @include breakpoint(desktop) {
+    width: 737px;
+  }
+}
+
+.title {
+  margin-bottom: 48px;
+  text-align: start;
+}
+
+.formWrapper {
+  @include breakpoint(tablet) {
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+  }
+
+  @include breakpoint(laptop) {
+    gap: 122px;
+  }
+
+  @include breakpoint(desktop) {
+    gap: 110px;
+  }
+}
+
+.inputsWrapper {
+  @include breakpoint(tablet) {
+    width: 387px;
+  }
+}

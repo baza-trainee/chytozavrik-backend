@@ -1,0 +1,225 @@
+@import 'scss/utils/variables';
+@import 'scss/utils/mixin';
+
+.slider {
+  display: flex;
+  flex-direction: column;
+  width: 328px;
+  height: 251px;
+
+  @include breakpoint(tablet) {
+    width: 688px;
+    height: 206px;
+  }
+
+  @include breakpoint(laptop) {
+    width: 521px;
+    height: 166px;
+  }
+
+  @include breakpoint(desktop) {
+    width: 846px;
+    height: 254px;
+  }
+}
+
+.rec_title {
+  font-size: 18px;
+  text-align: left;
+  color: $secondary-black;
+  margin-bottom: 16px;
+
+  @include breakpoint(tablet) {
+    font-size: 24px;
+    margin-bottom: 4px;
+  }
+
+  @include breakpoint(laptop) {
+    font-size: 18px;
+  }
+
+  @include breakpoint(desktop) {
+    font-size: 24px;
+    margin-bottom: 52px;
+  }
+}
+
+.slider_container {
+  width: 316px;
+  height: 235px;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+
+  :global .slick-slide {
+    width: 158px !important;
+    height: 173px !important;
+    flex-shrink: 0;
+  }
+
+  @include breakpoint(tablet) {
+    width: 685px;
+    height: 173px;
+
+    :global .slick-slide {
+      width: 148px !important;
+      height: 158px !important;
+      flex-shrink: 0;
+    }
+  }
+
+  @include breakpoint(laptop) {
+    width: 100%;
+    height: 128px;
+
+    :global .slick-slide {
+      width: 115px !important;
+      height: 127px !important;
+      flex-shrink: 0;
+      margin: 0 6px;
+    }
+  }
+
+  @include breakpoint(desktop) {
+    width: 100%;
+    height: 173px;
+
+    :global .slick-slide {
+      width: 145px !important;
+      height: 173px !important;
+      margin: 0 5px;
+    }
+
+    :global .slick-slide > div {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}
+
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 145px;
+  height: 168px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  padding: 7px;
+  margin: 0 5px 0 5px;
+
+  @include breakpoint(tablet) {
+    width: 145px !important;
+    height: 173px !important;
+  }
+
+  @include breakpoint(laptop) {
+    width: 115px !important;
+    height: 127px !important;
+  }
+
+  @include breakpoint(desktop) {
+    width: 145px !important;
+    height: 173px !important;
+  }
+
+  .card_image {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    margin: 0 10px;
+
+    & img {
+      position: absolute;
+      width: 128px;
+      height: 158px;
+      transition: 0.3s;
+
+      @include breakpoint(tablet) {
+        width: 125px;
+        height: 158px;
+      }
+
+      @include breakpoint(laptop) {
+        width: 90px;
+        height: 114px;
+      }
+
+      @include breakpoint(desktop) {
+        width: 130px;
+        height: 159px;
+      }
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+}
+
+.quiz_marker {
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 120%;
+  color: $white;
+  z-index: 11;
+  top: 6px;
+  left: 0px;
+  position: absolute;
+  display: inline-flex;
+  padding: 4px 8px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  background: var(--ref-error-error-30, #e00000);
+}
+
+.arrow {
+  position: absolute;
+  cursor: pointer;
+  z-index: 10;
+  visibility: hidden;
+
+  @include breakpoint(tablet) {
+    visibility: visible;
+  }
+
+  @include breakpoint(laptop) {
+    transform: scale(0.67);
+  }
+
+  @include breakpoint(desktop) {
+    transform: scale(1);
+  }
+}
+
+.next {
+  right: 0%;
+  top: 35%;
+
+  @include breakpoint(laptop) {
+    top: 30%;
+  }
+
+  @include breakpoint(desktop) {
+    top: 35%;
+  }
+}
+
+.prev {
+  left: 0%;
+  top: 35%;
+
+  @include breakpoint(laptop) {
+    top: 30%;
+  }
+
+  @include breakpoint(desktop) {
+    top: 35%;
+  }
+}

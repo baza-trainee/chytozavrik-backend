@@ -1,0 +1,87 @@
+@import 'scss/utils/variables';
+@import 'scss/utils/mixin';
+
+.dialog {
+  --dialog-pt: 32px;
+  --dialog-pb: 32px;
+  --dialog-px: 16px;
+
+  padding: var(--dialog-pt) var(--dialog-px) var(--dialog-pb);
+
+  @include breakpoint(tablet) {
+    --dialog-px: 24px;
+
+    width: 488px;
+  }
+
+  @include breakpoint(desktop) {
+    width: 676px;
+  }
+}
+
+.title {
+  --title-total-padding-x: 28px;
+
+  padding-inline: calc(var(--title-total-padding-x) - var(--dialog-px));
+
+  @include breakpoint(tablet) {
+    --title-total-padding-x: 58px;
+  }
+  @include breakpoint(desktop) {
+    --title-total-padding-x: 132px;
+  }
+}
+
+.form {
+  margin-top: 40px;
+  padding: 32px 24px;
+
+  border-radius: 8px;
+  border: 4px dashed $primary;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 17px;
+
+  margin-top: 38px;
+
+  @include breakpoint(tablet) {
+    gap: 24px;
+  }
+}
+
+.button-template {
+  flex: 1;
+
+  padding: 15px 5px;
+
+  font-size: 14px;
+
+  @include breakpoint(tablet) {
+    padding-block: 13px;
+
+    font-size: 18px;
+  }
+
+  @include breakpoint(desktop) {
+    padding-block: 17px;
+  }
+}
+
+.button-submit {
+  width: 100%;
+
+  margin-top: 32px;
+  padding: 16px 28px;
+
+  font-size: 18px;
+
+  @include breakpoint(tablet) {
+    padding-block: 20px;
+
+    font-size: 24px;
+  }
+}

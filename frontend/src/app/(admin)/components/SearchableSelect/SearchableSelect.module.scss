@@ -1,0 +1,77 @@
+@import '@/scss/utils/func';
+@import '@/scss/utils/mixin';
+@import '@/scss/utils/variables';
+
+.searchableSelectContainer {
+  position: relative;
+
+  .searchableSelect {
+    margin-top: 8px;
+    width: 100%;
+
+    svg.xCircle {
+      position: relative;
+      z-index: 999;
+      cursor: pointer;
+    }
+
+    > div {
+      border-color: #9b9b9b;
+      box-shadow: none;
+    }
+
+    > div:first-of-type:hover {
+      border-color: #7791fa;
+
+      // div {
+      //   color: #7791fa !important;
+      // }
+    }
+
+    .option {
+      color: #1e1e1e;
+
+      span {
+        color: #868686;
+      }
+    }
+  }
+
+  &.active {
+    .searchableSelect {
+      svg.xCircle {
+        color: #7791fa;
+      }
+
+      > div {
+        border-color: #7791fa;
+      }
+    }
+
+    .label {
+      color: #7791fa;
+    }
+  }
+
+  .label {
+    color: #727272;
+    margin-top: 12px;
+  }
+}
+
+.error {
+  color: $error;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 8px;
+
+  & svg {
+    width: 14px;
+    height: 14px;
+  }
+}

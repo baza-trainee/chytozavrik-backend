@@ -1,0 +1,180 @@
+@import 'scss/utils/variables';
+@import 'scss/utils/mixin';
+
+:where(.button) {
+  --button-bg-color: transparent;
+  --button-text-color: $black;
+  --button-disabled-opacity: 0.4;
+
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  width: fit-content;
+  padding: 20px 36px;
+  overflow: hidden;
+
+  font-family: var(--montserrat-alternates-font);
+  font-weight: 600;
+  line-height: inherit;
+  text-align: center;
+
+  border-radius: 8px;
+
+  @include setTransition(background-color, color, border-color, box-shadow);
+}
+
+.button {
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  // color scheme
+  &--primary {
+    --button-bg-color: #{$primary};
+    --button-text-color: #{$on-primary};
+
+    &:not(:disabled):hover,
+    &:not(:disabled):focus {
+      --button-bg-color: #{getColor(blue, 50)};
+    }
+
+    &:not(:disabled):active,
+    &[data-selected='true'] {
+      --button-bg-color: #{getColor(blue, 30)};
+    }
+
+    &:disabled {
+      --button-bg-color: #{rgba($primary, var(--button-disabled-opacity))};
+      --button-text-color: #{rgba($on-primary, var(--button-disabled-opacity))};
+    }
+  }
+
+  &--secondary {
+    --button-bg-color: #{$secondary};
+    --button-text-color: #{$on-secondary};
+
+    &:not(:disabled):hover,
+    &:not(:disabled):focus {
+      --button-bg-color: #{getColor(yellow, 50)};
+    }
+
+    &:not(:disabled):active,
+    &[data-selected='true'] {
+      --button-bg-color: #{getColor(yellow, 30)};
+    }
+
+    &:disabled {
+      --button-bg-color: #{rgba($secondary, var(--button-disabled-opacity))};
+      --button-text-color: #{getColor(neutral, 40)};
+    }
+  }
+
+  &--tertiary,
+  &--success {
+    --button-bg-color: #{$tertiary};
+    --button-text-color: #{$on-tertiary};
+
+    &:not(:disabled):hover,
+    &:not(:disabled):focus {
+      --button-bg-color: #{getColor(green, 50)};
+    }
+
+    &:not(:disabled):active,
+    &[data-selected='true'] {
+      --button-bg-color: #{getColor(green, 30)};
+    }
+
+    &:disabled {
+      --button-bg-color: #{rgba($tertiary, var(--button-disabled-opacity))};
+      --button-text-color: #{rgba($on-tertiary, var(--button-disabled-opacity))};
+    }
+  }
+
+  &--quaternary,
+  &--error {
+    --button-bg-color: #{$quaternary};
+    --button-text-color: #{$on-quaternary};
+
+    &:not(:disabled):hover,
+    &:not(:disabled):focus {
+      --button-bg-color: #{getColor(rose, 50)};
+    }
+
+    &:not(:disabled):active,
+    &[data-selected='true'] {
+      --button-bg-color: #{getColor(rose, 30)};
+    }
+
+    &:disabled {
+      --button-bg-color: #{rgba($quaternary, var(--button-disabled-opacity))};
+      --button-text-color: #{rgba($on-quaternary, var(--button-disabled-opacity))};
+    }
+  }
+
+  // size
+  &--small {
+    padding: 10px 20px;
+    width: 100%;
+    font-size: 14px;
+    line-height: 16px;
+  }
+
+  &--default {
+    padding: 20px 36px;
+    line-height: inherit;
+  }
+
+  // variants
+  &--filled {
+    color: var(--button-text-color);
+    background-color: var(--button-bg-color);
+  }
+
+  &--outline {
+    color: var(--button-bg-color);
+
+    background: $white;
+    border: 2px solid var(--button-bg-color);
+
+    &:not(:disabled):hover,
+    &:not(:disabled):focus,
+    &[data-selected='true'] {
+      color: $white;
+      background-color: var(--button-bg-color);
+    }
+
+    &:disabled {
+      background-color: rgba($white, var(--button-disabled-opacity));
+    }
+
+    &:disabled[data-selected='true'] {
+      color: rgba($white, var(--button-disabled-opacity));
+      background-color: var(--button-bg-color);
+    }
+  }
+
+  &--text {
+    color: var(--button-bg-color);
+  }
+}
+
+.button-icon {
+  display: block;
+
+  width: 24px;
+  height: 24px;
+}
+
+.spinner {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+}

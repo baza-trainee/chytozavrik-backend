@@ -1,0 +1,173 @@
+@import '@/scss/utils/func';
+@import '@/scss/utils/variables';
+@import 'scss/utils/mixin';
+
+.section {
+  padding: 48px 0 21px;
+  background-color: getColor(blue, 90);
+  @include addWaveBackground('/images/background-wave-reverse.svg');
+
+  @include breakpoint(tablet) {
+    padding: 72px 0;
+  }
+
+  @include breakpoint(laptop) {
+    padding: 100px 0;
+  }
+  @include breakpoint(desktop) {
+    padding: 136px 0;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  align-items: center;
+  @include breakpoint(tablet) {
+    flex-direction: row;
+    align-items: normal;
+  }
+  @include breakpoint(desktop) {
+    gap: 133px;
+  }
+}
+
+.feedbackContainer {
+  padding: 24px 0;
+  color: $black;
+  @include breakpoint(tablet) {
+    width: 332px;
+    margin: 0;
+    padding: 24px 0;
+  }
+  @include breakpoint(laptop) {
+    width: 440px;
+  }
+  @include breakpoint(desktop) {
+    width: 520px;
+    min-height: 320px;
+    padding: 88px 0 32px;
+  }
+}
+
+.feedbackTitle {
+  margin-bottom: 24px;
+  margin-top: 0;
+  text-align: left;
+  letter-spacing: 0.01px;
+  @include breakpoint(desktop) {
+    font-size: 32px;
+    margin-bottom: 32px;
+  }
+}
+
+.feedbackText {
+  letter-spacing: -0.72px;
+  @include breakpoint(tablet) {
+    margin-bottom: 64px;
+  }
+  @include breakpoint(laptop) {
+    margin-bottom: 40px;
+    letter-spacing: inherit;
+  }
+  @include breakpoint(desktop) {
+    font-size: 20px;
+    margin-bottom: 76px;
+    letter-spacing: -0.72px;
+  }
+}
+
+.bazaContainer {
+  min-width: 328px;
+  padding: 16px;
+  border-radius: 8px;
+  border: 8px solid $white;
+  background: $primary;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.31);
+  color: $white;
+  @include breakpoint(tablet) {
+    width: 330px;
+  }
+  @include breakpoint(laptop) {
+    width: 440px;
+  }
+  @include breakpoint(desktop) {
+    width: 625px;
+    min-height: 320px;
+    padding: 24px;
+  }
+}
+
+.titleWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3px;
+  margin-bottom: 24px;
+  @include breakpoint(desktop) {
+    margin-bottom: 32px;
+  }
+}
+
+.bazaTitle {
+  margin-bottom: 24px;
+  letter-spacing: -0.72px;
+  text-align: left;
+  @include breakpoint(desktop) {
+    margin-bottom: 32px;
+    font-size: 32px;
+  }
+}
+
+.z {
+  font-family: var(--raleway-font);
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.72px;
+  @include breakpoint(desktop) {
+    font-size: 32px;
+  }
+}
+
+// .textWrapper {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 24px;
+//   margin-bottom: 8px;
+// }
+
+.bazaText {
+  text-align: left;
+  margin-bottom: 24px;
+  @include breakpoint(desktop) {
+    font-size: 20px;
+  }
+}
+
+.bazaCTA {
+  text-align: left;
+  margin-bottom: 8px;
+  @include breakpoint(desktop) {
+    margin-bottom: 0;
+  }
+}
+
+.socialWrapper {
+  display: flex;
+  gap: 24px;
+  align-items: baseline;
+  height: 40px;
+}
+
+.socialIcon {
+  width: 40px;
+  height: 40px;
+}
+.bazaWrapper {
+  @include breakpoint(desktop) {
+    display: flex;
+    gap: 24px;
+    align-items: baseline;
+    height: 40px;
+  }
+}

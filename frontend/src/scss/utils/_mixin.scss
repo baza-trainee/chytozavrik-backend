@@ -1,0 +1,58 @@
+@import './variables', './func';
+
+@mixin visibilityHidden() {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+@mixin addWaveBackground($imageUrl) {
+  background-image: url($imageUrl);
+  background-repeat: repeat-x;
+  background-position: center top;
+  background-size: auto 27px;
+
+  @include breakpoint(tablet) {
+    background-size: auto 54px;
+  }
+
+  @include breakpoint(laptop) {
+    background-size: auto 72px;
+  }
+
+  @include breakpoint(desktop) {
+    background-size: auto 102px;
+  }
+}
+
+@mixin breakpoint($from, $to: false) {
+  @if not $to {
+    @media screen and (min-width: getBreakpoint($from)) {
+      @content;
+    }
+  } @else if not $from {
+    @media screen and (max-width: (getBreakpoint($to) - 1px)) {
+      @content;
+    }
+  } @else {
+    @media screen and (min-width: getBreakpoint($from)) and (max-width: (getBreakpoint($to) - 1px)) {
+      @content;
+    }
+  }
+}
+
+@mixin setTransition($args...) {
+  $transitions: ();
+  @each $arg in $args {
+    $transitions: append($transitions, $arg $animation-duration $animation-function, comma);
+  }
+  transition: $transitions;
+}

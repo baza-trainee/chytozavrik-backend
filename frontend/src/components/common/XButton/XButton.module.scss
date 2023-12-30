@@ -1,0 +1,33 @@
+@import 'scss/utils/variables';
+@import 'scss/utils/mixin';
+
+:where(.button) {
+  --x-button-p: 16px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: var(--x-button-p);
+
+  color: getColor(neutral, 10);
+  @include setTransition(color);
+
+  &:focus,
+  &:hover {
+    color: getColor(neutral, 30);
+  }
+
+  &:active {
+    color: $black;
+  }
+
+  & > svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  @include breakpoint(desktop) {
+    --x-button-p: 20px;
+  }
+}

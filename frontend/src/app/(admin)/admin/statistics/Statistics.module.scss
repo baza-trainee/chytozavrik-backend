@@ -1,0 +1,12 @@
+@import '../../../../scss/utils/variables';
+@import '../../../../scss/utils/mixin';
+
+.statistics {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.title {
+  text-align: left;
+}

@@ -1,0 +1,294 @@
+@import '@/scss/utils/func';
+@import '@/scss/utils/mixin';
+@import '@/scss/utils/variables';
+
+.footer {
+  background: getColor(blue, 20);
+  padding-top: 24px;
+  padding-bottom: 24px;
+
+  // min-width: 100%;
+  @include breakpoint(tablet) {
+    height: 264px;
+
+    // margin: 0 auto;
+    padding-top: 36px;
+    padding-bottom: 36px;
+  }
+  @include breakpoint(desktop) {
+    height: 370px;
+    min-width: 100%;
+    // margin: 0 auto;
+    padding-top: 72px;
+    padding-bottom: 72px;
+  }
+}
+
+.container {
+  margin: auto;
+  padding-left: var(--padding-x);
+  padding-right: var(--padding-x);
+}
+
+.footerContainer {
+  @include breakpoint(tablet) {
+    display: flex;
+    // --padding-x: 0px;
+    gap: 117px;
+  }
+  @include breakpoint(laptop) {
+    gap: 267px;
+  }
+  @include breakpoint(desktop) {
+    gap: 148px;
+  }
+}
+
+.list {
+  list-style: none;
+  color: $white;
+}
+
+.informationText {
+  text-align: start;
+  :not(:last-child) {
+    margin-bottom: 20px;
+  }
+  font-size: 14px;
+
+  @include breakpoint(tablet) {
+    :not(:last-child) {
+      margin-bottom: 24px;
+    }
+  }
+  @include breakpoint(desktop) {
+    :not(:last-child) {
+      margin-bottom: 32px;
+    }
+    // width: 193px;
+    font-size: 18px;
+  }
+}
+
+.informationMail {
+  margin-bottom: 26px;
+  display: flex;
+  align-items: flex-start;
+  @include breakpoint(desktop) {
+    font-size: 18px;
+  }
+}
+
+.decoration {
+  text-decoration: underline;
+}
+
+// .listIcon {
+//   display: flex;
+//   align-items: flex-start;
+//   @include breakpoint(desktop) {
+//     font-size: 18px;
+//   }
+// }
+
+.social {
+  display: flex;
+  :not(:last-child) {
+    margin-right: 16px;
+  }
+
+  @include breakpoint(tablet) {
+    display: flex;
+
+    margin-top: 24px;
+
+    :not(:last-child) {
+      margin-right: 24px;
+    }
+  }
+
+  @include breakpoint(desktop) {
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 0px;
+
+    gap: 40px;
+  }
+}
+
+.socialImage {
+  width: 24px;
+  height: 24px;
+
+  @include breakpoint(tablet) {
+    width: 32px;
+    height: 32px;
+  }
+
+  @include breakpoint(desktop) {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.text {
+  margin-bottom: 14px;
+}
+
+.image {
+  margin-right: 8px;
+  margin-bottom: 8px;
+  width: 18px;
+  height: 18px;
+  @include breakpoint(desktop) {
+    width: 24px;
+    height: 24px;
+  }
+}
+.logo {
+  @include breakpoint(tablet) {
+    margin-bottom: 15px;
+  }
+
+  @include breakpoint(desktop) {
+    margin-bottom: 22px;
+    width: 87px;
+    height: 74px;
+  }
+}
+
+.logoText {
+  @include breakpoint(tablet) {
+    margin-bottom: 15px;
+  }
+
+  @include breakpoint(desktop) {
+    width: 178px;
+    height: 24px;
+  }
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+
+  @include breakpoint(tablet) {
+    flex-direction: column;
+  }
+}
+
+.contacts {
+  @include breakpoint(tablet) {
+    margin-left: 24px;
+    display: flex;
+    flex-direction: column;
+  }
+  @include breakpoint(laptop) {
+    margin-left: 101px;
+  }
+  @include breakpoint(desktop) {
+    margin-left: 170px;
+    flex-direction: row;
+    gap: 127px;
+  }
+}
+
+.informationContact {
+  margin-bottom: 9px;
+  width: 166px;
+  display: flex;
+  align-items: flex-start;
+
+  @include breakpoint(desktop) {
+    margin-bottom: 32px;
+    font-size: 18px;
+    width: 188px;
+  }
+}
+
+.informationContactSecond {
+  margin-bottom: 23px;
+  display: flex;
+  align-items: flex-start;
+
+  @include breakpoint(tablet) {
+    margin-bottom: 23px;
+  }
+
+  @include breakpoint(desktop) {
+    margin-bottom: 36px;
+    font-size: 18px;
+  }
+}
+
+.text1 {
+  margin-bottom: 19px;
+}
+
+.footerText {
+  margin-top: 32px;
+  color: $white;
+
+  @include breakpoint(tablet) {
+    margin-top: 48px;
+  }
+  @include breakpoint(desktop) {
+    margin-top: 14px;
+  }
+}
+
+.footerList {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: flex-start;
+  @include breakpoint(tablet) {
+    width: 217px;
+  }
+
+  @include breakpoint(desktop) {
+    flex-direction: row;
+    width: auto;
+    gap: 117px;
+  }
+}
+
+.wrapper {
+  margin-top: 32px;
+  display: flex;
+  justify-content: space-between;
+
+  @include breakpoint(tablet) {
+    margin-top: 0;
+  }
+}
+
+.class1 {
+  display: flex;
+  flex-direction: column;
+}
+
+.linkText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-right: 49px;
+  text-decoration: underline;
+  @include breakpoint(tablet) {
+    display: block;
+    padding-right: 0px;
+  }
+}
+
+.informationTextLink {
+  margin-bottom: 0px;
+}
+
+.linkText:hover {
+  color: getColor(blue, 80);
+}
+
+.linkText1:hover {
+  color: getColor(blue, 80);
+}

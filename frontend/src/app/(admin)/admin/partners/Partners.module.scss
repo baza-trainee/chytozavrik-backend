@@ -1,0 +1,8 @@
+@import '../../../../scss/utils/variables';
+@import '../../../../scss/utils/mixin';
+
+.partners {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}

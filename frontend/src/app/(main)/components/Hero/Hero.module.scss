@@ -1,0 +1,166 @@
+@import 'scss/utils/variables';
+@import 'scss/utils/mixin';
+
+.section {
+  position: relative;
+  z-index: 0;
+
+  background-color: $primary;
+  @include addWaveBackground('/images/background-wave.svg');
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+  }
+
+  &::before {
+    bottom: -1px;
+    height: 76px;
+    background-color: getColor(blue, 90);
+  }
+
+  &::after {
+    background-image: url('/images/hero-background-image.svg');
+    background-repeat: no-repeat;
+    background-position: calc(50% + 50px) calc(100% - 17px);
+    background-size: 428px 342px;
+    vector-effect: non-scaling-stroke;
+    transform: translate3d(0, 0, 0);
+  }
+
+  @include breakpoint(tablet) {
+    &::before {
+      height: 48px;
+    }
+
+    &::after {
+      background-position: calc(50% + 218px) bottom;
+      background-size: 555px 445px;
+    }
+  }
+
+  @include breakpoint(laptop) {
+    &::before {
+      height: 72px;
+    }
+
+    &::after {
+      background-position: calc(50% + 290px) bottom;
+      background-size: 738px 592px;
+    }
+  }
+
+  @include breakpoint(desktop) {
+    &::before {
+      height: 90px;
+    }
+
+    &::after {
+      background-position: calc(50% + 404px) calc(100% - 9px);
+      background-size: 1055px 848px;
+    }
+  }
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+
+  padding-top: 104px;
+  padding-bottom: 362px;
+
+  @include breakpoint(tablet) {
+    padding-right: 277px;
+    padding-bottom: 140px;
+  }
+
+  @include breakpoint(laptop) {
+    padding-top: 136px;
+    padding-right: 447px;
+    padding-bottom: 219px;
+  }
+
+  @include breakpoint(desktop) {
+    padding-top: 198px;
+    padding-right: 621px;
+    padding-bottom: 303px;
+  }
+}
+
+.title {
+  color: $white;
+  text-align: left;
+}
+
+.text {
+  margin-top: 12px;
+
+  font-size: 18px;
+  color: $white;
+
+  @include breakpoint(tablet) {
+    margin-top: 16px;
+
+    font-size: 16px;
+  }
+
+  @include breakpoint(laptop) {
+    margin-top: 24px;
+
+    font-size: 18px;
+  }
+
+  @include breakpoint(desktop) {
+    margin-top: 32px;
+
+    font-size: 28px;
+  }
+}
+
+.button {
+  margin-top: 48px;
+  padding: 16px 0px;
+
+  font-size: 20px;
+
+  @include breakpoint(false, tablet) {
+    width: 100%;
+  }
+
+  @include breakpoint(tablet) {
+    margin-top: 32px;
+    padding: 16px 28px;
+    padding-right: 24px;
+
+    min-width: 248px;
+  }
+
+  @include breakpoint(laptop) {
+    margin-top: 72px;
+
+    padding: 16px 28px;
+    padding-right: 24px;
+
+    min-width: 208px;
+  }
+
+  @include breakpoint(desktop) {
+    margin-top: 80px;
+
+    padding: 20px 36px;
+    padding-right: 28px;
+
+    min-width: 248px;
+  }
+
+  &--hide {
+    pointer-events: none;
+    opacity: 0;
+  }
+}

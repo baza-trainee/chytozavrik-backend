@@ -1,0 +1,149 @@
+$breakpoints: (
+  mobile: 360px,
+  tablet: 768px,
+  laptop: 1024px,
+  desktop: 1440px,
+  large: 2560px,
+);
+
+$palettes: (
+  blue: (
+    100: #fdfdfd,
+    90: #e3f0ff,
+    80: #c7e1ff,
+    70: #b3cdff,
+    60: #9fb9ff,
+    50: #8ba5ff,
+    40: #7791fa,
+    30: #637de6,
+    20: #455fc8,
+    10: #132d96,
+    0: #1e1e1e,
+  ),
+  yellow: (
+    100: #fdfdfd,
+    90: #ffffb9,
+    80: #ffff91,
+    70: #fff07d,
+    60: #ffdc69,
+    50: #ffc855,
+    40: #f2b441,
+    30: #dea02d,
+    20: #b67805,
+    10: #8e5000,
+    0: #1e1e1e,
+  ),
+  green: (
+    100: #fdfdfd,
+    90: #caffec,
+    80: #acffce,
+    70: #8effb0,
+    60: #7af19c,
+    50: #66dd88,
+    40: #52c974,
+    30: #3eb560,
+    20: #209742,
+    10: #006510,
+    0: #1e1e1e,
+  ),
+  rose: (
+    100: #fdfdfd,
+    90: #ffdada,
+    80: #ffbcbc,
+    70: #ff9e9e,
+    60: #ff8080,
+    50: #fe6c6c,
+    40: #ea5858,
+    30: #d64444,
+    20: #ae1c1c,
+    10: #860000,
+    0: #1e1e1e,
+  ),
+  error: (
+    100: #fdfdfd,
+    90: #ffb4b4,
+    80: #ff9696,
+    70: #ff7878,
+    60: #ff5a5a,
+    50: #ff3232,
+    40: #f40000,
+    30: #e00000,
+    20: #b80000,
+    10: #900000,
+    0: #1e1e1e,
+  ),
+  neutral: (
+    100: #fdfdfd,
+    90: #ebebeb,
+    80: #d7d7d7,
+    70: #c3c3c3,
+    60: #afafaf,
+    50: #9b9b9b,
+    40: #868686,
+    30: #727272,
+    20: #5e5e5e,
+    10: #4a4a4a,
+    0: #1e1e1e,
+  ),
+);
+
+$notification-color: (
+  'default': #c7e1ff,
+  'success': #defade,
+  'error': #fff0f0,
+);
+
+@function getColor($color, $tone) {
+  @return map-get(map-get($palettes, $color), $tone);
+}
+
+@function getNotificationColor($type) {
+  @return map-get($notification-color, $type);
+}
+
+$black: #1e1e1e;
+$white: #fdfdfd;
+$secondary-black: #000000;
+$search-background: #f6faff;
+
+$neutral: getColor(neutral, 30);
+$on-neutral: getColor(neutral, 50);
+
+$primary: getColor(blue, 40);
+$on-primary: getColor(blue, 100);
+$primary-next-variant: getColor(blue, 90);
+$primary-variant: getColor(blue, 80);
+$on-next-primary-variant: getColor(blue, 70);
+$on-primary-variant: getColor(blue, 20);
+$sys-on-primary-variant: getColor(blue, 10);
+$ref-blue-30: getColor(blue, 10);
+$ref-blue-50: getColor(blue, 50);
+
+$secondary: getColor(yellow, 40);
+$secondary-btn: getColor(yellow, 50);
+$on-secondary: getColor(yellow, 0);
+$secondary-variant: getColor(yellow, 90);
+$on-secondary-variant: getColor(yellow, 100);
+
+$tertiary: getColor(green, 40);
+$on-tertiary: getColor(green, 100);
+$tertiary-variant: getColor(green, 70);
+$on-tertiary-variant: getColor(green, 10);
+$ref-green-green-90: getColor(green, 90);
+
+$quaternary: getColor(rose, 40);
+$on-quaternary: getColor(rose, 100);
+$quaternary-variant: getColor(rose, 90);
+$on-quaternary-variant: getColor(rose, 20);
+
+$ref-neutral-neutral-20: getColor(neutral, 20);
+$ref-neutral-neutral-30: getColor(neutral, 30);
+$ref-neutral-neutral-50: getColor(neutral, 50);
+
+$error: getColor(error, 40);
+$on-error: getColor(error, 100);
+$error-variant: getColor(error, 10);
+$on-error-variant: getColor(error, 90);
+
+$animation-function: cubic-bezier(0.4, 0, 0.2, 1);
+$animation-duration: 250ms;

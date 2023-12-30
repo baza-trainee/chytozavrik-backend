@@ -1,0 +1,11 @@
+FROM node:20
+
+RUN mkdir /frontend_app
+
+WORKDIR /frontend_app
+
+COPY frontend .
+
+RUN npm i
+
+CMD bash -c "npm run dev"

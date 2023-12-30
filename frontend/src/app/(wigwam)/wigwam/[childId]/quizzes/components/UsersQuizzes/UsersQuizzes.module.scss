@@ -1,0 +1,23 @@
+@import 'scss/utils/variables';
+@import 'scss/utils/mixin';
+
+.quizzesContainer {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+
+  @include breakpoint(tablet) {
+    flex-direction: row;
+  }
+
+  @include breakpoint(desktop) {
+    flex-direction: row;
+    width: 1280px;
+  }
+}
+
+.quizzesContainer:last-child {
+  @include breakpoint(mobile) {
+    margin-bottom: calc(16px + 70px);
+  }
+}

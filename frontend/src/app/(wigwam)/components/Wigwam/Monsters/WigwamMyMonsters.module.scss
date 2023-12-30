@@ -1,0 +1,184 @@
+@import 'scss/utils/variables';
+@import 'scss/utils/mixin';
+
+.wrapper {
+  width: 100%;
+  grid-area: monsters;
+  position: relative;
+
+  @include breakpoint(laptop) {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 521px;
+  }
+
+  @include breakpoint(desktop) {
+    width: 410px;
+  }
+
+  & .spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    & span {
+      width: 60px;
+      height: 60px;
+    }
+  }
+}
+
+.headlineWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .arrow {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    padding: 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-right: 7px;
+  }
+
+  @include breakpoint(tablet) {
+    .arrow {
+      margin-right: 0;
+    }
+  }
+
+  @include breakpoint(laptop) {
+    .arrow {
+      margin-right: 4px;
+    }
+  }
+
+  @include breakpoint(desktop) {
+    padding-top: 16px;
+    padding-bottom: 16px;
+
+    .arrow {
+      margin-right: 0;
+    }
+  }
+}
+
+.title {
+  font-size: 18px;
+  text-align: center;
+  color: $secondary-black;
+
+  @include breakpoint(tablet) {
+    font-size: 24px;
+  }
+
+  @include breakpoint(laptop) {
+    font-size: 18px;
+  }
+
+  @include breakpoint(desktop) {
+    font-size: 24px;
+  }
+}
+
+.monstersContainer {
+  padding-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+
+  @include breakpoint(tablet) {
+    flex-wrap: nowrap;
+  }
+
+  @include breakpoint(laptop) {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  @include breakpoint(desktop) {
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+}
+
+.monsterWrapper {
+  display: none;
+  width: 80px;
+  height: 80px;
+  overflow: hidden;
+  border-radius: 50%;
+  background-image: url('/images/monsters/green-bg.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: bottom;
+  background-color: #c7e1ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .monsterPresent {
+    width: 60px;
+    height: 50px;
+  }
+
+  .monsterEmpty {
+    width: 80px;
+    height: 80px;
+  }
+
+  @include breakpoint(mobile) {
+    &:nth-child(-n + 6) {
+      display: flex;
+    }
+  }
+
+  @include breakpoint(tablet) {
+    &:nth-child(-n + 6) {
+      display: flex;
+    }
+  }
+
+  @include breakpoint(laptop) {
+    &:nth-child(-n + 6) {
+      display: flex;
+    }
+    width: 56px;
+    height: 56px;
+
+    .monsterPresent {
+      width: 50px;
+      height: 50px;
+    }
+
+    .monsterEmpty {
+      width: 56px;
+      height: 56px;
+    }
+  }
+
+  @include breakpoint(desktop) {
+    &:nth-child(-n + 8) {
+      display: flex;
+    }
+    width: 80px;
+    height: 80px;
+
+    .monsterPresent {
+      width: 60px;
+      height: 50px;
+    }
+
+    .monsterEmpty {
+      width: 80px;
+      height: 80px;
+    }
+  }
+}

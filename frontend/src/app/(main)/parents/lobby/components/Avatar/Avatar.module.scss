@@ -1,0 +1,10 @@
+@import 'scss/utils/mixin';
+
+.avatar-stroke {
+  @include setTransition(stroke);
+
+  [data-avatar]:hover &,
+  [data-avatar]:focus & {
+    stroke: #ffc855;
+  }
+}

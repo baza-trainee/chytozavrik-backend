@@ -1,0 +1,60 @@
+@import '../../../../../scss/utils/variables';
+
+.partner {
+  display: flex;
+  align-items: center;
+  width: 1048px;
+  min-height: 101px;
+  padding: 12px 24px;
+  gap: 32px;
+  border-bottom: 1px solid $primary-next-variant;
+  height: 100px;
+
+  .info {
+    width: 880px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+
+    .title {
+      width: 278px;
+      overflow: hidden;
+      color: $secondary-black;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-family: var(--montserrat-alternates-font);
+      font-weight: 600;
+      line-height: 120%;
+    }
+
+    .date {
+      width: 180px;
+      color: $black;
+      font-family: var(--raleway-font);
+      font-weight: 400;
+      line-height: 120%;
+      font-variant-numeric: lining-nums proportional-nums;
+    }
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    .spinner {
+      margin-left: 12px;
+    }
+
+    & > .actionItem {
+      display: flex;
+      width: 36px;
+      height: 36px;
+      padding: 10px;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+  }
+}
