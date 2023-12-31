@@ -1,0 +1,1667 @@
+(() => {
+var exports = {};
+exports.id = 9654;
+exports.ids = [9654];
+exports.modules = {
+
+/***/ 40252:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/compiled/cookie");
+
+/***/ }),
+
+/***/ 97999:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/compiled/path-to-regexp");
+
+/***/ }),
+
+/***/ 18038:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/compiled/react");
+
+/***/ }),
+
+/***/ 98704:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/compiled/react-dom/server-rendering-stub");
+
+/***/ }),
+
+/***/ 97897:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/compiled/react-server-dom-webpack/client");
+
+/***/ }),
+
+/***/ 56786:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/compiled/react/jsx-runtime");
+
+/***/ }),
+
+/***/ 61090:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/server/app-render/get-segment-param.js");
+
+/***/ }),
+
+/***/ 78652:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/server/future/helpers/interception-routes.js");
+
+/***/ }),
+
+/***/ 77507:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/server/web/spec-extension/adapters/headers.js");
+
+/***/ }),
+
+/***/ 22006:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/server/web/spec-extension/adapters/request-cookies.js");
+
+/***/ }),
+
+/***/ 7782:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/server/web/spec-extension/cookies.js");
+
+/***/ }),
+
+/***/ 53918:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/amp-context.js");
+
+/***/ }),
+
+/***/ 45732:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/amp-mode.js");
+
+/***/ }),
+
+/***/ 3280:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/app-router-context.js");
+
+/***/ }),
+
+/***/ 47244:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/hash.js");
+
+/***/ }),
+
+/***/ 92796:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/head-manager-context.js");
+
+/***/ }),
+
+/***/ 69274:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/hooks-client-context.js");
+
+/***/ }),
+
+/***/ 64486:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/image-blur-svg.js");
+
+/***/ }),
+
+/***/ 50744:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/image-config-context.js");
+
+/***/ }),
+
+/***/ 35843:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/image-config.js");
+
+/***/ }),
+
+/***/ 99552:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/image-loader");
+
+/***/ }),
+
+/***/ 24964:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/router-context.js");
+
+/***/ }),
+
+/***/ 11751:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/router/utils/add-path-prefix.js");
+
+/***/ }),
+
+/***/ 23938:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/router/utils/format-url.js");
+
+/***/ }),
+
+/***/ 21668:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/router/utils/handle-smooth-scroll.js");
+
+/***/ }),
+
+/***/ 1897:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/router/utils/is-bot.js");
+
+/***/ }),
+
+/***/ 71109:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/router/utils/is-local-url.js");
+
+/***/ }),
+
+/***/ 28854:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/router/utils/parse-path.js");
+
+/***/ }),
+
+/***/ 93297:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/router/utils/remove-trailing-slash.js");
+
+/***/ }),
+
+/***/ 87782:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/router/utils/resolve-href.js");
+
+/***/ }),
+
+/***/ 3349:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/server-inserted-html.js");
+
+/***/ }),
+
+/***/ 82470:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/side-effect.js");
+
+/***/ }),
+
+/***/ 59232:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/utils.js");
+
+/***/ }),
+
+/***/ 40618:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/utils/warn-once.js");
+
+/***/ }),
+
+/***/ 39491:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("assert");
+
+/***/ }),
+
+/***/ 14300:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("buffer");
+
+/***/ }),
+
+/***/ 6113:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("crypto");
+
+/***/ }),
+
+/***/ 82361:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("events");
+
+/***/ }),
+
+/***/ 57147:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("fs");
+
+/***/ }),
+
+/***/ 13685:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("http");
+
+/***/ }),
+
+/***/ 95687:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("https");
+
+/***/ }),
+
+/***/ 22037:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("os");
+
+/***/ }),
+
+/***/ 71017:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("path");
+
+/***/ }),
+
+/***/ 63477:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("querystring");
+
+/***/ }),
+
+/***/ 12781:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("stream");
+
+/***/ }),
+
+/***/ 76224:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("tty");
+
+/***/ }),
+
+/***/ 57310:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("url");
+
+/***/ }),
+
+/***/ 73837:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("util");
+
+/***/ }),
+
+/***/ 59796:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("zlib");
+
+/***/ }),
+
+/***/ 75476:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   AppRouter: () => (/* reexport default from dynamic */ next_dist_client_components_app_router__WEBPACK_IMPORTED_MODULE_0___default.a),
+/* harmony export */   GlobalError: () => (/* reexport default from dynamic */ next_dist_client_components_error_boundary__WEBPACK_IMPORTED_MODULE_3___default.a),
+/* harmony export */   LayoutRouter: () => (/* reexport default from dynamic */ next_dist_client_components_layout_router__WEBPACK_IMPORTED_MODULE_1___default.a),
+/* harmony export */   RenderFromTemplateContext: () => (/* reexport default from dynamic */ next_dist_client_components_render_from_template_context__WEBPACK_IMPORTED_MODULE_2___default.a),
+/* harmony export */   StaticGenerationSearchParamsBailoutProvider: () => (/* reexport default from dynamic */ next_dist_client_components_static_generation_searchparams_bailout_provider__WEBPACK_IMPORTED_MODULE_8___default.a),
+/* harmony export */   __next_app_webpack_require__: () => (/* binding */ __next_app_webpack_require__),
+/* harmony export */   actionAsyncStorage: () => (/* reexport safe */ next_dist_client_components_action_async_storage__WEBPACK_IMPORTED_MODULE_6__.actionAsyncStorage),
+/* harmony export */   createSearchParamsBailoutProxy: () => (/* reexport safe */ next_dist_client_components_searchparams_bailout_proxy__WEBPACK_IMPORTED_MODULE_9__.createSearchParamsBailoutProxy),
+/* harmony export */   decodeAction: () => (/* reexport safe */ react_server_dom_webpack_server_edge__WEBPACK_IMPORTED_MODULE_11__.decodeAction),
+/* harmony export */   decodeReply: () => (/* reexport safe */ react_server_dom_webpack_server_edge__WEBPACK_IMPORTED_MODULE_11__.decodeReply),
+/* harmony export */   originalPathname: () => (/* binding */ originalPathname),
+/* harmony export */   pages: () => (/* binding */ pages),
+/* harmony export */   preconnect: () => (/* reexport safe */ next_dist_server_app_render_rsc_preloads__WEBPACK_IMPORTED_MODULE_12__.preconnect),
+/* harmony export */   preloadFont: () => (/* reexport safe */ next_dist_server_app_render_rsc_preloads__WEBPACK_IMPORTED_MODULE_12__.preloadFont),
+/* harmony export */   preloadStyle: () => (/* reexport safe */ next_dist_server_app_render_rsc_preloads__WEBPACK_IMPORTED_MODULE_12__.preloadStyle),
+/* harmony export */   renderToReadableStream: () => (/* reexport safe */ react_server_dom_webpack_server_edge__WEBPACK_IMPORTED_MODULE_11__.renderToReadableStream),
+/* harmony export */   requestAsyncStorage: () => (/* reexport safe */ next_dist_client_components_request_async_storage__WEBPACK_IMPORTED_MODULE_5__.requestAsyncStorage),
+/* harmony export */   serverHooks: () => (/* reexport module object */ next_dist_client_components_hooks_server_context__WEBPACK_IMPORTED_MODULE_10__),
+/* harmony export */   staticGenerationAsyncStorage: () => (/* reexport safe */ next_dist_client_components_static_generation_async_storage__WEBPACK_IMPORTED_MODULE_4__.staticGenerationAsyncStorage),
+/* harmony export */   staticGenerationBailout: () => (/* reexport safe */ next_dist_client_components_static_generation_bailout__WEBPACK_IMPORTED_MODULE_7__.staticGenerationBailout),
+/* harmony export */   tree: () => (/* binding */ tree)
+/* harmony export */ });
+/* harmony import */ var next_dist_client_components_app_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(54592);
+/* harmony import */ var next_dist_client_components_app_router__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(next_dist_client_components_app_router__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var next_dist_client_components_layout_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(76301);
+/* harmony import */ var next_dist_client_components_layout_router__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_dist_client_components_layout_router__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var next_dist_client_components_render_from_template_context__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(57431);
+/* harmony import */ var next_dist_client_components_render_from_template_context__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_dist_client_components_render_from_template_context__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var next_dist_client_components_error_boundary__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(52673);
+/* harmony import */ var next_dist_client_components_error_boundary__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(next_dist_client_components_error_boundary__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var next_dist_client_components_static_generation_async_storage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(30094);
+/* harmony import */ var next_dist_client_components_static_generation_async_storage__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(next_dist_client_components_static_generation_async_storage__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var next_dist_client_components_request_async_storage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(24437);
+/* harmony import */ var next_dist_client_components_request_async_storage__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(next_dist_client_components_request_async_storage__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var next_dist_client_components_action_async_storage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(46127);
+/* harmony import */ var next_dist_client_components_action_async_storage__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(next_dist_client_components_action_async_storage__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var next_dist_client_components_static_generation_bailout__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(45486);
+/* harmony import */ var next_dist_client_components_static_generation_bailout__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(next_dist_client_components_static_generation_bailout__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var next_dist_client_components_static_generation_searchparams_bailout_provider__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(86404);
+/* harmony import */ var next_dist_client_components_static_generation_searchparams_bailout_provider__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(next_dist_client_components_static_generation_searchparams_bailout_provider__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var next_dist_client_components_searchparams_bailout_proxy__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(95486);
+/* harmony import */ var next_dist_client_components_searchparams_bailout_proxy__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(next_dist_client_components_searchparams_bailout_proxy__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var next_dist_client_components_hooks_server_context__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(63332);
+/* harmony import */ var next_dist_client_components_hooks_server_context__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(next_dist_client_components_hooks_server_context__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var react_server_dom_webpack_server_edge__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(27902);
+/* harmony import */ var next_dist_server_app_render_rsc_preloads__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(93099);
+/* harmony import */ var next_dist_server_app_render_rsc_preloads__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(next_dist_server_app_render_rsc_preloads__WEBPACK_IMPORTED_MODULE_12__);
+
+    const tree = {
+        children: [
+        '',
+        {
+        children: [
+        '(main)',
+        {
+        children: [
+        'parents',
+        {
+        children: [
+        'lobby',
+        {
+        children: ['__PAGE__', {}, {
+          page: [() => Promise.resolve(/* import() eager */).then(__webpack_require__.bind(__webpack_require__, 68396)), "/frontend_app/src/app/(main)/parents/lobby/page.tsx"],
+          
+        }]
+      },
+        {
+          
+          
+        }
+      ]
+      },
+        {
+          
+          
+        }
+      ]
+      },
+        {
+          'layout': [() => Promise.resolve(/* import() eager */).then(__webpack_require__.bind(__webpack_require__, 92663)), "/frontend_app/src/app/(main)/layout.tsx"],
+'loading': [() => Promise.resolve(/* import() eager */).then(__webpack_require__.bind(__webpack_require__, 40166)), "/frontend_app/src/app/(main)/loading.tsx"],
+'not-found': [() => Promise.resolve(/* import() eager */).then(__webpack_require__.bind(__webpack_require__, 70778)), "/frontend_app/src/app/(main)/not-found.tsx"],
+          metadata: {
+    icon: [(async (props) => (await Promise.resolve(/* import() eager */).then(__webpack_require__.bind(__webpack_require__, 82819))).default(props))],
+    apple: [],
+    openGraph: [],
+    twitter: [],
+    manifest: undefined
+  }
+        }
+      ]
+      },
+        {
+          'layout': [() => Promise.resolve(/* import() eager */).then(__webpack_require__.bind(__webpack_require__, 31025)), "/frontend_app/src/app/layout.tsx"],
+'not-found': [() => Promise.resolve(/* import() eager */).then(__webpack_require__.bind(__webpack_require__, 95654)), "/frontend_app/src/app/not-found.tsx"],
+          metadata: {
+    icon: [(async (props) => (await Promise.resolve(/* import() eager */).then(__webpack_require__.bind(__webpack_require__, 82819))).default(props))],
+    apple: [],
+    openGraph: [],
+    twitter: [],
+    manifest: undefined
+  }
+        }
+      ]
+      }.children;
+    const pages = ["/frontend_app/src/app/(main)/parents/lobby/page.tsx"];
+
+    
+    
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+
+    
+
+    
+    const __next_app_webpack_require__ = __webpack_require__
+    
+
+    const originalPathname = "/(main)/parents/lobby/page"
+  
+
+/***/ }),
+
+/***/ 72042:
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+Promise.resolve(/* import() eager */).then(__webpack_require__.bind(__webpack_require__, 58989))
+
+/***/ }),
+
+/***/ 58989:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (/* binding */ Lobby_Lobby)
+});
+
+// EXTERNAL MODULE: external "next/dist/compiled/react/jsx-runtime"
+var jsx_runtime_ = __webpack_require__(56786);
+// EXTERNAL MODULE: external "next/dist/compiled/react"
+var react_ = __webpack_require__(18038);
+// EXTERNAL MODULE: ./src/components/common/index.ts + 3 modules
+var common = __webpack_require__(78957);
+// EXTERNAL MODULE: ./node_modules/classnames/index.js
+var classnames = __webpack_require__(71198);
+var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
+// EXTERNAL MODULE: ./node_modules/next/image.js
+var next_image = __webpack_require__(48421);
+var image_default = /*#__PURE__*/__webpack_require__.n(next_image);
+// EXTERNAL MODULE: ./public/images/cat/cat-sad.svg
+var cat_sad = __webpack_require__(49127);
+// EXTERNAL MODULE: ./src/app/(main)/parents/lobby/components/Lobby/Lobby.module.scss
+var Lobby_module = __webpack_require__(91760);
+var Lobby_module_default = /*#__PURE__*/__webpack_require__.n(Lobby_module);
+;// CONCATENATED MODULE: ./src/app/(main)/parents/lobby/components/Lobby/NoWigwams.tsx
+
+
+
+
+
+
+
+const NoWigwams = ()=>/*#__PURE__*/ (0,jsx_runtime_.jsxs)(jsx_runtime_.Fragment, {
+        children: [
+            /*#__PURE__*/ (0,jsx_runtime_.jsxs)(common/* Typography */.ZT, {
+                className: classnames_default()((Lobby_module_default()).title, (Lobby_module_default())["title--no-user"]),
+                component: "h1",
+                variant: "h2",
+                children: [
+                    "Привіт! ",
+                    /*#__PURE__*/ jsx_runtime_.jsx("br", {}),
+                    "В тебе ще немає створеного вігваму"
+                ]
+            }),
+            /*#__PURE__*/ jsx_runtime_.jsx("div", {
+                className: (Lobby_module_default())["image-wrapper"],
+                children: /*#__PURE__*/ jsx_runtime_.jsx((image_default()), {
+                    className: (Lobby_module_default()).image,
+                    src: cat_sad/* default */.Z,
+                    alt: "Зображення засмученого кота"
+                })
+            })
+        ]
+    });
+/* harmony default export */ const Lobby_NoWigwams = (NoWigwams);
+
+// EXTERNAL MODULE: ./node_modules/next/link.js
+var next_link = __webpack_require__(31621);
+var link_default = /*#__PURE__*/__webpack_require__.n(next_link);
+// EXTERNAL MODULE: ./src/constants/index.ts + 2 modules
+var constants = __webpack_require__(64927);
+// EXTERNAL MODULE: ./src/app/(main)/parents/lobby/components/Avatar/Avatar.module.scss
+var Avatar_module = __webpack_require__(80760);
+var Avatar_module_default = /*#__PURE__*/__webpack_require__.n(Avatar_module);
+;// CONCATENATED MODULE: ./src/app/(main)/parents/lobby/components/Avatar/Avatar3.tsx
+
+
+const Avatar3 = ()=>/*#__PURE__*/ (0,jsx_runtime_.jsxs)("svg", {
+        width: "166",
+        height: "171",
+        viewBox: "0 0 166 171",
+        fill: "none",
+        xmlns: "http://www.w3.org/2000/svg",
+        children: [
+            /*#__PURE__*/ (0,jsx_runtime_.jsxs)("g", {
+                filter: "url(#filter0_d_6069_58844)",
+                children: [
+                    /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                        fillRule: "evenodd",
+                        clipRule: "evenodd",
+                        d: "M82.2441 19.4554C105.69 21.0498 129.752 -5.65715 144.373 13.151C158.943 31.8935 158.802 55.5291 154.363 79.0371C149.86 102.885 133.09 147.64 111.008 156.59C91.4598 164.513 42.7382 136.876 23.8172 127.495C4.95164 118.141 22.15 94.6828 17.203 73.8497C12.153 52.5831 2.98755 31.4713 14.6948 13.151C28.0093 -7.68436 57.9566 17.8036 82.2441 19.4554Z",
+                        fill: "#D7D7D7"
+                    }),
+                    /*#__PURE__*/ jsx_runtime_.jsx("mask", {
+                        id: "mask0_6069_58844",
+                        style: {
+                            maskType: "alpha"
+                        },
+                        maskUnits: "userSpaceOnUse",
+                        x: "12",
+                        y: "8",
+                        width: "142",
+                        height: "147",
+                        children: /*#__PURE__*/ jsx_runtime_.jsx("ellipse", {
+                            cx: "82.9996",
+                            cy: "81.8122",
+                            rx: "70.4762",
+                            ry: "73.1545",
+                            fill: "#7791FA"
+                        })
+                    }),
+                    /*#__PURE__*/ (0,jsx_runtime_.jsxs)("g", {
+                        mask: "url(#mask0_6069_58844)",
+                        children: [
+                            /*#__PURE__*/ jsx_runtime_.jsx("ellipse", {
+                                cx: "83.5416",
+                                cy: "120.078",
+                                rx: "50.4176",
+                                ry: "60.7745",
+                                fill: "#F2B441"
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                                d: "M64.9677 127.035C76.5668 127.035 85.9696 118.172 85.9696 107.239C85.9696 96.3052 76.5668 87.4419 64.9677 87.4419C53.3687 87.4419 43.9658 96.3052 43.9658 107.239C43.9658 118.172 53.3687 127.035 64.9677 127.035Z",
+                                fill: "#FDFDFD"
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                                d: "M64.9664 116.682C69.7209 116.682 73.5753 112.681 73.5753 107.746C73.5753 102.81 69.7209 98.8096 64.9664 98.8096C60.2118 98.8096 56.3574 102.81 56.3574 107.746C56.3574 112.681 60.2118 116.682 64.9664 116.682Z",
+                                fill: "#1E1E1E"
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                                d: "M57.5947 107.746C57.5947 107.746 60.5547 107.296 60.9125 106.497C60.9125 106.497 61.8233 109.108 61.9859 109.31C61.9859 109.31 59.2753 111.719 58.6898 111.46C58.1043 111.201 57.5947 107.746 57.5947 107.746Z",
+                                fill: "#FDFDFD"
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                                d: "M101.832 127.035C113.431 127.035 122.834 118.172 122.834 107.239C122.834 96.3052 113.431 87.4419 101.832 87.4419C90.2329 87.4419 80.8301 96.3052 80.8301 107.239C80.8301 118.172 90.2329 127.035 101.832 127.035Z",
+                                fill: "#FDFDFD"
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                                d: "M101.831 116.682C106.585 116.682 110.44 112.681 110.44 107.746C110.44 102.81 106.585 98.8096 101.831 98.8096C97.076 98.8096 93.2217 102.81 93.2217 107.746C93.2217 112.681 97.076 116.682 101.831 116.682Z",
+                                fill: "#1E1E1E"
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                                d: "M94.459 107.746C94.459 107.746 97.419 107.296 97.7768 106.497C97.7768 106.497 98.6876 109.108 98.8502 109.31C98.8502 109.31 96.1396 111.719 95.5541 111.46C94.9686 111.201 94.459 107.746 94.459 107.746Z",
+                                fill: "#FDFDFD"
+                            })
+                        ]
+                    }),
+                    /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                        className: (Avatar_module_default())["avatar-stroke"],
+                        fillRule: "evenodd",
+                        clipRule: "evenodd",
+                        d: "M82.2441 19.4554C105.69 21.0498 129.752 -5.65715 144.373 13.151C158.943 31.8935 158.802 55.5291 154.363 79.0371C149.86 102.885 133.09 147.64 111.008 156.59C91.4598 164.513 42.7382 136.876 23.8172 127.495C4.95164 118.141 22.15 94.6828 17.203 73.8497C12.153 52.5831 2.98755 31.4713 14.6948 13.151C28.0093 -7.68436 57.9566 17.8036 82.2441 19.4554Z",
+                        stroke: "#FDFDFD",
+                        strokeWidth: "10"
+                    })
+                ]
+            }),
+            /*#__PURE__*/ jsx_runtime_.jsx("defs", {
+                children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)("filter", {
+                    id: "filter0_d_6069_58844",
+                    x: "0.000976562",
+                    y: "0.000488281",
+                    width: "165.998",
+                    height: "171",
+                    filterUnits: "userSpaceOnUse",
+                    colorInterpolationFilters: "sRGB",
+                    children: [
+                        /*#__PURE__*/ jsx_runtime_.jsx("feFlood", {
+                            floodOpacity: "0",
+                            result: "BackgroundImageFix"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feColorMatrix", {
+                            in: "SourceAlpha",
+                            type: "matrix",
+                            values: "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0",
+                            result: "hardAlpha"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feOffset", {
+                            dy: "4"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feGaussianBlur", {
+                            stdDeviation: "2"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feComposite", {
+                            in2: "hardAlpha",
+                            operator: "out"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feColorMatrix", {
+                            type: "matrix",
+                            values: "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feBlend", {
+                            mode: "normal",
+                            in2: "BackgroundImageFix",
+                            result: "effect1_dropShadow_6069_58844"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feBlend", {
+                            mode: "normal",
+                            in: "SourceGraphic",
+                            in2: "effect1_dropShadow_6069_58844",
+                            result: "shape"
+                        })
+                    ]
+                })
+            })
+        ]
+    });
+/* harmony default export */ const Avatar_Avatar3 = (Avatar3);
+
+;// CONCATENATED MODULE: ./src/app/(main)/parents/lobby/components/Avatar/Avatar5.tsx
+
+
+const Avatar5 = ()=>/*#__PURE__*/ (0,jsx_runtime_.jsxs)("svg", {
+        width: "166",
+        height: "172",
+        viewBox: "0 0 166 172",
+        fill: "none",
+        xmlns: "http://www.w3.org/2000/svg",
+        children: [
+            /*#__PURE__*/ (0,jsx_runtime_.jsxs)("g", {
+                filter: "url(#filter0_d_6069_58876)",
+                children: [
+                    /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                        fillRule: "evenodd",
+                        clipRule: "evenodd",
+                        d: "M77.2823 19.6494C103.686 1.52073 125.43 -8.02068 140.312 41.5947C154.502 61.2629 159.866 79.6903 155.544 104.359C151.158 129.385 133.805 148.608 112.299 158C85.8957 141.916 63.7893 162.325 45.3622 152.48C26.989 142.664 16.5214 121.997 11.7035 100.135C6.78534 77.818 8.11882 54.4443 19.5205 35.2193C32.4875 13.3548 53.6287 17.9161 77.2823 19.6494Z",
+                        fill: "#D7D7D7"
+                    }),
+                    /*#__PURE__*/ jsx_runtime_.jsx("mask", {
+                        id: "mask0_6069_58876",
+                        style: {
+                            maskType: "alpha"
+                        },
+                        maskUnits: "userSpaceOnUse",
+                        x: "12",
+                        y: "17",
+                        width: "142",
+                        height: "141",
+                        children: /*#__PURE__*/ jsx_runtime_.jsx("ellipse", {
+                            cx: "82.5592",
+                            cy: "87.6554",
+                            rx: "70.4762",
+                            ry: "70.3448",
+                            fill: "#7791FA"
+                        })
+                    }),
+                    /*#__PURE__*/ (0,jsx_runtime_.jsxs)("g", {
+                        mask: "url(#mask0_6069_58876)",
+                        children: [
+                            /*#__PURE__*/ jsx_runtime_.jsx("ellipse", {
+                                cx: "83.1012",
+                                cy: "124.452",
+                                rx: "50.4176",
+                                ry: "58.4403",
+                                fill: "#7791FA"
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                                d: "M64.5273 131.142C76.1263 131.142 85.5292 122.619 85.5292 112.105C85.5292 101.592 76.1263 93.0688 64.5273 93.0688C52.9283 93.0688 43.5254 101.592 43.5254 112.105C43.5254 122.619 52.9283 131.142 64.5273 131.142Z",
+                                fill: "#FDFDFD"
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                                d: "M64.5259 121.186C69.2805 121.186 73.1349 117.339 73.1349 112.593C73.1349 107.847 69.2805 104 64.5259 104C59.7713 104 55.917 107.847 55.917 112.593C55.917 117.339 59.7713 121.186 64.5259 121.186Z",
+                                fill: "#1E1E1E"
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                                d: "M57.1543 112.593C57.1543 112.593 60.1143 112.16 60.4721 111.392C60.4721 111.392 61.3829 113.902 61.5455 114.097C61.5455 114.097 58.8349 116.413 58.2494 116.164C57.6639 115.915 57.1543 112.593 57.1543 112.593Z",
+                                fill: "#FDFDFD"
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                                d: "M101.392 131.142C112.991 131.142 122.393 122.619 122.393 112.105C122.393 101.592 112.991 93.0688 101.392 93.0688C89.7925 93.0688 80.3896 101.592 80.3896 112.105C80.3896 122.619 89.7925 131.142 101.392 131.142Z",
+                                fill: "#FDFDFD"
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                                d: "M101.39 121.186C106.145 121.186 109.999 117.339 109.999 112.593C109.999 107.847 106.145 104 101.39 104C96.6356 104 92.7812 107.847 92.7812 112.593C92.7812 117.339 96.6356 121.186 101.39 121.186Z",
+                                fill: "#1E1E1E"
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                                d: "M94.0186 112.593C94.0186 112.593 96.9786 112.16 97.3364 111.392C97.3364 111.392 98.2471 113.902 98.4098 114.097C98.4098 114.097 95.6991 116.413 95.1136 116.164C94.5281 115.915 94.0186 112.593 94.0186 112.593Z",
+                                fill: "#FDFDFD"
+                            })
+                        ]
+                    }),
+                    /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                        className: (Avatar_module_default())["avatar-stroke"],
+                        fillRule: "evenodd",
+                        clipRule: "evenodd",
+                        d: "M77.2823 19.6494C103.686 1.52073 125.43 -8.02068 140.312 41.5947C154.502 61.2629 159.866 79.6903 155.544 104.359C151.158 129.385 133.805 148.608 112.299 158C85.8957 147.192 63.7893 162.325 45.3622 152.48C26.989 142.664 16.5214 121.997 11.7035 100.135C6.78534 77.818 8.11883 54.4443 19.5205 35.2193C32.4875 13.3548 53.6287 17.9161 77.2823 19.6494Z",
+                        stroke: "#FDFDFD",
+                        strokeWidth: "10"
+                    })
+                ]
+            }),
+            /*#__PURE__*/ jsx_runtime_.jsx("defs", {
+                children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)("filter", {
+                    id: "filter0_d_6069_58876",
+                    x: "0.000976562",
+                    y: "-0.000488281",
+                    width: "165.998",
+                    height: "171.429",
+                    filterUnits: "userSpaceOnUse",
+                    colorInterpolationFilters: "sRGB",
+                    children: [
+                        /*#__PURE__*/ jsx_runtime_.jsx("feFlood", {
+                            floodOpacity: "0",
+                            result: "BackgroundImageFix"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feColorMatrix", {
+                            in: "SourceAlpha",
+                            type: "matrix",
+                            values: "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0",
+                            result: "hardAlpha"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feOffset", {
+                            dy: "4"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feGaussianBlur", {
+                            stdDeviation: "2"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feComposite", {
+                            in2: "hardAlpha",
+                            operator: "out"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feColorMatrix", {
+                            type: "matrix",
+                            values: "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feBlend", {
+                            mode: "normal",
+                            in2: "BackgroundImageFix",
+                            result: "effect1_dropShadow_6069_58876"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feBlend", {
+                            mode: "normal",
+                            in: "SourceGraphic",
+                            in2: "effect1_dropShadow_6069_58876",
+                            result: "shape"
+                        })
+                    ]
+                })
+            })
+        ]
+    });
+/* harmony default export */ const Avatar_Avatar5 = (Avatar5);
+
+;// CONCATENATED MODULE: ./src/app/(main)/parents/lobby/components/Avatar/Avatar4.tsx
+
+
+const Avatar4 = ()=>/*#__PURE__*/ (0,jsx_runtime_.jsxs)("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "169",
+        height: "177",
+        viewBox: "0 0 169 177",
+        fill: "none",
+        children: [
+            /*#__PURE__*/ (0,jsx_runtime_.jsxs)("g", {
+                filter: "url(#filter0_d_6452_82910)",
+                children: [
+                    /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                        fillRule: "evenodd",
+                        clipRule: "evenodd",
+                        d: "M71.1426 12.5388C97.5458 -5.58984 131.679 12.5385 146.905 33.642C153.952 53.8661 159.543 61.7799 159.543 107.502C155.158 132.527 137.804 151.75 116.299 161.142C86.119 167.297 67.7891 165.467 49.362 155.622C30.9888 145.806 19.5794 129.364 14.7615 107.502C1.59736 82.8812 12.1186 57.5865 23.5203 38.3614C36.4873 16.497 47.489 10.8055 71.1426 12.5388Z",
+                        fill: "#D7D7D7"
+                    }),
+                    /*#__PURE__*/ jsx_runtime_.jsx("mask", {
+                        id: "mask0_6452_82910",
+                        style: {
+                            maskType: "alpha"
+                        },
+                        maskUnits: "userSpaceOnUse",
+                        x: "16",
+                        y: "20",
+                        width: "142",
+                        height: "142",
+                        children: /*#__PURE__*/ jsx_runtime_.jsx("ellipse", {
+                            cx: "86.5592",
+                            cy: "90.798",
+                            rx: "70.4762",
+                            ry: "70.3448",
+                            fill: "#7791FA"
+                        })
+                    }),
+                    /*#__PURE__*/ (0,jsx_runtime_.jsxs)("g", {
+                        mask: "url(#mask0_6452_82910)",
+                        children: [
+                            /*#__PURE__*/ jsx_runtime_.jsx("ellipse", {
+                                cx: "87.1012",
+                                cy: "127.594",
+                                rx: "50.4176",
+                                ry: "58.4403",
+                                fill: "#F40000"
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                                d: "M68.5273 134.284C80.1263 134.284 89.5292 125.761 89.5292 115.247C89.5292 104.734 80.1263 96.2109 68.5273 96.2109C56.9283 96.2109 47.5254 104.734 47.5254 115.247C47.5254 125.761 56.9283 134.284 68.5273 134.284Z",
+                                fill: "#FDFDFD"
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                                d: "M68.5259 124.328C73.2805 124.328 77.1349 120.481 77.1349 115.735C77.1349 110.99 73.2805 107.143 68.5259 107.143C63.7713 107.143 59.917 110.99 59.917 115.735C59.917 120.481 63.7713 124.328 68.5259 124.328Z",
+                                fill: "#1E1E1E"
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                                d: "M61.1543 115.735C61.1543 115.735 64.1143 115.303 64.4721 114.534C64.4721 114.534 65.3829 117.045 65.5455 117.24C65.5455 117.24 62.8349 119.556 62.2494 119.307C61.6639 119.058 61.1543 115.735 61.1543 115.735Z",
+                                fill: "#FDFDFD"
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                                d: "M105.392 134.284C116.991 134.284 126.393 125.761 126.393 115.247C126.393 104.734 116.991 96.2109 105.392 96.2109C93.7925 96.2109 84.3896 104.734 84.3896 115.247C84.3896 125.761 93.7925 134.284 105.392 134.284Z",
+                                fill: "#FDFDFD"
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                                d: "M105.39 124.328C110.145 124.328 113.999 120.481 113.999 115.735C113.999 110.99 110.145 107.143 105.39 107.143C100.636 107.143 96.7812 110.99 96.7812 115.735C96.7812 120.481 100.636 124.328 105.39 124.328Z",
+                                fill: "#1E1E1E"
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                                d: "M98.0186 115.735C98.0186 115.735 100.979 115.303 101.336 114.534C101.336 114.534 102.247 117.045 102.41 117.24C102.41 117.24 99.6991 119.556 99.1136 119.307C98.5281 119.058 98.0186 115.735 98.0186 115.735Z",
+                                fill: "#FDFDFD"
+                            })
+                        ]
+                    }),
+                    /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                        className: (Avatar_module_default())["avatar-stroke"],
+                        fillRule: "evenodd",
+                        clipRule: "evenodd",
+                        d: "M72.9044 11.6594C99.3076 -6.46927 145.474 20.9024 152.19 44.1939C159.543 69.694 159.543 82.0044 159.543 107.502C155.158 132.527 137.804 151.75 116.299 161.142C85.2378 165.539 67.789 165.467 49.3619 155.622C30.9887 145.806 18.6984 129.364 13.8805 107.502C8.96233 85.1849 3.30912 60.9009 23.5202 38.3616C36.4872 16.4972 49.2508 9.9261 72.9044 11.6594Z",
+                        stroke: "#FDFDFD",
+                        strokeWidth: "10"
+                    })
+                ]
+            }),
+            /*#__PURE__*/ jsx_runtime_.jsx("defs", {
+                xmlns: "http://www.w3.org/2000/svg",
+                children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)("filter", {
+                    id: "filter0_d_6452_82910",
+                    x: "0.214844",
+                    y: "0.765625",
+                    width: "168.328",
+                    height: "176.169",
+                    filterUnits: "userSpaceOnUse",
+                    colorInterpolationFilters: "sRGB",
+                    children: [
+                        /*#__PURE__*/ jsx_runtime_.jsx("feFlood", {
+                            floodOpacity: "0",
+                            result: "BackgroundImageFix"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feColorMatrix", {
+                            in: "SourceAlpha",
+                            type: "matrix",
+                            values: "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0",
+                            result: "hardAlpha"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feOffset", {
+                            dy: "4"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feGaussianBlur", {
+                            stdDeviation: "2"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feComposite", {
+                            in2: "hardAlpha",
+                            operator: "out"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feColorMatrix", {
+                            type: "matrix",
+                            values: "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feBlend", {
+                            mode: "normal",
+                            in2: "BackgroundImageFix",
+                            result: "effect1_dropShadow_6452_82910"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feBlend", {
+                            mode: "normal",
+                            in: "SourceGraphic",
+                            in2: "effect1_dropShadow_6452_82910",
+                            result: "shape"
+                        })
+                    ]
+                })
+            })
+        ]
+    });
+/* harmony default export */ const Avatar_Avatar4 = (Avatar4);
+
+;// CONCATENATED MODULE: ./src/app/(main)/parents/lobby/components/Avatar/Avatar1.tsx
+
+
+const Avatar1 = ()=>/*#__PURE__*/ (0,jsx_runtime_.jsxs)("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "165",
+        height: "177",
+        viewBox: "0 0 165 177",
+        fill: "none",
+        children: [
+            /*#__PURE__*/ (0,jsx_runtime_.jsxs)("g", {
+                filter: "url(#filter0_d_6452_82907)",
+                children: [
+                    /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                        "fill-rule": "evenodd",
+                        "clip-rule": "evenodd",
+                        d: "M67.143 12.5388C93.5462 -5.58992 132.965 12.5388 148.191 33.6423C139.381 67.0557 148.191 83.7626 155.544 107.501C151.159 132.527 133.805 151.75 112.299 161.142C82.1194 167.297 63.7895 165.467 45.3624 155.622C26.9892 145.806 24.339 118.814 19.5211 96.9523C6.35691 72.3316 8.11901 57.5864 19.5207 38.3613C32.4877 16.4969 43.4894 10.8055 67.143 12.5388Z",
+                        fill: "#D7D7D7"
+                    }),
+                    /*#__PURE__*/ jsx_runtime_.jsx("mask", {
+                        id: "mask0_6452_82907",
+                        style: {
+                            maskType: "alpha"
+                        },
+                        maskUnits: "userSpaceOnUse",
+                        x: "12",
+                        y: "20",
+                        width: "142",
+                        height: "142",
+                        children: /*#__PURE__*/ jsx_runtime_.jsx("ellipse", {
+                            cx: "82.5592",
+                            cy: "90.798",
+                            rx: "70.4762",
+                            ry: "70.3448",
+                            fill: "#7791FA"
+                        })
+                    }),
+                    /*#__PURE__*/ (0,jsx_runtime_.jsxs)("g", {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        mask: "url(#mask0_6452_82907)",
+                        children: [
+                            /*#__PURE__*/ jsx_runtime_.jsx("ellipse", {
+                                cx: "83.1012",
+                                cy: "127.594",
+                                rx: "50.4176",
+                                ry: "58.4403",
+                                fill: "#3EB560"
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                                d: "M64.5273 134.284C76.1263 134.284 85.5292 125.761 85.5292 115.247C85.5292 104.734 76.1263 96.2109 64.5273 96.2109C52.9283 96.2109 43.5254 104.734 43.5254 115.247C43.5254 125.761 52.9283 134.284 64.5273 134.284Z",
+                                fill: "#FDFDFD"
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                                d: "M64.5259 124.328C69.2805 124.328 73.1349 120.481 73.1349 115.735C73.1349 110.99 69.2805 107.143 64.5259 107.143C59.7713 107.143 55.917 110.99 55.917 115.735C55.917 120.481 59.7713 124.328 64.5259 124.328Z",
+                                fill: "#1E1E1E"
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                                d: "M57.1543 115.735C57.1543 115.735 60.1143 115.303 60.4721 114.534C60.4721 114.534 61.3829 117.045 61.5455 117.24C61.5455 117.24 58.8349 119.556 58.2494 119.307C57.6639 119.058 57.1543 115.735 57.1543 115.735Z",
+                                fill: "#FDFDFD"
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                                d: "M101.392 134.284C112.991 134.284 122.393 125.761 122.393 115.247C122.393 104.734 112.991 96.2109 101.392 96.2109C89.7925 96.2109 80.3896 104.734 80.3896 115.247C80.3896 125.761 89.7925 134.284 101.392 134.284Z",
+                                fill: "#FDFDFD"
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                                d: "M101.39 124.328C106.145 124.328 109.999 120.481 109.999 115.735C109.999 110.99 106.145 107.143 101.39 107.143C96.6356 107.143 92.7812 110.99 92.7812 115.735C92.7812 120.481 96.6356 124.328 101.39 124.328Z",
+                                fill: "#1E1E1E"
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                                d: "M94.0186 115.735C94.0186 115.735 96.9786 115.303 97.3364 114.534C97.3364 114.534 98.2471 117.045 98.4098 117.24C98.4098 117.24 95.6991 119.556 95.1136 119.307C94.5281 119.058 94.0186 115.735 94.0186 115.735Z",
+                                fill: "#FDFDFD"
+                            })
+                        ]
+                    }),
+                    /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                        fillRule: "evenodd",
+                        clipRule: "evenodd",
+                        className: (Avatar_module_default())["avatar-stroke"],
+                        d: "M68.9046 11.66C95.3078 -6.46872 157.039 21.6239 148.19 44.1945C140.262 64.4187 148.19 82.8842 155.543 107.502C151.158 132.528 133.804 151.751 112.299 161.143C81.2379 165.54 63.7892 165.467 45.3621 155.623C26.9889 145.807 24.3386 122.332 19.5207 100.47C14.6025 78.1535 -0.690744 60.9014 19.5203 38.3622C32.4873 16.4978 45.251 9.92666 68.9046 11.66Z",
+                        stroke: "#FDFDFD",
+                        strokeWidth: "10"
+                    })
+                ]
+            }),
+            /*#__PURE__*/ jsx_runtime_.jsx("defs", {
+                xmlns: "http://www.w3.org/2000/svg",
+                children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)("filter", {
+                    id: "filter0_d_6452_82907",
+                    x: "0.341797",
+                    y: "0.853516",
+                    width: "164.33",
+                    height: "176.082",
+                    filterUnits: "userSpaceOnUse",
+                    colorInterpolationFilters: "sRGB",
+                    children: [
+                        /*#__PURE__*/ jsx_runtime_.jsx("feFlood", {
+                            floodOpacity: "0",
+                            result: "BackgroundImageFix"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feColorMatrix", {
+                            in: "SourceAlpha",
+                            type: "matrix",
+                            values: "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0",
+                            result: "hardAlpha"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feOffset", {
+                            dy: "4"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feGaussianBlur", {
+                            stdDeviation: "2"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feComposite", {
+                            in2: "hardAlpha",
+                            operator: "out"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feColorMatrix", {
+                            type: "matrix",
+                            values: "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feBlend", {
+                            mode: "normal",
+                            in2: "BackgroundImageFix",
+                            result: "effect1_dropShadow_6452_82907"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feBlend", {
+                            mode: "normal",
+                            in: "SourceGraphic",
+                            in2: "effect1_dropShadow_6452_82907",
+                            result: "shape"
+                        })
+                    ]
+                })
+            })
+        ]
+    });
+/* harmony default export */ const Avatar_Avatar1 = (Avatar1);
+
+;// CONCATENATED MODULE: ./src/app/(main)/parents/lobby/components/Avatar/Avatar6.tsx
+
+
+const Avatar6 = ()=>/*#__PURE__*/ (0,jsx_runtime_.jsxs)("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "167",
+        height: "175",
+        viewBox: "0 0 167 175",
+        fill: "none",
+        children: [
+            /*#__PURE__*/ (0,jsx_runtime_.jsxs)("g", {
+                filter: "url(#filter0_d_6452_82916)",
+                children: [
+                    /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                        fillRule: "evenodd",
+                        clipRule: "evenodd",
+                        d: "M67.143 12.5388C93.5462 -5.58992 130.323 12.5388 145.548 33.6423C152.901 65.2971 159.929 82.4759 155.544 107.501C151.159 132.527 142.614 150.87 112.299 154.987C82.1194 161.142 63.7895 165.467 45.3624 155.622C26.9892 145.806 24.339 118.814 19.5211 96.9523C6.35691 72.3316 8.11901 57.5864 19.5207 38.3613C35.429 33.6423 40.7398 30.6675 67.143 12.5388Z",
+                        fill: "#D7D7D7"
+                    }),
+                    /*#__PURE__*/ jsx_runtime_.jsx("mask", {
+                        id: "mask0_6452_82916",
+                        style: {
+                            maskType: "alpha"
+                        },
+                        maskUnits: "userSpaceOnUse",
+                        x: "12",
+                        y: "20",
+                        width: "142",
+                        height: "142",
+                        children: /*#__PURE__*/ jsx_runtime_.jsx("ellipse", {
+                            cx: "82.5592",
+                            cy: "90.798",
+                            rx: "70.4762",
+                            ry: "70.3448",
+                            fill: "#7791FA"
+                        })
+                    }),
+                    /*#__PURE__*/ (0,jsx_runtime_.jsxs)("g", {
+                        mask: "url(#mask0_6452_82916)",
+                        children: [
+                            /*#__PURE__*/ jsx_runtime_.jsx("ellipse", {
+                                cx: "83.1012",
+                                cy: "127.594",
+                                rx: "50.4176",
+                                ry: "58.4403",
+                                fill: "#006510"
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                                d: "M64.5273 134.284C76.1263 134.284 85.5292 125.761 85.5292 115.247C85.5292 104.734 76.1263 96.2109 64.5273 96.2109C52.9283 96.2109 43.5254 104.734 43.5254 115.247C43.5254 125.761 52.9283 134.284 64.5273 134.284Z",
+                                fill: "#FDFDFD"
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                                d: "M64.5259 124.328C69.2805 124.328 73.1349 120.481 73.1349 115.735C73.1349 110.99 69.2805 107.143 64.5259 107.143C59.7713 107.143 55.917 110.99 55.917 115.735C55.917 120.481 59.7713 124.328 64.5259 124.328Z",
+                                fill: "#1E1E1E"
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                                d: "M57.1543 115.735C57.1543 115.735 60.1143 115.303 60.4721 114.534C60.4721 114.534 61.3829 117.045 61.5455 117.24C61.5455 117.24 58.8349 119.556 58.2494 119.307C57.6639 119.058 57.1543 115.735 57.1543 115.735Z",
+                                fill: "#FDFDFD"
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                                d: "M101.392 134.284C112.991 134.284 122.393 125.761 122.393 115.247C122.393 104.734 112.991 96.2109 101.392 96.2109C89.7925 96.2109 80.3896 104.734 80.3896 115.247C80.3896 125.761 89.7925 134.284 101.392 134.284Z",
+                                fill: "#FDFDFD"
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                                d: "M101.39 124.328C106.145 124.328 109.999 120.481 109.999 115.735C109.999 110.99 106.145 107.143 101.39 107.143C96.6356 107.143 92.7812 110.99 92.7812 115.735C92.7812 120.481 96.6356 124.328 101.39 124.328Z",
+                                fill: "#1E1E1E"
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                                d: "M94.0186 115.735C94.0186 115.735 96.9786 115.303 97.3364 114.534C97.3364 114.534 98.2471 117.045 98.4098 117.24C98.4098 117.24 95.6991 119.556 95.1136 119.307C94.5281 119.058 94.0186 115.735 94.0186 115.735Z",
+                                fill: "#FDFDFD"
+                            })
+                        ]
+                    }),
+                    /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                        className: (Avatar_module_default())["avatar-stroke"],
+                        fillRule: "evenodd",
+                        clipRule: "evenodd",
+                        d: "M68.9046 11.6595C95.3078 -6.46921 142.557 20.6181 148.19 44.194C155.543 74.9701 159.929 82.4762 155.543 107.502C151.158 132.527 141.37 151.47 110.309 155.866C79.2481 160.263 62.6646 165.711 44.2375 155.866C25.8643 146.051 24.3386 122.332 19.5207 100.47C14.6025 78.153 -0.690744 60.9009 19.5203 38.3617C51.2851 25.7285 42.5014 29.7882 68.9046 11.6595Z",
+                        stroke: "#FDFDFD",
+                        strokeWidth: "10"
+                    })
+                ]
+            }),
+            /*#__PURE__*/ jsx_runtime_.jsx("defs", {
+                xmlns: "http://www.w3.org/2000/svg",
+                children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)("filter", {
+                    id: "filter0_d_6452_82916",
+                    x: "0.341797",
+                    y: "0.731445",
+                    width: "165.95",
+                    height: "173.658",
+                    filterUnits: "userSpaceOnUse",
+                    colorInterpolationFilters: "sRGB",
+                    children: [
+                        /*#__PURE__*/ jsx_runtime_.jsx("feFlood", {
+                            floodOpacity: "0",
+                            result: "BackgroundImageFix"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feColorMatrix", {
+                            in: "SourceAlpha",
+                            type: "matrix",
+                            values: "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0",
+                            result: "hardAlpha"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feOffset", {
+                            dy: "4"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feGaussianBlur", {
+                            stdDeviation: "2"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feComposite", {
+                            in2: "hardAlpha",
+                            operator: "out"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feColorMatrix", {
+                            type: "matrix",
+                            values: "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feBlend", {
+                            mode: "normal",
+                            in2: "BackgroundImageFix",
+                            result: "effect1_dropShadow_6452_82916"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feBlend", {
+                            mode: "normal",
+                            in: "SourceGraphic",
+                            in2: "effect1_dropShadow_6452_82916",
+                            result: "shape"
+                        })
+                    ]
+                })
+            })
+        ]
+    });
+/* harmony default export */ const Avatar_Avatar6 = (Avatar6);
+
+;// CONCATENATED MODULE: ./src/app/(main)/parents/lobby/components/Avatar/Avatar2.tsx
+
+
+const Avatar2 = ()=>/*#__PURE__*/ (0,jsx_runtime_.jsxs)("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "169",
+        height: "169",
+        viewBox: "0 0 169 169",
+        fill: "none",
+        children: [
+            /*#__PURE__*/ (0,jsx_runtime_.jsxs)("g", {
+                filter: "url(#filter0_d_6452_82913)",
+                children: [
+                    /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                        fillRule: "evenodd",
+                        clipRule: "evenodd",
+                        d: "M69.9048 13.332C96.308 -4.7967 144.786 13.3318 150.952 30.3617C131.572 74.3272 174.397 81.1072 150.952 105.66C139.195 117.973 135.095 134.677 113.299 153.142C83.1191 159.297 64.7892 157.467 46.3621 147.622C31.1427 125.884 3.83311 115.332 9.1192 100.384C20.5203 87.1942 9.1192 45.8667 20.5203 30.3615C35.5819 9.87827 46.2512 11.5987 69.9048 13.332Z",
+                        fill: "#D7D7D7"
+                    }),
+                    /*#__PURE__*/ jsx_runtime_.jsx("mask", {
+                        id: "mask0_6452_82913",
+                        style: {
+                            maskType: "alpha"
+                        },
+                        maskUnits: "userSpaceOnUse",
+                        x: "13",
+                        y: "12",
+                        width: "142",
+                        height: "142",
+                        children: /*#__PURE__*/ jsx_runtime_.jsx("ellipse", {
+                            cx: "83.5592",
+                            cy: "82.798",
+                            rx: "70.4762",
+                            ry: "70.3448",
+                            fill: "#7791FA"
+                        })
+                    }),
+                    /*#__PURE__*/ (0,jsx_runtime_.jsxs)("g", {
+                        mask: "url(#mask0_6452_82913)",
+                        children: [
+                            /*#__PURE__*/ jsx_runtime_.jsx("ellipse", {
+                                cx: "84.1012",
+                                cy: "119.594",
+                                rx: "50.4176",
+                                ry: "58.4403",
+                                fill: "#132D96"
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                                d: "M65.5273 126.284C77.1263 126.284 86.5292 117.761 86.5292 107.247C86.5292 96.7338 77.1263 88.2109 65.5273 88.2109C53.9283 88.2109 44.5254 96.7338 44.5254 107.247C44.5254 117.761 53.9283 126.284 65.5273 126.284Z",
+                                fill: "#FDFDFD"
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                                d: "M65.5259 116.328C70.2805 116.328 74.1349 112.481 74.1349 107.735C74.1349 102.99 70.2805 99.1426 65.5259 99.1426C60.7713 99.1426 56.917 102.99 56.917 107.735C56.917 112.481 60.7713 116.328 65.5259 116.328Z",
+                                fill: "#1E1E1E"
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                                d: "M58.1543 107.735C58.1543 107.735 61.1143 107.303 61.4721 106.534C61.4721 106.534 62.3829 109.045 62.5455 109.24C62.5455 109.24 59.8349 111.556 59.2494 111.307C58.6639 111.058 58.1543 107.735 58.1543 107.735Z",
+                                fill: "#FDFDFD"
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                                d: "M102.392 126.284C113.991 126.284 123.393 117.761 123.393 107.247C123.393 96.7338 113.991 88.2109 102.392 88.2109C90.7925 88.2109 81.3896 96.7338 81.3896 107.247C81.3896 117.761 90.7925 126.284 102.392 126.284Z",
+                                fill: "#FDFDFD"
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                                d: "M102.39 116.328C107.145 116.328 110.999 112.481 110.999 107.735C110.999 102.99 107.145 99.1426 102.39 99.1426C97.6356 99.1426 93.7812 102.99 93.7812 107.735C93.7812 112.481 97.6356 116.328 102.39 116.328Z",
+                                fill: "#1E1E1E"
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                                d: "M95.0186 107.735C95.0186 107.735 97.9786 107.303 98.3364 106.534C98.3364 106.534 99.2471 109.045 99.4098 109.24C99.4098 109.24 96.6991 111.556 96.1136 111.307C95.5281 111.058 95.0186 107.735 95.0186 107.735Z",
+                                fill: "#FDFDFD"
+                            })
+                        ]
+                    }),
+                    /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                        className: (Avatar_module_default())["avatar-stroke"],
+                        fillRule: "evenodd",
+                        clipRule: "evenodd",
+                        d: "M72.5473 13.3327C98.9505 -4.79601 162.66 16.0278 149.191 36.1944C128.048 67.85 169.453 76.6429 156.544 99.5022C138.62 115.333 134.805 143.75 113.299 153.143C82.2382 157.54 64.7895 157.467 46.3624 147.623C20.5207 110.057 5.59571 125.884 9.99994 99.5022C28.4999 70.4876 0.309589 52.9014 20.5207 30.3621C33.4877 8.49768 48.8937 11.5994 72.5473 13.3327Z",
+                        stroke: "#FDFDFD",
+                        strokeWidth: "10"
+                    })
+                ]
+            }),
+            /*#__PURE__*/ jsx_runtime_.jsx("defs", {
+                children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)("filter", {
+                    id: "filter0_d_6452_82913",
+                    x: "0.234375",
+                    y: "0.142578",
+                    width: "167.857",
+                    height: "168.793",
+                    filterUnits: "userSpaceOnUse",
+                    colorInterpolationFilters: "sRGB",
+                    children: [
+                        /*#__PURE__*/ jsx_runtime_.jsx("feFlood", {
+                            floodOpacity: "0",
+                            result: "BackgroundImageFix"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feColorMatrix", {
+                            in: "SourceAlpha",
+                            type: "matrix",
+                            values: "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0",
+                            result: "hardAlpha"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feOffset", {
+                            dy: "4"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feGaussianBlur", {
+                            stdDeviation: "2"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feComposite", {
+                            in2: "hardAlpha",
+                            operator: "out"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feColorMatrix", {
+                            type: "matrix",
+                            values: "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feBlend", {
+                            mode: "normal",
+                            in2: "BackgroundImageFix",
+                            result: "effect1_dropShadow_6452_82913"
+                        }),
+                        /*#__PURE__*/ jsx_runtime_.jsx("feBlend", {
+                            mode: "normal",
+                            in: "SourceGraphic",
+                            in2: "effect1_dropShadow_6452_82913",
+                            result: "shape"
+                        })
+                    ]
+                })
+            })
+        ]
+    });
+/* harmony default export */ const Avatar_Avatar2 = (Avatar2);
+
+;// CONCATENATED MODULE: ./src/app/(main)/parents/lobby/components/Avatar/index.ts
+
+
+
+
+
+
+
+;// CONCATENATED MODULE: ./src/app/(main)/parents/lobby/components/Lobby/WigwamsList.tsx
+
+
+
+
+
+
+
+const Avatars = [
+    undefined,
+    /*#__PURE__*/ jsx_runtime_.jsx(Avatar_Avatar1, {}, "avatar1"),
+    /*#__PURE__*/ jsx_runtime_.jsx(Avatar_Avatar2, {}, "avatar2"),
+    /*#__PURE__*/ jsx_runtime_.jsx(Avatar_Avatar3, {}, "avatar3"),
+    /*#__PURE__*/ jsx_runtime_.jsx(Avatar_Avatar4, {}, "avatar4"),
+    /*#__PURE__*/ jsx_runtime_.jsx(Avatar_Avatar5, {}, "avatar5"),
+    /*#__PURE__*/ jsx_runtime_.jsx(Avatar_Avatar6, {}, "avatar6")
+];
+const WigwamsList = ({ users })=>/*#__PURE__*/ (0,jsx_runtime_.jsxs)(jsx_runtime_.Fragment, {
+        children: [
+            /*#__PURE__*/ (0,jsx_runtime_.jsxs)(common/* Typography */.ZT, {
+                className: (Lobby_module_default()).title,
+                component: "h1",
+                variant: "h2",
+                children: [
+                    "Привіт! ",
+                    /*#__PURE__*/ jsx_runtime_.jsx("br", {}),
+                    " Ми за тобою сумували"
+                ]
+            }),
+            /*#__PURE__*/ jsx_runtime_.jsx("ul", {
+                className: (Lobby_module_default()).list,
+                children: users && users.map(({ id, name, avatar })=>/*#__PURE__*/ jsx_runtime_.jsx("li", {
+                        className: (Lobby_module_default()).item,
+                        children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)((link_default()), {
+                            className: (Lobby_module_default()).link,
+                            href: `${constants/* Route */.AW.WIGWAM}/${id}`,
+                            "data-avatar": true,
+                            children: [
+                                /*#__PURE__*/ jsx_runtime_.jsx("div", {
+                                    className: (Lobby_module_default()).thumb,
+                                    children: Avatars.at(avatar)
+                                }),
+                                /*#__PURE__*/ jsx_runtime_.jsx(common/* Typography */.ZT, {
+                                    className: (Lobby_module_default()).name,
+                                    component: "p",
+                                    variant: "h2",
+                                    children: name
+                                })
+                            ]
+                        })
+                    }, id))
+            })
+        ]
+    });
+/* harmony default export */ const Lobby_WigwamsList = (WigwamsList);
+
+// EXTERNAL MODULE: ./node_modules/next-auth/react/index.js
+var react = __webpack_require__(63370);
+// EXTERNAL MODULE: ./src/hooks/index.ts + 4 modules
+var hooks = __webpack_require__(55971);
+// EXTERNAL MODULE: ./node_modules/@tanstack/react-query/build/modern/useQuery.js
+var useQuery = __webpack_require__(88546);
+// EXTERNAL MODULE: ./src/constants/api.ts
+var api = __webpack_require__(30425);
+;// CONCATENATED MODULE: ./src/hooks/Lobby/useFetchChildrens.tsx
+
+
+
+
+const useFetchChildren = ()=>{
+    const { status } = (0,react.useSession)();
+    const axios = (0,hooks/* useAuthAxiosInstance */.Qd)();
+    const { data: children, isLoading, error } = (0,useQuery.useQuery)({
+        queryKey: [
+            "children"
+        ],
+        queryFn: async ()=>{
+            const { data } = await axios(`${api/* BASE_URL */._}/users/me/children/`);
+            return data.data;
+        },
+        enabled: status === "authenticated"
+    });
+    return {
+        children,
+        isLoading,
+        error
+    };
+};
+
+;// CONCATENATED MODULE: ./src/app/(main)/parents/lobby/components/Lobby/Lobby.tsx
+/* __next_internal_client_entry_do_not_use__ default auto */ 
+
+
+
+
+
+
+const Lobby = ()=>{
+    const { children, isLoading } = useFetchChildren();
+    const [isFetchingStarted, setIsFetchingStarted] = (0,react_.useState)(false);
+    (0,react_.useEffect)(()=>{
+        if (isLoading) {
+            setIsFetchingStarted(true);
+        }
+    }, [
+        isLoading
+    ]);
+    let content;
+    if (isLoading) {
+        content = /*#__PURE__*/ jsx_runtime_.jsx("div", {
+            className: (Lobby_module_default()).spinner,
+            children: /*#__PURE__*/ jsx_runtime_.jsx(common/* Spinner */.$j, {})
+        });
+    } else if (isFetchingStarted && !children) {
+        content = /*#__PURE__*/ jsx_runtime_.jsx(Lobby_NoWigwams, {});
+    } else if (children) {
+        content = /*#__PURE__*/ jsx_runtime_.jsx(Lobby_WigwamsList, {
+            users: children
+        });
+    }
+    return /*#__PURE__*/ jsx_runtime_.jsx("section", {
+        className: (Lobby_module_default()).section,
+        children: /*#__PURE__*/ jsx_runtime_.jsx(common/* Container */.W2, {
+            className: (Lobby_module_default()).container,
+            children: content
+        })
+    });
+};
+/* harmony default export */ const Lobby_Lobby = (Lobby);
+
+
+/***/ }),
+
+/***/ 80760:
+/***/ ((module) => {
+
+// Exports
+module.exports = {
+	"avatar-stroke": "Avatar_avatar-stroke__zGYL_"
+};
+
+
+/***/ }),
+
+/***/ 91760:
+/***/ ((module) => {
+
+// Exports
+module.exports = {
+	"section": "Lobby_section__lgWD3",
+	"container": "Lobby_container__nM5Gm",
+	"spinner": "Lobby_spinner__66QXt",
+	"title": "Lobby_title__W09ZM",
+	"title--no-user": "Lobby_title--no-user__O6WFh",
+	"list": "Lobby_list__empyO",
+	"item": "Lobby_item__X_nXU",
+	"link": "Lobby_link__dh55t",
+	"avatar-stroke": "Lobby_avatar-stroke__OnJP2",
+	"thumb": "Lobby_thumb__gmZRQ",
+	"name": "Lobby_name__b0gjb",
+	"image-wrapper": "Lobby_image-wrapper__hrfSm",
+	"image": "Lobby_image__7FBdk"
+};
+
+
+/***/ }),
+
+/***/ 68396:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (/* binding */ page)
+});
+
+// EXTERNAL MODULE: external "next/dist/compiled/react/jsx-runtime"
+var jsx_runtime_ = __webpack_require__(56786);
+// EXTERNAL MODULE: ./node_modules/next/dist/compiled/react/react.shared-subset.js
+var react_shared_subset = __webpack_require__(7887);
+// EXTERNAL MODULE: ./node_modules/next/dist/build/webpack/loaders/next-flight-loader/module-proxy.js
+var module_proxy = __webpack_require__(21313);
+;// CONCATENATED MODULE: ./src/app/(main)/parents/lobby/components/Lobby/Lobby.tsx
+
+const proxy = (0,module_proxy.createProxy)(String.raw`/frontend_app/src/app/(main)/parents/lobby/components/Lobby/Lobby.tsx`)
+
+// Accessing the __esModule property and exporting $$typeof are required here.
+// The __esModule getter forces the proxy target to create the default export
+// and the $$typeof value is for rendering logic to determine if the module
+// is a client boundary.
+const { __esModule, $$typeof } = proxy;
+const __default__ = proxy.default;
+
+
+/* harmony default export */ const Lobby = (__default__);
+;// CONCATENATED MODULE: ./src/app/(main)/parents/lobby/components/Lobby/index.ts
+
+
+;// CONCATENATED MODULE: ./src/app/(main)/parents/lobby/page.tsx
+
+
+
+const LobbyPage = async ()=>/*#__PURE__*/ jsx_runtime_.jsx(Lobby, {});
+/* harmony default export */ const page = (LobbyPage);
+
+
+/***/ }),
+
+/***/ 49127:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Z: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({"src":"/_next/static/media/cat-sad.530bc33e.svg","height":232,"width":296,"blurWidth":0,"blurHeight":0});
+
+/***/ })
+
+};
+;
+
+// load runtime
+var __webpack_require__ = require("../../../../webpack-runtime.js");
+__webpack_require__.C(exports);
+var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
+var __webpack_exports__ = __webpack_require__.X(0, [381,4256,3256,2962,8637], () => (__webpack_exec__(75476)));
+module.exports = __webpack_exports__;
+
+})();

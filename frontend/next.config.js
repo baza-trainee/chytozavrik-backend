@@ -5,7 +5,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'http',
-        hostname: '172.19.0.4',
+        hostname: 'ec2-15-236-206-53.eu-west-3.compute.amazonaws.com',
         pathname: '**',
       },
     ],
