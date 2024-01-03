@@ -4,7 +4,7 @@ const nextConfig = {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {
-        protocol: 'http',
+        protocol: 'https',
         hostname: 'ec2-15-236-206-53.eu-west-3.compute.amazonaws.com',
         pathname: '**',
       },

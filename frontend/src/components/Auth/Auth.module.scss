@@ -86,8 +86,12 @@
   }
 
   & a {
-    font-size: 16px;
+    font-size: 14px;
     text-decoration: underline;
+
+    @include breakpoint(tablet) {
+      font-size: 16px;
+    }
   }
 }
 

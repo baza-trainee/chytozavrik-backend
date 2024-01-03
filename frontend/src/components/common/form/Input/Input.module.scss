@@ -6,7 +6,7 @@
   --border-color: #{getColor(neutral, 50)};
   --group-gap: 4px;
 
-  pointer-events: none;
+  //pointer-events: none;
   position: relative;
 
   width: 100%;
@@ -118,9 +118,8 @@
 
 .message {
   position: absolute;
-
+  margin-top: 14px;
   bottom: calc(-1 * var(--group-gap));
-
   font-size: 12px;
 
   transform: translateY(100%);
@@ -142,5 +141,22 @@
   & svg {
     width: 14px;
     height: 14px;
+  }
+}
+
+.info {
+  font-size: 14px;
+  padding-top: 8px;
+  display: block;
+
+  &.red {
+    color: $error;
+    font-size: 12px;
+    font-weight: 400;
+    font-family: var(--montserrat-alternates-font);
+
+    @include breakpoint(tablet) {
+      font-size: 14px;
+    }
   }
 }
