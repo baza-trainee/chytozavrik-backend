@@ -452,7 +452,7 @@ class QuizViewSet(
                 "reward"
             ).get_or_create(child=child, quiz=quiz, reward=quiz.reward)
             reward = str(child_reward.reward.reward)
-            child_reward_url = self.context["request"].build_absolute_uri("/media/")
+            child_reward_url = self.request.build_absolute_uri("/media/")
             child_reward_url += reward
             if (
                 not settings.DEFAULT_FILE_STORAGE
@@ -461,7 +461,6 @@ class QuizViewSet(
                 child_reward_url = CloudinaryResource(
                     reward, resource_type="raw"
                 ).build_url()
-            return child_reward_url
         return Response(submit_answer_response(is_answer_correct, child_reward_url))
 
     def update(self, request, *args, **kwargs):

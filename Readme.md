@@ -20,3 +20,4 @@
     ```
     NEXT_PUBLIC_SERVER_URL=http://localhost:8000/api/v1
     ```
+- after build frontend_app/.next/required-server-files.json configure cpu, workers and other for optimize app.
