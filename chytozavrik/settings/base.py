@@ -153,10 +153,11 @@ DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.RawMediaCloudinaryStorage"
 
 FILE_SIZE = 10 * 1024 * 1024
 IMAGE_FORMATS = [
-    "svg",
-    "png",
     "jpg",
+    "jpeg",
+    "png",
     "webp",
+    "svg",
 ]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
