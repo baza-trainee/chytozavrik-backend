@@ -10,7 +10,10 @@ class PartnerSerializer(serializers.ModelSerializer):
         required=True,
         validators=[
             FileExtensionValidator(allowed_extensions=IMAGE_FORMATS),
-            MaxLengthValidator(limit_value=FILE_SIZE, message=f"Розмір файлу не повинен перевищувати {FILE_SIZE / 1024 / 1024} MB"),
+            MaxLengthValidator(
+                limit_value=FILE_SIZE,
+                message=f"Розмір файлу не повинен перевищувати {FILE_SIZE / 1024 / 1024} MB",
+            ),
         ],
     )
 
@@ -25,7 +28,10 @@ class PartnerPatchSerializer(PartnerSerializer):
         required=False,
         validators=[
             FileExtensionValidator(allowed_extensions=IMAGE_FORMATS),
-            MaxLengthValidator(limit_value=FILE_SIZE, message=f"Розмір файлу не повинен перевищувати {FILE_SIZE / 1024 / 1024} MB"),
+            MaxLengthValidator(
+                limit_value=FILE_SIZE,
+                message=f"Розмір файлу не повинен перевищувати {FILE_SIZE / 1024 / 1024} MB",
+            ),
         ],
     )
     link = serializers.URLField(required=False)

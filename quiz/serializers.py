@@ -24,7 +24,10 @@ class BookSerializer(serializers.ModelSerializer):
         required=True,
         validators=[
             FileExtensionValidator(allowed_extensions=IMAGE_FORMATS),
-            MaxLengthValidator(limit_value=FILE_SIZE, message=f"Файл не повинен перевищувати {FILE_SIZE / 1024 / 1024} MB"),
+            MaxLengthValidator(
+                limit_value=FILE_SIZE,
+                message=f"Файл не повинен перевищувати {FILE_SIZE / 1024 / 1024} MB",
+            ),
         ],
     )
 
@@ -49,7 +52,10 @@ class BookPatchSerializer(BookSerializer):
         required=False,
         validators=[
             FileExtensionValidator(allowed_extensions=IMAGE_FORMATS),
-            MaxLengthValidator(limit_value=FILE_SIZE, message=f"Файл не повинен перевищувати {FILE_SIZE / 1024 / 1024} MB"),
+            MaxLengthValidator(
+                limit_value=FILE_SIZE,
+                message=f"Файл не повинен перевищувати {FILE_SIZE / 1024 / 1024} MB",
+            ),
         ],
     )
 
@@ -231,7 +237,10 @@ class QuizRewardSerializer(serializers.ModelSerializer):
     reward = serializers.FileField(
         validators=[
             FileExtensionValidator(allowed_extensions=IMAGE_FORMATS),
-            MaxLengthValidator(limit_value=FILE_SIZE, message=f"Файл не повинен перевищувати {FILE_SIZE / 1024 / 1024} MB"),
+            MaxLengthValidator(
+                limit_value=FILE_SIZE,
+                message=f"Файл не повинен перевищувати {FILE_SIZE / 1024 / 1024} MB",
+            ),
         ],
     )
 
