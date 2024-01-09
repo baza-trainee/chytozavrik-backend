@@ -1,10 +1,10 @@
-from chytozavrik.settings.base import IMAGE_FORMATS
+from chytozavrik.settings.base import FILE_SIZE, IMAGE_FORMATS
 from rest_framework import serializers
 from django.db import transaction
 from drf_yasg.utils import swagger_serializer_method
 from cloudinary import CloudinaryResource
 from django.utils import timezone
-from django.core.validators import FileExtensionValidator
+from django.core.validators import FileExtensionValidator, MaxLengthValidator
 
 from .models import (
     Book,
@@ -22,7 +22,10 @@ class BookSerializer(serializers.ModelSerializer):
     state = serializers.SerializerMethodField()
     cover_image = serializers.FileField(
         required=True,
-        validators=[FileExtensionValidator(allowed_extensions=IMAGE_FORMATS)],
+        validators=[
+            FileExtensionValidator(allowed_extensions=IMAGE_FORMATS),
+            MaxLengthValidator(limit_value=FILE_SIZE, message=f"Файл не повинен перевищувати {FILE_SIZE / 1024 / 1024} MB"),
+        ],
     )
 
     def get_state(self, obj: Book):
@@ -44,7 +47,10 @@ class BookPatchSerializer(BookSerializer):
     author = serializers.CharField(required=False)
     cover_image = serializers.FileField(
         required=False,
-        validators=[FileExtensionValidator(allowed_extensions=IMAGE_FORMATS)],
+        validators=[
+            FileExtensionValidator(allowed_extensions=IMAGE_FORMATS),
+            MaxLengthValidator(limit_value=FILE_SIZE, message=f"Файл не повинен перевищувати {FILE_SIZE / 1024 / 1024} MB"),
+        ],
     )
 
 
@@ -223,7 +229,10 @@ class QuizCreateSerializer(serializers.ModelSerializer):
 
 class QuizRewardSerializer(serializers.ModelSerializer):
     reward = serializers.FileField(
-        validators=[FileExtensionValidator(allowed_extensions=IMAGE_FORMATS)]
+        validators=[
+            FileExtensionValidator(allowed_extensions=IMAGE_FORMATS),
+            MaxLengthValidator(limit_value=FILE_SIZE, message=f"Файл не повинен перевищувати {FILE_SIZE / 1024 / 1024} MB"),
+        ],
     )
 
     class Meta:

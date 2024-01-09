@@ -77,9 +77,9 @@ class DocumentViewSet(
                     status=status.HTTP_400_BAD_REQUEST,
                 )
             new_file_binary = new_file.read()
-            if len(new_file_binary) > 30 * 1024**2:
+            if len(new_file_binary) > 10 * 1024**2:
                 return Response(
-                    {"detail": "Розмір файлу не повинен перевищувати 30 мегабайт."},
+                    {"detail": "Розмір файлу не повинен перевищувати 10 мегабайт."},
                     status=status.HTTP_400_BAD_REQUEST,
                 )
 

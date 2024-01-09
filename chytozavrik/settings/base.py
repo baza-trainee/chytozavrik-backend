@@ -151,6 +151,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.RawMediaCloudinaryStorage"
 # DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
+FILE_SIZE = 10 * 1024 * 1024
 IMAGE_FORMATS = [
     "svg",
     "png",
