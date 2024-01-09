@@ -1,3 +1,4 @@
+from chytozavrik.settings.base import IMAGE_FORMATS
 from rest_framework import serializers
 from django.db import transaction
 from drf_yasg.utils import swagger_serializer_method
@@ -19,6 +20,10 @@ from .models import (
 
 class BookSerializer(serializers.ModelSerializer):
     state = serializers.SerializerMethodField()
+    cover_image = serializers.FileField(
+        required=True,
+        validators=[FileExtensionValidator(allowed_extensions=IMAGE_FORMATS)],
+    )
 
     def get_state(self, obj: Book):
         if all([obj.is_recommended, Quiz.objects.filter(book=obj).exists()]):
@@ -37,7 +42,10 @@ class BookSerializer(serializers.ModelSerializer):
 class BookPatchSerializer(BookSerializer):
     title = serializers.CharField(required=False)
     author = serializers.CharField(required=False)
-    cover_image = serializers.ImageField(required=False)
+    cover_image = serializers.FileField(
+        required=False,
+        validators=[FileExtensionValidator(allowed_extensions=IMAGE_FORMATS)],
+    )
 
 
 class BookWithIDSerializer(BookSerializer):
@@ -215,9 +223,7 @@ class QuizCreateSerializer(serializers.ModelSerializer):
 
 class QuizRewardSerializer(serializers.ModelSerializer):
     reward = serializers.FileField(
-        validators=[
-            FileExtensionValidator(allowed_extensions=["svg", "png", "jpg", "webp"])
-        ]
+        validators=[FileExtensionValidator(allowed_extensions=IMAGE_FORMATS)]
     )
 
     class Meta:
