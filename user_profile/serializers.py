@@ -47,14 +47,22 @@ class UserSerializer(serializers.ModelSerializer):
     )
     childs = serializers.SerializerMethodField()
     date_joined = serializers.DateTimeField(read_only=True)
-    
+
     def get_childs(self, obj):
-        childs = Child.objects.filter(parent=obj.id).values_list('name', flat=True)
+        childs = Child.objects.filter(parent=obj.id).values_list("name", flat=True)
         return childs
 
     class Meta:
         model = User
-        fields = ["id", "email", "is_superuser", "password", "password2", "childs", "date_joined"]
+        fields = [
+            "id",
+            "email",
+            "is_superuser",
+            "password",
+            "password2",
+            "childs",
+            "date_joined",
+        ]
         extra_kwargs = {
             "password": {"write_only": True},
             "email": {"min_length": 3},

@@ -15,7 +15,7 @@ class TimeStampMixin(models.Model):
 class Book(TimeStampMixin):
     title = models.CharField(max_length=255)
     author = models.CharField(max_length=255)
-    cover_image = models.ImageField(upload_to="books/")
+    cover_image = models.FileField(upload_to="books/")
     is_recommended = models.BooleanField(default=False)
 
     def __str__(self):
