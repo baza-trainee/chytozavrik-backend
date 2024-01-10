@@ -28,7 +28,10 @@ load_dotenv()
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = getenv("SECRET_KEY")
 
-BASE_URL = getenv("SECRET_KEY")
+MERCHANT_ACCOUNT = getenv("MERCHANT_ACCOUNT")
+MERCHANT_SECRET = getenv("MERCHANT_SECRET")
+SITE_URL = getenv("SITE_URL")
+
 ALLOWED_HOSTS = ["*"]
 
 DJANGO_SUPERUSER_EMAIL = getenv("DJANGO_SUPERUSER_EMAIL")
