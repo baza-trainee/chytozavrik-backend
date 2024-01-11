@@ -6,6 +6,7 @@ import uuid
 from urllib.parse import urlparse
 
 import requests
+from django.shortcuts import redirect
 from rest_framework import viewsets, mixins, status
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
@@ -17,12 +18,7 @@ from chytozavrik.settings.base import MERCHANT_ACCOUNT, MERCHANT_SECRET, SITE_UR
 
 class PaymentViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     http_method_names = ["post"]
-
-    def get_permissions(self):
-        permission_classes = {
-            "Post": [AllowAny()],
-        }
-        return permission_classes.get(self.request.method, [])
+    permission_classes = [AllowAny]
 
     @swagger_auto_schema(
         request_body=openapi.Schema(
@@ -70,7 +66,7 @@ class PaymentViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
         payment_body.update(
             {
                 "language": "UA",
-                "returnUrl": SITE_URL,
+                "returnUrl": request.build_absolute_uri("approve"),
                 "merchantSignature": merchant_signature,
             }
         )
@@ -84,3 +80,11 @@ class PaymentViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
                 status=status.HTTP_404_NOT_FOUND,
             )
         return Response({"payment_url": payment_url})
+
+
+class ApproveViewSet(viewsets.ViewSet):
+    schema = None
+    permission_classes = [AllowAny]
+
+    def approve(self, request, *args, **kwargs):
+        return redirect(f"{SITE_URL}/?payment=success")
