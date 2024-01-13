@@ -30,7 +30,7 @@ def populate_initial_data(sender, **kwargs):
                 print(f"Помилка при видаленні папки {folder_to_delete}: {e}")
 
         avatars_folder = os.path.join("static", "child_avatars")
-        avatar_files = os.listdir(avatars_folder)
+        avatar_files = sorted(os.listdir(avatars_folder))
         for file_name in avatar_files:
             with open(os.path.join(avatars_folder, file_name), "rb") as f:
                 ChildAvatar.objects.create(avatar=File(f, name=file_name))
