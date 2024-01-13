@@ -1,3 +1,4 @@
+from django.conf import settings
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from dj_rest_auth.serializers import PasswordResetConfirmSerializer
@@ -105,10 +106,14 @@ class ChildSerializer(serializers.ModelSerializer):
 
     def get_avatar_as_url(self, obj):
         avatar = str(obj.avatar.avatar)
-        # media_url = self.context['request'].build_absolute_uri('/media/')
-        # media_url += avatar
-        cloudinary_url = CloudinaryResource(avatar, resource_type="raw").build_url()
-        return cloudinary_url
+        media_url = self.context["request"].build_absolute_uri("/media/")
+        media_url += avatar
+        if (
+            not settings.DEFAULT_FILE_STORAGE
+            == "django.core.files.storage.FileSystemStorage"
+        ):
+            media_url = CloudinaryResource(avatar, resource_type="raw").build_url()
+        return media_url
 
     def validate(self, attrs):
         user = self.context["request"].user
