@@ -39,4 +39,4 @@ typing_extensions==4.7.1
 uritemplate==4.1.1
 dj-rest-auth==5.0.1
 urllib3==1.26.16
-black
+django-redis==5.4.0
