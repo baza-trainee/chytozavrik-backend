@@ -7,6 +7,7 @@ from dj_rest_auth.views import (
     PasswordChangeView,
 )
 from django.db.models import Q
+from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework import status
 from rest_framework import generics, permissions, mixins, filters
 from rest_framework.viewsets import GenericViewSet
@@ -249,6 +250,8 @@ class ChildListCreateAPIView(ListCreateAPIView):
 
 
 class ChildRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
+    parser_classes = (MultiPartParser, FormParser)
+
     http_method_names = ["get", "patch", "delete"]
 
     def get_queryset(self):
@@ -257,10 +260,6 @@ class ChildRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     @swagger_auto_schema(responses={"200": DETAIL_CHILD_SERIALIZER})
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
-
-    @swagger_auto_schema(responses={"200": DETAIL_CHILD_SERIALIZER})
-    def put(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
 
     def get_serializer_class(self):
         if self.request.method == "PATCH":

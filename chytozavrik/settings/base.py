@@ -316,4 +316,3 @@ TIME_HALF_DAY = 60 * 60 * 12
 
 CONACTS_CACHE_NAME = "contacts_cache"
 AVATARS_CACHE_NAME = "avatars_cache"
-DOCUMENTS_CACHE_NAME = "document_list_cache"
