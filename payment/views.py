@@ -41,9 +41,9 @@ class PaymentViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     )
     def create(self, request, *args, **kwargs):
         amount = request.data.get("amount", None)
-        if not isinstance(amount, (int, float)) or amount <= 0:
+        if not isinstance(amount, (int, float)) or amount < 1:
             return Response(
-                {"detail": f"Сума повинна бути числом зі значенням більше, ніж 0."},
+                {"detail": f"Сума повинна бути числом зі значенням більше, ніж 1."},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
