@@ -47,6 +47,7 @@ class PaymentViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
+        amount = round(amount, 2)
         payment_body = {
             "merchantAccount": MERCHANT_ACCOUNT,
             "merchantDomainName": urlparse(SITE_URL).netloc,
