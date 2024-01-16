@@ -60,7 +60,9 @@ class PaymentViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
             "productPrice": str(amount),
         }
         signature_data = ";".join(payment_body.values())
-        merchant_signature = hmac.new(MERCHANT_SECRET.encode("utf-8"), signature_data.encode("utf-8"), hashlib.md5).hexdigest()
+        merchant_signature = hmac.new(
+            MERCHANT_SECRET.encode("utf-8"), signature_data.encode("utf-8"), hashlib.md5
+        ).hexdigest()
 
         payment_body.update(
             {
@@ -69,7 +71,9 @@ class PaymentViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
                 "merchantSignature": merchant_signature,
             }
         )
-        response = requests.post(url="https://secure.wayforpay.com/pay", data=payment_body)
+        response = requests.post(
+            url="https://secure.wayforpay.com/pay", data=payment_body
+        )
         payment_url = response.request.url
         if not payment_url:
             return Response(
