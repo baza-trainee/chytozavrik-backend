@@ -1,11 +1,11 @@
-.dockerignore
-.git*
-venv
-media
-.env_example
-.build.sh
-Dockerfile.backend
-docker-compose.yml
-Makefile
-README.md
-vercel.json
+# .dockerignore
+# .git*
+# venv
+# media
+# .env_example
+# .build.sh
+# Dockerfile.backend
+# docker-compose.yml
+# Makefile
+# README.md
+# vercel.json

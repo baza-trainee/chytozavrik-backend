@@ -9,10 +9,5 @@ WORKDIR /backend_app
 
 COPY . .
 
-RUN pip install -U pip && \
-    pip install -r requirements.txt
-
-CMD bash -c "python manage.py collectstatic --no-input &&\
-    python manage.py migrate && \
-    gunicorn -c gunicorn.conf.py chytozavrik.wsgi:app
-# TODO
+RUN pip install -U pip
+RUN pip install -r requirements.txt
