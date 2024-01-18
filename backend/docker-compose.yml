@@ -20,7 +20,8 @@ services:
     image: redis:7.2.3
     ports:
       - $REDIS_PORT:6379
-    command: redis-server --port $REDIS_PORT --requirepass $REDIS_PASSWORD --maxmemory 100mb
+    command:
+      redis-server --port $REDIS_PORT --requirepass $REDIS_PASSWORD --maxmemory 100mb
     restart: always
     networks:
       - chytozavryk
@@ -39,19 +40,6 @@ services:
     restart: always
     networks:
       - chytozavryk
-
-  # frontend_app:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile.frontend
-  #   container_name: frontend_app
-  #   ports:
-  #     - $FRONTEND_PORT:3000
-  #   depends_on:
-  #     - backend_app
-  #   restart: always
-  #   networks:
-  #     - chytozavryk
 
 networks:
   chytozavryk:
