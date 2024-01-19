@@ -1,0 +1,255 @@
+@import 'scss/utils/variables';
+@import 'scss/utils/mixin';
+
+.section {
+  position: relative;
+  z-index: 1;
+
+  height: 100%;
+
+  background-color: $primary;
+  background-image: url('/images/entrance-page/entrance-books-bg-mobile.svg');
+  background-repeat: no-repeat;
+  background-position: center bottom;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+
+    width: 100%;
+    height: 100%;
+
+    @include addWaveBackground('/images/background-wave.svg');
+  }
+
+  @include breakpoint(tablet) {
+    background-image: url('/images/entrance-page/entrance-books-bottom-bg-tablet.svg'),
+      url('/images/entrance-page/entrance-books-top-bg-tablet.svg');
+    background-position:
+      center bottom,
+      center 53px;
+  }
+
+  @include breakpoint(laptop) {
+    background-image: url('/images/entrance-page/entrance-books-bottom-bg-laptop.svg'),
+      url('/images/entrance-page/entrance-books-top-bg-laptop.svg');
+    background-position:
+      center bottom,
+      center 74px;
+  }
+
+  @include breakpoint(desktop) {
+    background-image: url('/images/entrance-page/entrance-books-bottom-bg-desktop.svg'),
+      url('/images/entrance-page/entrance-books-top-bg-desktop.svg');
+    background-position:
+      center bottom,
+      center 94px;
+  }
+}
+
+.container {
+  padding-top: 90px;
+  padding-bottom: 190px;
+  min-height: 70vh;
+  position: relative;
+
+  & .spinner {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    & span {
+      width: 80px;
+      height: 80px;
+
+      & svg {
+        fill: #8ba5ff;
+      }
+    }
+  }
+
+  @include breakpoint(tablet) {
+    padding-top: 102px;
+    padding-bottom: 268px;
+  }
+
+  @include breakpoint(laptop) {
+    padding-bottom: 150px;
+  }
+
+  @include breakpoint(desktop) {
+    padding-top: 168px;
+    padding-bottom: 220px;
+  }
+}
+
+.title {
+  --title-px: 0;
+
+  margin-bottom: 80px;
+  padding-inline: var(--title-px);
+
+  color: $white;
+
+  @include breakpoint(tablet) {
+    --title-px: calc(159px - var(--padding-x));
+
+    font-size: 32px;
+
+    &--no-user {
+      margin-bottom: 70px;
+    }
+  }
+
+  @include breakpoint(laptop, desktop) {
+    --title-px: calc(287px - var(--padding-x));
+
+    margin-bottom: 56px;
+
+    &--no-user {
+      margin-bottom: 48px;
+    }
+  }
+
+  @include breakpoint(desktop) {
+    --title-px: calc(495px - var(--padding-x));
+  }
+
+  &--no-user {
+    margin-bottom: 60px;
+  }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 28px;
+
+  margin: 0 auto;
+
+  color: $white;
+
+  @include breakpoint(tablet) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: 0;
+  }
+}
+
+.item {
+  width: 190px;
+  height: 192px;
+
+  @include breakpoint(false, tablet) {
+    margin: 0 auto;
+  }
+
+  @include breakpoint(desktop) {
+    height: 225px;
+  }
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 12px;
+
+  height: 100%;
+
+  @include breakpoint(desktop) {
+    gap: 24px;
+  }
+
+  &:hover svg:has(.avatar-stroke) {
+    stroke: red;
+  }
+}
+
+.avatar-stroke {
+  stroke: red;
+}
+
+.thumb {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 128px;
+  height: 132px;
+
+  @include breakpoint(desktop) {
+    width: 148px;
+    height: 153px;
+  }
+}
+
+.name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+
+  height: 44px;
+
+  font-size: 18px;
+
+  @include breakpoint(tablet) {
+    font-size: 24px;
+  }
+}
+
+.image-wrapper {
+  --size: 138px;
+  position: relative;
+
+  width: var(--size);
+  height: var(--size);
+  margin: 0 auto;
+  overflow: hidden;
+
+  background-color: $white;
+  border-radius: 50%;
+
+  @include breakpoint(tablet) {
+    --size: 150px;
+  }
+
+  @include breakpoint(laptop) {
+    --size: 138px;
+  }
+
+  @include breakpoint(desktop) {
+    --size: 172px;
+  }
+}
+
+.image {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+
+  width: 180px;
+  height: auto;
+
+  transform: translateX(-50%);
+
+  @include breakpoint(tablet) {
+    width: 194px;
+  }
+
+  @include breakpoint(laptop) {
+    width: 180px;
+  }
+
+  @include breakpoint(desktop) {
+    width: 224px;
+  }
+}

@@ -1,0 +1,45 @@
+@import 'scss/utils/variables';
+@import 'scss/utils/mixin';
+
+.notFoundContainer {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  justify-content: center;
+  background-image: url('/images/all-quizzes/book360.svg');
+  background-repeat: no-repeat;
+  background-position: center 15px;
+  background-size: 100% auto;
+  height: 60vh;
+  width: 260px;
+
+  margin-top: 63px;
+  @include breakpoint(tablet) {
+    background-image: url('/images/all-quizzes/book768.svg');
+  }
+  @include breakpoint(laptop) {
+    background-image: url('/images/all-quizzes/book1024.svg');
+    width: 400px;
+  }
+  @include breakpoint(desktop) {
+    width: 400px;
+    background-image: url('/images/all-quizzes/book1440.svg');
+  }
+
+  .messageTitle {
+    text-align: center;
+    font-family: Montserrat Alternates;
+    color: #5d5d5d;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 21.6px;
+    margin-bottom: 40px;
+    @include breakpoint(mobile) {
+    }
+    @include breakpoint(tablet) {
+    }
+    @include breakpoint(laptop) {
+      margin-top: 100px;
+    }
+  }
+}

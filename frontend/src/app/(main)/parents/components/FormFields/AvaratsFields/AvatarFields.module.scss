@@ -1,0 +1,63 @@
+@import '../../../../../../scss/utils/variables';
+@import '../../../../../../scss/utils/mixin';
+
+.fieldset {
+  border: none;
+}
+
+.text {
+  margin-bottom: 12px;
+}
+
+.radioWrapper {
+  height: 128px;
+  width: 256px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  margin: 0 auto;
+
+  & label {
+    cursor: pointer;
+  }
+
+  @include breakpoint(tablet) {
+    gap: 28px;
+    width: 201px;
+  }
+
+  @include breakpoint(desktop) {
+    gap: 24px;
+    width: 192px;
+  }
+}
+
+.radio {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.radio:hover + label > .image {
+  border: 3px solid #7791fa;
+  border-radius: 100px;
+}
+
+.radio:checked + label > .image {
+  border: 3px solid #455fc8;
+  border-radius: 100px;
+}
+
+.image {
+  width: 48px;
+  height: 48px;
+  margin-left: -10px;
+
+  @include breakpoint(tablet) {
+    margin-left: -28px;
+  }
+}
+.error {
+  color: getColor(error, 40);
+}

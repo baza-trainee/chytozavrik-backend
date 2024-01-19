@@ -1,0 +1,84 @@
+@import 'scss/utils/variables';
+@import 'scss/utils/mixin';
+
+.cookies {
+  position: fixed;
+  bottom: 191px;
+  left: 16px;
+  right: 16px;
+  background: $on-next-primary-variant;
+  border-radius: 8px;
+  display: flex;
+  min-width: 328px;
+  padding: 32px 16px;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  justify-content: space-between;
+  flex-shrink: 0;
+
+  & p {
+    color: $black;
+    font-family: var(--raleway-font);
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+  }
+
+  & span {
+    font-weight: 600;
+  }
+
+  & a {
+    text-decoration-line: underline;
+  }
+
+  & button {
+    width: 100%;
+  }
+
+  @include breakpoint(tablet) {
+    bottom: 374px;
+    left: 40px;
+    right: 40px;
+    gap: 44px;
+    padding: 48px 24px;
+
+    & button {
+      width: 216px;
+      align-self: flex-start;
+    }
+  }
+
+  @include breakpoint(laptop) {
+    bottom: 85px;
+    left: 60px;
+    right: 60px;
+    flex-direction: row;
+    padding: 24px;
+    gap: 36px;
+
+    & button {
+      align-self: flex-end;
+      height: 64px;
+      flex-shrink: 0;
+    }
+  }
+
+  @include breakpoint(desktop) {
+    bottom: 60px;
+    left: 80px;
+    right: 80px;
+    flex-direction: row;
+    padding: 48px 100px;
+    gap: 36px;
+    height: 167px;
+
+    & button {
+      align-self: center;
+      height: 64px;
+      flex-shrink: 0;
+    }
+  }
+}

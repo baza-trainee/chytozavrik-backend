@@ -1,0 +1,69 @@
+@import 'scss/utils/variables';
+@import 'scss/utils/mixin';
+
+.wraper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 328px;
+  height: 52px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid $primary;
+  grid-area: readedbooks;
+
+  @include breakpoint(tablet) {
+    width: 332px;
+    margin-bottom: 0;
+
+    & img {
+      width: 38.402px;
+      height: 28px;
+    }
+  }
+  @include breakpoint(laptop) {
+    width: 521px;
+    height: 64px;
+    padding: 8px 16px;
+
+    & img {
+      width: 78.834px;
+      height: 48px;
+    }
+  }
+
+  @include breakpoint(desktop) {
+    width: 411px;
+    padding: 24px;
+  }
+}
+
+.icon {
+  width: 32px;
+  height: 32px;
+}
+.counter_wraper {
+  display: flex;
+  align-items: center;
+}
+
+.counter {
+  margin-right: 12px;
+  font-family: var(--montserrat-alternates-font);
+  font-size: 18px;
+  font-weight: 600;
+
+  @include breakpoint(desktop) {
+    font-size: 24px;
+  }
+}
+
+.counter_title {
+  font-family: var(--montserrat-alternates-font);
+  font-size: 18px;
+  font-weight: 600;
+
+  @include breakpoint(desktop) {
+    font-size: 24px;
+  }
+}

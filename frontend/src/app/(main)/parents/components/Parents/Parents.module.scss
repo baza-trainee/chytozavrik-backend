@@ -1,0 +1,109 @@
+@import 'scss/utils/variables';
+@import 'scss/utils/mixin';
+
+.section {
+  position: relative;
+  background-color: $primary;
+  @include addWaveBackground('/images/background-wave.svg');
+  padding: 68px 0 72px;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  &::before {
+    background-color: $primary-next-variant;
+    height: 44px;
+  }
+
+  &::after {
+    background-image: url('/images/cloud-mob.svg');
+    background-repeat: repeat-x;
+    background-position: center bottom;
+    background-size: auto 44px;
+  }
+
+  @include breakpoint(tablet) {
+    padding: 118px 0 63px;
+
+    &::before {
+      height: 55px;
+    }
+    &::after {
+      background-image: url('/images/cloud-tab.svg');
+      background-size: auto 55px;
+    }
+  }
+  @include breakpoint(laptop) {
+    padding: 109px 0 73px;
+    &::before {
+      height: 73px;
+    }
+
+    &::after {
+      background-image: url('/images/cloud-lap.svg');
+      background-size: auto 73px;
+    }
+  }
+  @include breakpoint(desktop) {
+    padding: 166px 0 144px;
+    &::before {
+      height: 102px;
+    }
+
+    &::after {
+      background-image: url('/images/cloud-desk.svg');
+      background-size: auto 102px;
+    }
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+  position: relative;
+  @include breakpoint(tablet) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.image {
+  margin: 0 auto;
+  @include breakpoint(tablet) {
+    margin: 0;
+  }
+}
+
+.button {
+  width: 328px;
+  height: 56px;
+  padding: 16px 28px 16px 24px;
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+  @include breakpoint(tablet) {
+    width: 263px;
+  }
+  @include breakpoint(desktop) {
+    width: 334px;
+    height: 64px;
+    padding: 20px 36px 20px 28px;
+  }
+}
+
+.text {
+  @include breakpoint(desktop) {
+    font-size: 24px;
+  }
+}
+.button:disabled .icon {
+  filter: contrast(0);
+}

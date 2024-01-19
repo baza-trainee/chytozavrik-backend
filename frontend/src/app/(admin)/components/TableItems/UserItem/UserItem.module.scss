@@ -1,0 +1,104 @@
+@import '../../../../../scss/utils/variables';
+
+.userItem {
+  display: flex;
+  align-items: center;
+  width: 1048px;
+  padding: 12px 24px;
+  gap: 32px;
+  border-bottom: 1px solid $primary-next-variant;
+
+  .checkbox {
+    display: flex;
+    width: 20px;
+    height: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-shrink: 0;
+  }
+
+  .userInfo {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+
+    .email {
+      width: 356px;
+      color: #000;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-family: var(--montserrat-alternates-font);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .names {
+      display: flex;
+      flex-wrap: wrap;
+      width: 280px;
+      align-items: center;
+      gap: 16px;
+      color: $black;
+
+      font-family: var(--raleway-font);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 120%;
+    }
+
+    .date {
+      width: 180px;
+      font-family: var(--raleway-font);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 120%;
+      color: $black;
+      font-variant-numeric: lining-nums proportional-nums;
+    }
+  }
+
+  .delete {
+    display: flex;
+    width: 36px;
+    height: 36px;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+}
+
+.noResults {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  top: 50%;
+  left: 57%;
+}
+
+.usersWrapper {
+  position: relative;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.paginationWrapper {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.spinner {
+  position: absolute;
+  width: 75px;
+  height: 75px;
+  top: 50%;
+  left: 50%;
+}

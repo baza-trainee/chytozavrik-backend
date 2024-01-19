@@ -1,0 +1,168 @@
+@import '@/scss/utils/func';
+@import '@/scss/utils/variables';
+@import '@/scss/utils/mixin';
+
+.item {
+  height: 454px;
+  width: 328px;
+  padding: 24px;
+  background-color: $white;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  position: relative;
+
+  @include breakpoint(tablet) {
+    flex-direction: row;
+    width: 688px;
+    height: 168px;
+    padding: 24px 20px;
+    gap: 12px;
+  }
+
+  @include breakpoint(laptop) {
+    width: 904px;
+    gap: 90px;
+  }
+
+  @include breakpoint(desktop) {
+    width: 1280px;
+    height: 173px;
+    gap: 190px;
+  }
+}
+
+.link {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  align-items: center;
+
+  @include breakpoint(tablet) {
+    width: 202px;
+    align-items: flex-start;
+  }
+
+  @include breakpoint(desktop) {
+    justify-content: flex-start;
+  }
+}
+.link:hover .image {
+  border: 3px solid #7791fa;
+  border-radius: 100px;
+}
+.link:active .image {
+  border: 3px solid #455fc8;
+  border-radius: 100px;
+}
+
+.name {
+  font-family: var(--montserrat-alternates-font);
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 120%;
+}
+
+.thumb {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 80px;
+}
+
+.buttons {
+  display: flex;
+  gap: 8px;
+  position: absolute;
+  top: 24px;
+  right: 24px;
+
+  & img {
+    cursor: pointer;
+  }
+
+  @include breakpoint(tablet) {
+    flex-direction: column;
+    gap: 8px;
+    right: 20px;
+
+    & div {
+      width: 56px;
+      height: 56px;
+
+      & img {
+        width: 56px;
+        height: 56px;
+      }
+    }
+  }
+
+  @include breakpoint(desktop) {
+    flex-direction: row;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 24px;
+  }
+}
+
+.books {
+  display: flex;
+  height: 118px;
+  padding: 6px 8px 0 8px;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 20px;
+  border: 1px solid $primary-next-variant;
+  border-radius: 8px;
+
+  @include breakpoint(tablet) {
+    max-width: 213px;
+  }
+}
+
+.booksQuizzes {
+  display: flex;
+  height: 118px;
+  padding: 6px 0 0 8px;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 20px;
+  border: 1px solid $primary-next-variant;
+  border-radius: 8px;
+
+  @include breakpoint(tablet) {
+    padding: 6px 0 0 8px;
+    max-width: 213px;
+  }
+}
+
+.quizzes {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+}
+
+.quantity {
+  color: getColor(yellow, 40);
+  font-family: var(--montserrat-alternates-font);
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 120%;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 94px;
+  gap: 12px;
+}

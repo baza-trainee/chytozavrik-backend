@@ -1,0 +1,33 @@
+@import '../../../scss/utils/variables';
+@import '../../../scss/utils/mixin';
+
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 70px;
+  height: 70px;
+}
+
+.empty {
+  height: 144px;
+  width: 100vw;
+  background-color: $white;
+  background-image: url('/images/blue-wave-mob.svg');
+  background-repeat: repeat-x;
+
+  @include breakpoint(tablet) {
+    background-image: url('/images/blue-wave-tab.svg');
+    height: 203px;
+  }
+
+  @include breakpoint(laptop) {
+    background-image: url('/images/blue-wave-lap.svg');
+    height: 206px;
+  }
+
+  @include breakpoint(desktop) {
+    background-image: url('/images/blue-wave-desk.svg');
+    height: 200px;
+  }
+}

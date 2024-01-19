@@ -1,0 +1,254 @@
+@import 'scss/utils/variables';
+@import 'scss/utils/mixin';
+
+.wrapper {
+  background: $sys-on-primary-variant;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 134px);
+
+  .button {
+    display: inline-flex;
+    padding: 10px 20px 10px 18px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    color: #ffffff;
+    text-align: center;
+    font-family: var(--montserrat-alternates-font);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 120%;
+    position: absolute;
+    top: 24px;
+    border-radius: 8px;
+    z-index: 999;
+
+    & svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .rays {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+  }
+
+  .clouds {
+    position: absolute;
+    bottom: -10px;
+    left: 45%;
+    transform: translateX(-50%);
+    width: 100%;
+
+    & svg {
+      min-width: 1440px;
+      height: 285px;
+    }
+  }
+
+  .book {
+    position: absolute;
+    bottom: 7.2vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    height: 25vh;
+  }
+
+  .slider {
+    width: 100%;
+    height: 213px;
+    position: absolute;
+    bottom: 15.6vh;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 15px;
+    padding-right: 15px;
+
+    .slides {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .slide {
+      width: 169px;
+      height: 213px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .image {
+        width: 192px;
+        height: 213px;
+      }
+    }
+
+    .prev,
+    .next {
+      display: inline-flex;
+      width: 69px;
+      height: 72px;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+      margin-top: 24px;
+      flex-shrink: 0;
+    }
+  }
+
+  @include breakpoint(tablet) {
+    height: calc(100vh - 70px);
+
+    .button {
+      padding: 16px 28px 16px 24px;
+      font-size: 18px;
+      left: 15px;
+
+      & svg {
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    .rays {
+      width: 100%;
+    }
+
+    .slider {
+      height: 432px;
+      bottom: 167px;
+      padding-left: 40px;
+      padding-right: 40px;
+
+      .slide {
+        width: 338px;
+        height: 432px;
+
+        .image {
+          width: 395px;
+          height: 432px;
+        }
+      }
+
+      .prev,
+      .next {
+        width: 116px;
+        height: 120px;
+        margin-top: 86px;
+
+        & img {
+          width: 111.938px;
+          height: 96.206px;
+        }
+      }
+    }
+
+    .book {
+      width: 688px;
+      height: 322.56px;
+    }
+  }
+
+  @include breakpoint(laptop) {
+    min-height: 700px;
+
+    .button {
+      left: 35px;
+    }
+
+    .book {
+      width: 822px;
+      height: 397px;
+      bottom: 24px;
+    }
+
+    .clouds {
+      left: 0;
+      transform: translateX(0%);
+    }
+
+    .slider {
+      bottom: 167px;
+      padding-left: 60px;
+      padding-right: 60px;
+
+      .slide {
+        width: 338px;
+        height: 432px;
+
+        .image {
+          width: 400px;
+          height: 432px;
+        }
+      }
+
+      .prev,
+      .next {
+        width: 116px;
+        height: 120px;
+        margin-top: 155px;
+
+        & img {
+          width: 111.938px;
+          height: 96.206px;
+        }
+      }
+    }
+  }
+
+  @include breakpoint(desktop) {
+    min-height: 850px;
+    .button {
+      padding: 20px 36px 20px 28px;
+      font-size: 24px;
+      left: 85px;
+    }
+
+    .clouds {
+      height: 285px;
+
+      & svg {
+        min-width: 1440px;
+      }
+    }
+
+    .book {
+      width: 1123px;
+      height: 543px;
+    }
+
+    .slider {
+      height: 552px;
+      bottom: 216px;
+      padding-left: 80px;
+      padding-right: 80px;
+
+      .slide {
+        width: 514px;
+        height: 552px;
+
+        .image {
+          width: 432px;
+          height: 552px;
+        }
+      }
+
+      .prev,
+      .next {
+        width: 136px;
+        height: 140px;
+        margin-top: 186px;
+
+        & img {
+          width: 130.963px;
+          height: 112px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,45 @@
+@import 'scss/utils/variables';
+
+.link {
+  display: flex;
+  width: 240px;
+  padding: 12px 8px 12px 12px;
+  align-items: center;
+  gap: 8px;
+  border-radius: 8px;
+  color: $white;
+  font-family: var(--montserrat-alternates-font);
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 120%;
+  position: relative;
+
+  .arrow {
+    position: absolute;
+    right: 8px;
+    width: 24px;
+    height: 24px;
+    z-index: 10;
+  }
+
+  &:hover {
+    color: $primary-variant;
+
+    & svg,
+    & svg path {
+      stroke: $primary-variant;
+    }
+  }
+
+  &.active {
+    background: $white;
+    color: $primary;
+
+    & svg,
+    & svg path {
+      stroke: $primary;
+      color: $primary;
+    }
+  }
+}

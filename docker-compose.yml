@@ -46,22 +46,16 @@ services:
     networks:
       - chytozavryk
 
-  proxy:
-    container_name: proxy_chytozavryk
+  frontend_app:
     build:
       context: .
-      dockerfile: Dockerfile.proxy
-    restart: always
+      dockerfile: Dockerfile.frontend
+    container_name: frontend_app_chytozavryk
     ports:
-      - "80:80"
-      - "443:443"
-      - "6500:6500"
-    volumes:
-      - /etc/letsencrypt/live/advokato.mooo.com/fullchain.pem:/certs/fullchain.pem
-      - /etc/letsencrypt/live/advokato.mooo.com/privkey.pem:/certs/privkey.pem
-      - proxy_chytozavryk:/data
+      - $FRONTEND_PORT:3000
     depends_on:
       - backend_app
+    restart: always
     networks:
       - chytozavryk
 
@@ -74,3 +68,4 @@ volumes:
   redis_chytozavryk:
   backend_app_chytozavryk:
   proxy_chytozavryk:
+  frontend_app_chytozavryk:

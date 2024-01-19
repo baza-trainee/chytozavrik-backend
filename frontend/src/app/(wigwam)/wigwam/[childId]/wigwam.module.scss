@@ -1,0 +1,64 @@
+@import 'scss/utils/variables';
+@import 'scss/utils/mixin';
+
+.layout {
+  padding-top: 20px;
+  padding-bottom: 32px;
+  gap: 24px;
+  display: grid;
+  grid-template-areas:
+    'readedbooks'
+    'monster'
+    'books'
+    'monsters'
+    'recommended';
+
+  @include breakpoint(tablet) {
+    display: grid;
+    padding-top: 56px;
+    padding-bottom: 50px;
+    // flex-wrap: wrap;
+    grid-template-areas:
+      'books readedbooks'
+      'books monster'
+      'monsters monsters'
+      'recommended recommended';
+
+    @include breakpoint(laptop) {
+      padding-top: 24px;
+      padding-bottom: 45px;
+      gap: 16px;
+      grid-template-areas:
+        'books readedbooks'
+        'books monster'
+        'books monsters'
+        'books recommended';
+    }
+  }
+
+  @include breakpoint(desktop) {
+    padding-top: 80px;
+    padding-bottom: 120px;
+
+    gap: 24px;
+    grid-template-rows: 65px 360px auto;
+    grid-template-areas:
+      'books monster readedbooks'
+      'books monster monsters'
+      'books recommended recommended';
+  }
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @include breakpoint(desktop) {
+    align-items: flex-start;
+  }
+}
+
+.test {
+  grid-area: recommended;
+}

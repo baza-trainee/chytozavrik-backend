@@ -1,0 +1,162 @@
+@import 'scss/utils/variables';
+@import 'scss/utils/mixin';
+
+.group {
+  --text-color: #{getColor(neutral, 30)};
+  --border-color: #{getColor(neutral, 50)};
+  --group-gap: 4px;
+
+  //pointer-events: none;
+  position: relative;
+
+  width: 100%;
+
+  font-family: var(--montserrat-alternates-font);
+  color: var(--text-color);
+
+  @include setTransition(color);
+
+  &[data-status='filled'] {
+    --text-color: #{getColor(neutral, 10)};
+    --border-color: #{getColor(neutral, 20)};
+  }
+
+  &[data-status='error'] {
+    --text-color: #{$error};
+    --border-color: #{$error};
+    font-weight: 400;
+    font-size: 14px;
+  }
+
+  &:hover:not([data-status='error']),
+  &:focus-within:not([data-status='error']) {
+    --text-color: #{$primary};
+    --border-color: #{$primary};
+  }
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--group-gap);
+
+  font-size: 14px;
+
+  @include breakpoint(tablet) {
+    font-size: 16px;
+  }
+}
+
+.label-text {
+}
+
+.input-group {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+  gap: 8px;
+
+  width: 100%;
+  height: 42px;
+
+  padding: 12px 16px;
+
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background-color: $white;
+
+  @include setTransition(border-color);
+
+  @include breakpoint(tablet) {
+    height: 48px;
+  }
+}
+
+.input {
+  pointer-events: auto;
+  flex-grow: 1;
+
+  font-family: var(--raleway-font);
+  font-size: 16px;
+  font-variant-numeric: lining-nums proportional-nums;
+  color: inherit;
+
+  border: none;
+  background: none;
+  outline: none;
+
+  // Hide arrows in type=number
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  &[type='number'] {
+    appearance: textfield;
+  }
+}
+
+.icon {
+  pointer-events: fill;
+  --icon-size: 20px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: var(--icon-size);
+  height: var(--icon-size);
+
+  @include breakpoint(tablet) {
+    --icon-size: 24px;
+  }
+}
+
+.message {
+  position: absolute;
+  margin-top: 14px;
+  bottom: calc(-1 * var(--group-gap));
+  font-size: 12px;
+
+  transform: translateY(100%);
+
+  @include breakpoint(tablet) {
+    font-size: 14px;
+  }
+}
+
+.additionalIcon {
+  order: 3;
+}
+
+.errorMessage {
+  display: flex;
+  gap: 9px;
+  margin-top: 8px;
+
+  & svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+.info {
+  font-size: 14px;
+  padding-top: 8px;
+  display: block;
+
+  &.red {
+    color: $error;
+    font-size: 12px;
+    font-weight: 400;
+    font-family: var(--montserrat-alternates-font);
+
+    @include breakpoint(tablet) {
+      font-size: 14px;
+    }
+  }
+}

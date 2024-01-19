@@ -1,0 +1,26 @@
+'use client';
+
+import { useSession } from 'next-auth/react';
+import { useAuthAxiosInstance } from '@/hooks';
+import { useQuery } from '@tanstack/react-query';
+import { BASE_URL } from '@/constants/api';
+
+export const useFetchMonsters = (childId: string) => {
+  const { status } = useSession();
+  const axios = useAuthAxiosInstance();
+
+  const {
+    data: monsters,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ['monsters', childId],
+    queryFn: async () => {
+      const { data } = await axios(`${BASE_URL}/users/me/children/${childId}/rewards`);
+      return data.data.results;
+    },
+    enabled: status === 'authenticated',
+  });
+
+  return { monsters, isLoading, error };
+};

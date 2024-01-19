@@ -1,0 +1,64 @@
+@import 'scss/utils/variables';
+@import 'scss/utils/mixin';
+
+.paginationContainer {
+  $button-disabled-opacity: 0.4;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 48px;
+  margin-top: 36px;
+
+  @include breakpoint(mobile) {
+    margin-top: 32px;
+    margin-bottom: calc(32px + 70px);
+  }
+
+  a {
+    font-size: 18px;
+    padding: 14.5px 26px;
+    font-weight: 600;
+    line-height: 21.6px;
+    width: 129px;
+    height: 54px;
+    text-align: center;
+  }
+
+  svg {
+    width: 24px;
+  }
+
+  .linkDisabled {
+    pointer-events: none;
+    background-color: rgba($white, $button-disabled-opacity);
+    color: rgba($primary, $button-disabled-opacity);
+    border-color: rgba($primary, $button-disabled-opacity);
+  }
+
+  .buttonNumbers {
+    margin: 0 24px 0 24px;
+    display: flex;
+
+    .buttonNumber {
+      margin-right: 18px;
+
+      &:last-child {
+        margin-right: 0px;
+      }
+
+      a {
+        font-size: 18px;
+        padding: 14.5px 26px;
+        width: 54px;
+        height: 54px;
+      }
+    }
+    .ellipsis {
+      display: flex;
+      margin-right: 9px;
+      align-self: flex-end;
+      color: $primary;
+    }
+  }
+}
