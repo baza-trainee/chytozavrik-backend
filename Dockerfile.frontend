@@ -8,7 +8,6 @@ COPY frontend .
 
 RUN npm i
 ENV NODE_ENV=production
-# ENV NODE_OPTIONS="--max-old-space-size=512"
 RUN npm run build
 
 CMD bash -c "npm start"
