@@ -57,6 +57,8 @@ services:
       - "443:443"
       - "6500:6500"
     volumes:
+      - /etc/letsencrypt/live/advokato.mooo.com/fullchain.pem:/certs/fullchain.pem
+      - /etc/letsencrypt/live/advokato.mooo.com/privkey.pem:/certs/privkey.pem
       - proxy_chytozavryk:/data
     depends_on:
       - backend_app
