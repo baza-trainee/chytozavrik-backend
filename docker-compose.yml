@@ -11,6 +11,8 @@ services:
       - POSTGRES_USER=$SQL_USER
       - POSTGRES_PASSWORD=$SQL_PASSWORD
       - POSTGRES_DB=$SQL_DATABASE
+    volumes:
+      - postgres_chytozavryk:/data
     restart: always
     networks:
       - chytozavryk
@@ -21,6 +23,8 @@ services:
     ports:
       - $REDIS_PORT:6379
     command: redis-server --port $REDIS_PORT --requirepass $REDIS_PASSWORD --maxmemory 100mb
+    volumes:
+      - redis_chytozavryk:/data
     restart: always
     networks:
       - chytozavryk
@@ -33,6 +37,8 @@ services:
     ports:
       - $BACKEND_PORT:8000
     command: [ 'bash', 'scripts/backend_app.sh' ]
+    volumes:
+      - backend_app_chytozavryk:/data
     depends_on:
       - postgres
       - redis
@@ -40,19 +46,29 @@ services:
     networks:
       - chytozavryk
 
-  # frontend_app:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile.frontend
-  #   container_name: frontend_app
-  #   ports:
-  #     - $FRONTEND_PORT:3000
-  #   depends_on:
-  #     - backend_app
-  #   restart: always
-  #   networks:
-  #     - chytozavryk
+  proxy:
+    container_name: proxy_chytozavryk
+    build:
+      context: .
+      dockerfile: Dockerfile.proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+      - "6500:6500"
+    volumes:
+      - proxy_chytozavryk:/data
+    depends_on:
+      - backend_app
+    networks:
+      - chytozavryk
 
 networks:
   chytozavryk:
     driver: bridge
+
+volumes:
+  postgres_chytozavryk:
+  redis_chytozavryk:
+  backend_app_chytozavryk:
+  proxy_chytozavryk:
