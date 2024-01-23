@@ -1,7 +1,7 @@
 .git*
-*env_example
+.env_example
+
+backend/.env_example
 backend/build.sh
-Dockerfile.backend
-docker-compose.yml
 backend/README.md
 backend/vercel.json

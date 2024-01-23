@@ -1,4 +1,6 @@
 .next
+backup-postgres-chytozavryk
+backup-static-chytozavryk
 __pycache__/
 *.py[cod]
 *$py.class

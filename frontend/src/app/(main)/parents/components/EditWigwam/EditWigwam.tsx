@@ -60,14 +60,14 @@ const EditWigwam = ({ id, kidName, kidAvatar, closeEditWigwam }: Props) => {
     },
   });
 
-  const onSubmit: SubmitHandler<FormData> = async formData => {
+  const onSubmit: SubmitHandler<FormData> = formData => {
     const modifiedFormData = {
       ...formData,
       avatar: Number(formData.avatar),
       id,
     };
     closeEditWigwam();
-    await submitData(modifiedFormData);
+    submitData(modifiedFormData);
   };
 
   useEffect(() => {

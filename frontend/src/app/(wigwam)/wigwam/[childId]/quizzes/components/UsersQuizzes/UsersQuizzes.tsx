@@ -13,7 +13,7 @@ interface UsersQuizzesProps {
 
 const UsersQuizzes = async ({ usersQuizzes, childId, category }: UsersQuizzesProps) => {
   const hasQuizzes = usersQuizzes.results && usersQuizzes.results.length > 0;
-  const isPagination = usersQuizzes.count && usersQuizzes.count > 12;
+  const isPagination: boolean = usersQuizzes.count > 12;
 
   return (
     <div>

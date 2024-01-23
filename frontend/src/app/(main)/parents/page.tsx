@@ -18,6 +18,7 @@ const ParentsPage = () => {
   const { data: kids, isLoading } = useQuery({
     queryKey: ['kids'],
     enabled: status === 'authenticated',
+
     queryFn: async () => {
       const response = await axios(`${baseUrl}/users/me/children/`, {
         headers: {
@@ -26,12 +27,13 @@ const ParentsPage = () => {
       });
       return response.data.data;
     },
+    staleTime: 0
   });
+
   const toggleCreateWigwam = () => {
     if (!wigwam && kids.length <= 6) setWigwam(true);
     else setWigwam(false);
   };
-
   return (
     <>
       <Parents handleClick={toggleCreateWigwam} kids={kids} />

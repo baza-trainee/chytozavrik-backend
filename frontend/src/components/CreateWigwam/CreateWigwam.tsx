@@ -22,7 +22,7 @@ type FormData = {
 
 const defaultValues: FormData = {
   name: '',
-  avatar: 0,
+  avatar: 1,
 };
 
 const CreateWigwam = ({ setWigwam }: Props) => {

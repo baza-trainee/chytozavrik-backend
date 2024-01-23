@@ -106,7 +106,7 @@ DATABASES = {
         "USER": getenv("SQL_USER"),
         "PASSWORD": getenv("SQL_PASSWORD"),
         "HOST": getenv("SQL_HOST"),
-        "PORT": 5432,
+        "PORT": getenv("SQL_PORT"),
     }
 }
 
@@ -173,7 +173,8 @@ EMAIL_HOST = getenv("EMAIL_HOST")
 EMAIL_PORT = getenv("EMAIL_PORT")
 EMAIL_HOST_USER = getenv("EMAIL_USER")
 EMAIL_HOST_PASSWORD = getenv("EMAIL_PASSWORD")
-DEFAULT_FROM_EMAIL = getenv("EMAIL_USER")
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 AUTH_USER_MODEL = "user_profile.User"
 
@@ -248,9 +249,9 @@ SIMPLE_JWT = {
 CORS_ALLOW_ALL_ORIGINS = True
 
 CLOUDINARY_STORAGE = {
-    "CLOUD_NAME": getenv("CLOUD_NAME"),
-    "API_KEY": getenv("API_KEY"),
-    "API_SECRET": getenv("API_SECRET"),
+    "CLOUD_NAME": getenv("CLOUD_NAME", None),
+    "API_KEY": getenv("API_KEY", None),
+    "API_SECRET": getenv("API_SECRET", None),
 }
 
 CACHES = {

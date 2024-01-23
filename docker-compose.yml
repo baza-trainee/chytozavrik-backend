@@ -12,7 +12,7 @@ services:
       - POSTGRES_PASSWORD=$SQL_PASSWORD
       - POSTGRES_DB=$SQL_DATABASE
     volumes:
-      - postgres_chytozavryk:/data
+      - postgres_chytozavryk:/var/lib/postgresql/data
     restart: always
     networks:
       - chytozavryk
@@ -36,6 +36,8 @@ services:
     container_name: backend_app_chytozavryk
     ports:
       - $BACKEND_PORT:8000
+    env_file:
+      - backend/.env
     command: [ 'bash', 'scripts/backend_app.sh' ]
     volumes:
       - backend_app_chytozavryk:/data
@@ -51,6 +53,8 @@ services:
       context: .
       dockerfile: Dockerfile.frontend
     container_name: frontend_app_chytozavryk
+    env_file:
+      - frontend/.env
     ports:
       - $FRONTEND_PORT:3000
     depends_on:
@@ -67,5 +71,4 @@ volumes:
   postgres_chytozavryk:
   redis_chytozavryk:
   backend_app_chytozavryk:
-  proxy_chytozavryk:
   frontend_app_chytozavryk:

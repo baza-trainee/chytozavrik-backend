@@ -1,8 +1,11 @@
-import { useParams } from 'next/navigation';
+'use client';
+
+import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Button, Typography } from '@/components/common';
 import { Route } from '@/constants';
 import { useConfetti } from '@/hooks';
+import { useQueryClient } from '@tanstack/react-query';
 import styles from './QuizPrize.module.scss';
 
 type Props = {
@@ -13,6 +16,14 @@ type Props = {
 const QuizPrize = ({ prize, onReplyQuiz }: Props) => {
   const canvas = useConfetti({ className: styles.confetti });
   const { childId } = useParams();
+  const router = useRouter();
+  const queryClient = useQueryClient();
+
+  const backHomeHandler = () => {
+    router.replace(`${Route.WIGWAM}/${childId}`);
+    queryClient.invalidateQueries({ queryKey: ['childBooks'] });
+    queryClient.invalidateQueries({ queryKey: ['wigwamQuiz'] });
+  };
 
   return (
     <div className={styles.prize}>
@@ -36,8 +47,8 @@ const QuizPrize = ({ prize, onReplyQuiz }: Props) => {
       <div className={styles['buttons-wrapper']}>
         <Button
           className={styles.button}
-          component="link"
-          href={`${Route.WIGWAM}/${childId}`}
+          component="button"
+          onClick={backHomeHandler}
           color="secondary"
         >
           До вігваму

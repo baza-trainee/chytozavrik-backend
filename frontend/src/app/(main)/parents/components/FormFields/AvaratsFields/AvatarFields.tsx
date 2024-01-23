@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Avatar1 from 'public/images/kids-avatar1.svg';
 import Avatar2 from 'public/images/kids-avatar2.svg';
@@ -26,11 +26,33 @@ const AvatarFields = ({ register, errors, selectedAvatar }: AvatarFieldsetProps)
     { id: 5, image: Avatar5 },
     { id: 6, image: Avatar6 },
   ];
-  const [currentAvatar, setCurrentAvatar] = useState(selectedAvatar);
+  const [currentAvatar, setCurrentAvatar] = useState(0);
+
+  useEffect(() => {
+    setCurrentAvatar(selectedAvatar);
+  }, [selectedAvatar]);
+
+  const isSafari = () => {
+    const ua = navigator.userAgent.toLowerCase();
+    return ua.indexOf('safari') !== -1 && ua.indexOf('chrome') === -1;
+  }
 
   const handleAvatarChange = (id: number): void => {
     setCurrentAvatar(id);
   };
+
+  const imageCheckedStyles = {
+    border: '3px solid #455fc8',
+    borderRadius: '100px',
+  };
+
+
+  const imageStyleChangeHandler = (id: number): void  => {
+    if (isSafari()) {
+      setCurrentAvatar(id);
+    }
+  }
+
 
   return (
     <div className={styles.container}>
@@ -39,18 +61,30 @@ const AvatarFields = ({ register, errors, selectedAvatar }: AvatarFieldsetProps)
         <div className={styles.radioWrapper}>
           {avatarData.map(({ id, image }) => (
             <React.Fragment key={id}>
-              <input
-                {...register('avatar', { required: true })}
-                type="radio"
-                id={String(id)}
-                name="avatar"
-                className={styles.radio}
-                value={String(id)}
-                checked={id === currentAvatar}
-                onChange={() => handleAvatarChange(id)}
-              />
               <label htmlFor={String(id)}>
-                <Image src={image} alt="аватар дитини" className={styles.image} />
+                {isSafari() ?
+                  <input
+                    {...register('avatar', { required: true })}
+                    type='radio'
+                    id={String(id)}
+                    name='avatar'
+                    className={styles.radio}
+                    value={String(id)}
+                    checked={id === currentAvatar}
+                    onClick={() => handleAvatarChange(id)}
+                  />
+                  : <input
+                    {...register('avatar', { required: true })}
+                    type='radio'
+                    id={String(id)}
+                    name='avatar'
+                    className={styles.radio}
+                    value={String(id)}
+                    checked={id === currentAvatar}
+                    onChange={() => handleAvatarChange(id)}
+                  />
+                }
+                <Image src={image} alt="аватар дитини" className={styles.image} style={(currentAvatar === id) ? imageCheckedStyles : {}} />
               </label>
             </React.Fragment>
           ))}

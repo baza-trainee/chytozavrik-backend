@@ -4,8 +4,8 @@ const nextConfig = {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {
-        protocol: 'http',
-        hostname: '35.180.254.37',
+        protocol: 'https',
+        hostname: 'chytozavryk.top',
         pathname: '**',
       },
     ],
