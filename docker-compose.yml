@@ -1,9 +1,9 @@
-version: '3.8'
+version: '3.9'
 
 services:
 
   postgres:
-    image: postgres:latest
+    image: postgres:16
     container_name: postgres_chytozavryk
     ports:
       - $SQL_PORT:5432
