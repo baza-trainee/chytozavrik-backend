@@ -24,7 +24,7 @@ const Lobby = () => {
         <Spinner />
       </div>
     );
-  } else if (isFetchingStarted && !children) {
+  } else if (isFetchingStarted && children.length === 0) {
     content = <NoWigwams />;
   } else if (children) {
     content = <WigwamsList users={children} />;

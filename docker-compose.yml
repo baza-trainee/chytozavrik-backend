@@ -17,17 +17,17 @@ services:
     networks:
       - chytozavryk
 
-  redis:
-    container_name: redis_chytozavryk
-    image: redis:7.2.3
-    ports:
-      - $REDIS_PORT:6379
-    command: redis-server --port $REDIS_PORT --requirepass $REDIS_PASSWORD --maxmemory 100mb
-    volumes:
-      - redis_chytozavryk:/data
-    restart: always
-    networks:
-      - chytozavryk
+  # redis:
+  #   container_name: redis_chytozavryk
+  #   image: redis:7.2.4
+  #   ports:
+  #     - 6379:6379
+  #   command: redis-server --port 6379 --requirepass $REDIS_PASSWORD --maxmemory 100mb
+  #   volumes:
+  #     - redis_chytozavryk:/data
+  #   restart: always
+  #   networks:
+  #     - chytozavryk
 
   backend_app:
     build:
@@ -40,10 +40,10 @@ services:
       - backend/.env
     command: [ 'bash', 'scripts/backend_app.sh' ]
     volumes:
-      - backend_app_chytozavryk:/data
+      - backend_app_chytozavryk:/backend_app/chytozavrik/media
     depends_on:
       - postgres
-      - redis
+      # - redis
     restart: always
     networks:
       - chytozavryk
@@ -69,6 +69,6 @@ networks:
 
 volumes:
   postgres_chytozavryk:
-  redis_chytozavryk:
+  # redis_chytozavryk:
   backend_app_chytozavryk:
   frontend_app_chytozavryk:

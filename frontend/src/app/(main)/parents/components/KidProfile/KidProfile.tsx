@@ -12,7 +12,6 @@ import * as process from 'process';
 import EditWigwam from '../EditWigwam';
 import styles from './KidProfile.module.scss';
 
-
 type Props = {
   kid: ChildType;
 };
@@ -25,6 +24,7 @@ const KidProfile = ({ kid }: Props) => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [isDeleted, setIsDeleted] = useState(false);
   const editWigwamRef = useRef<HTMLDivElement | null>(null);
+
   const handleEdit = () => {
     if (!edit) {
       setEdit(true);
@@ -51,12 +51,11 @@ const KidProfile = ({ kid }: Props) => {
         },
       });
     },
-    onSuccess: async() => {
-      await queryClient.refetchQueries({ queryKey: ['kids']})
+    onSettled: async () => {
+      await queryClient.refetchQueries({ queryKey: ['kids'] });
       setIsSuccess(true);
     },
   });
-
 
   return (
     <>

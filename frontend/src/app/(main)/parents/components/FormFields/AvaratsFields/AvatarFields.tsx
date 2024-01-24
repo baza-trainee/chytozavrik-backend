@@ -35,7 +35,7 @@ const AvatarFields = ({ register, errors, selectedAvatar }: AvatarFieldsetProps)
   const isSafari = () => {
     const ua = navigator.userAgent.toLowerCase();
     return ua.indexOf('safari') !== -1 && ua.indexOf('chrome') === -1;
-  }
+  };
 
   const handleAvatarChange = (id: number): void => {
     setCurrentAvatar(id);
@@ -46,13 +46,11 @@ const AvatarFields = ({ register, errors, selectedAvatar }: AvatarFieldsetProps)
     borderRadius: '100px',
   };
 
-
-  const imageStyleChangeHandler = (id: number): void  => {
+  const imageStyleChangeHandler = (id: number): void => {
     if (isSafari()) {
       setCurrentAvatar(id);
     }
-  }
-
+  };
 
   return (
     <div className={styles.container}>
@@ -62,29 +60,35 @@ const AvatarFields = ({ register, errors, selectedAvatar }: AvatarFieldsetProps)
           {avatarData.map(({ id, image }) => (
             <React.Fragment key={id}>
               <label htmlFor={String(id)}>
-                {isSafari() ?
+                {isSafari() ? (
                   <input
                     {...register('avatar', { required: true })}
-                    type='radio'
+                    type="radio"
                     id={String(id)}
-                    name='avatar'
+                    name="avatar"
                     className={styles.radio}
                     value={String(id)}
                     checked={id === currentAvatar}
                     onClick={() => handleAvatarChange(id)}
                   />
-                  : <input
+                ) : (
+                  <input
                     {...register('avatar', { required: true })}
-                    type='radio'
+                    type="radio"
                     id={String(id)}
-                    name='avatar'
+                    name="avatar"
                     className={styles.radio}
                     value={String(id)}
                     checked={id === currentAvatar}
                     onChange={() => handleAvatarChange(id)}
                   />
-                }
-                <Image src={image} alt="аватар дитини" className={styles.image} style={(currentAvatar === id) ? imageCheckedStyles : {}} />
+                )}
+                <Image
+                  src={image}
+                  alt="аватар дитини"
+                  className={styles.image}
+                  style={currentAvatar === id ? imageCheckedStyles : {}}
+                />
               </label>
             </React.Fragment>
           ))}

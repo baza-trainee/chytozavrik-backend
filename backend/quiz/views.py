@@ -12,7 +12,7 @@ from cloudinary import CloudinaryResource
 from django.utils import timezone
 from django.core.cache import cache, caches
 
-from chytozavrik.settings.base import TIME_HALF_DAY
+from chytozavrik.settings.base import BASE_URL, TIME_HALF_DAY
 from chytozavrik.helpers import ResultsSetPagination
 from stats.models import MonthlyActiveChild
 from user_profile.models import Child
@@ -452,7 +452,7 @@ class QuizViewSet(
                 "reward"
             ).get_or_create(child=child, quiz=quiz, reward=quiz.reward)
             reward = str(child_reward.reward.reward)
-            child_reward_url = self.request.build_absolute_uri("/media/")
+            child_reward_url = f"{BASE_URL}/{('/').join(self.request.build_absolute_uri('/media/').split('/')[-2:])}"
             child_reward_url += reward
             if (
                 not settings.DEFAULT_FILE_STORAGE

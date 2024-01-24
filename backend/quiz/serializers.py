@@ -5,7 +5,12 @@ from cloudinary import CloudinaryResource
 from django.utils import timezone
 from django.core.validators import FileExtensionValidator, MaxLengthValidator
 
-from chytozavrik.settings.base import DEFAULT_FILE_STORAGE, FILE_SIZE, IMAGE_FORMATS
+from chytozavrik.settings.base import (
+    BASE_URL,
+    DEFAULT_FILE_STORAGE,
+    FILE_SIZE,
+    IMAGE_FORMATS,
+)
 from .models import (
     Book,
     Quiz,
@@ -30,6 +35,14 @@ class BookSerializer(serializers.ModelSerializer):
             ),
         ],
     )
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        cover_image = representation.get("cover_image", None)
+        representation[
+            "cover_image"
+        ] = f"{BASE_URL}/{('/').join(cover_image.split('/')[-3:])}"
+        return representation
 
     def get_state(self, obj: Book):
         if all([obj.is_recommended, Quiz.objects.filter(book=obj).exists()]):
@@ -144,7 +157,7 @@ class QuizInfoSerializer(serializers.ModelSerializer):
     def get_reward_as_url(self, obj):
         if getattr(obj, "reward", None):
             reward = str(obj.reward.reward)
-            media_url = self.context["request"].build_absolute_uri("/media/")
+            media_url = f"{BASE_URL}/{('/').join(self.context['request'].build_absolute_uri('/media/').split('/')[-2:])}"
             media_url += reward
             if (
                 not DEFAULT_FILE_STORAGE
@@ -248,6 +261,12 @@ class QuizRewardSerializer(serializers.ModelSerializer):
         ],
     )
 
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        file = representation.get("reward", None)
+        representation["reward"] = f"{BASE_URL}/{('/').join(file.split('/')[-3:])}"
+        return representation
+
     class Meta:
         model = QuizReward
         fields = "__all__"
@@ -278,7 +297,7 @@ class ChildRewardSerializer(serializers.ModelSerializer):
 
     def get_reward(self, obj):
         reward = str(obj.reward.reward)
-        media_url = self.context["request"].build_absolute_uri("/media/")
+        media_url = f"{BASE_URL}/{('/').join(self.context['request'].build_absolute_uri('/media/').split('/')[-2:])}"
         media_url += reward
         if not DEFAULT_FILE_STORAGE == "django.core.files.storage.FileSystemStorage":
             media_url = CloudinaryResource(reward, resource_type="raw").build_url()

@@ -9,6 +9,8 @@ from django.utils.encoding import force_str
 from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError as PasswordValidationError
+
+from chytozavrik.settings.base import BASE_URL
 from .models import User, ChildAvatar, Child
 
 
@@ -106,7 +108,7 @@ class ChildSerializer(serializers.ModelSerializer):
 
     def get_avatar_as_url(self, obj):
         avatar = str(obj.avatar.avatar)
-        media_url = self.context["request"].build_absolute_uri("/media/")
+        media_url = f"{BASE_URL}/{('/').join(self.context['request'].build_absolute_uri('/media/').split('/')[-2:])}"
         media_url += avatar
         if (
             not settings.DEFAULT_FILE_STORAGE

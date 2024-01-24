@@ -13,7 +13,12 @@ from rest_framework.permissions import AllowAny
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 
-from chytozavrik.settings.base import MERCHANT_ACCOUNT, MERCHANT_SECRET, SITE_URL
+from chytozavrik.settings.base import (
+    BASE_URL,
+    MERCHANT_ACCOUNT,
+    MERCHANT_SECRET,
+    SITE_URL,
+)
 
 
 class PaymentViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
@@ -67,7 +72,7 @@ class PaymentViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
         payment_body.update(
             {
                 "language": "UA",
-                "returnUrl": request.build_absolute_uri("approve"),
+                "returnUrl": f"{BASE_URL}/{('/').join(request.build_absolute_uri('approve').split('/')[-4:])}",
                 "merchantSignature": merchant_signature,
             }
         )

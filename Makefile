@@ -1,4 +1,4 @@
-.PHONY: prod frontend_build frontend_export build run down clean drop_db dev backup restore stop_backup
+.PHONY: prod frontend_build frontend_export build run down clean drop_db backup auto_backup restore stop_backup
 
 BACKUP_COMMAND := * * * * * cd "$(PWD)" && python3 scripts/backup.py
 
@@ -18,15 +18,13 @@ prod: down build run
 
 clean:
 	sudo find . | grep -E "(__pycache__|\.pyc|\.pyo$$)" | xargs sudo rm -rf
-
-dev:
-	python manage.py runserver
+	rm 
 
 drop_db: down
 	docker volume rm $$(basename "$$(pwd)")_postgres_chytozavryk
 	docker volume rm $$(basename "$$(pwd)")_redis_chytozavryk
 
-backup:
+auto_backup:
 	@if crontab -l ; then \
 		crontab -l > mycron ; \
 	else \
@@ -39,6 +37,10 @@ backup:
 
 stop_backup:
 	crontab -l | grep -v '$(BACKUP_COMMAND)' | crontab -
+
+backup:
+	python3 scripts/backup.py
+	@echo "Backup complete"
 
 restore:
 	python3 scripts/restore.py

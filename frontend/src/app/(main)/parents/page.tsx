@@ -27,7 +27,7 @@ const ParentsPage = () => {
       });
       return response.data.data;
     },
-    staleTime: 0
+    staleTime: 0,
   });
 
   const toggleCreateWigwam = () => {

@@ -31,6 +31,7 @@ SECRET_KEY = getenv("SECRET_KEY")
 MERCHANT_ACCOUNT = getenv("MERCHANT_ACCOUNT")
 MERCHANT_SECRET = getenv("MERCHANT_SECRET")
 SITE_URL = getenv("SITE_URL")
+BASE_URL = getenv("BASE_URL")
 
 ALLOWED_HOSTS = ["*"]
 
@@ -149,6 +150,7 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = (BASE_DIR / "static",)
 STATIC_ROOT = BASE_DIR / "staticfiles_build" / "static"
 
+
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
@@ -174,7 +176,7 @@ EMAIL_PORT = getenv("EMAIL_PORT")
 EMAIL_HOST_USER = getenv("EMAIL_USER")
 EMAIL_HOST_PASSWORD = getenv("EMAIL_PASSWORD")
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
 AUTH_USER_MODEL = "user_profile.User"
 
@@ -256,58 +258,58 @@ CLOUDINARY_STORAGE = {
 
 CACHES = {
     "default": {
-        # "BACKEND": "django.core.cache.backends.dummy.DummyCache",
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": f"redis://{getenv('REDIS_HOST')}:{getenv('REDIS_PORT')}/0",
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            "MAX_MEMORY_BYTES": 30 * 1024 * 1024,
-            "PASSWORD": getenv("REDIS_PASSWORD"),
-        },
+        "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+        # "BACKEND": "django_redis.cache.RedisCache",
+        # "LOCATION": f"redis://{getenv('REDIS_HOST')}:{getenv('REDIS_PORT')}/0",
+        # "OPTIONS": {
+        #     "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        #     "MAX_MEMORY_BYTES": 30 * 1024 * 1024,
+        #     "PASSWORD": getenv("REDIS_PASSWORD"),
+        # },
     },
     "partner_cache": {
-        # "BACKEND": "django.core.cache.backends.dummy.DummyCache",
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": f"redis://{getenv('REDIS_HOST')}:{getenv('REDIS_PORT')}/1",
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            "MAX_MEMORY_BYTES": 15 * 1024**2,
-            "PASSWORD": getenv("REDIS_PASSWORD"),
-        },
-        "KEY_PREFIX": "partner_cache:",
+        "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+        # "BACKEND": "django_redis.cache.RedisCache",
+        # "LOCATION": f"redis://{getenv('REDIS_HOST')}:{getenv('REDIS_PORT')}/1",
+        # "OPTIONS": {
+        #     "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        #     "MAX_MEMORY_BYTES": 15 * 1024**2,
+        #     "PASSWORD": getenv("REDIS_PASSWORD"),
+        # },
+        # "KEY_PREFIX": "partner_cache:",
     },
     "book_cache": {
-        # "BACKEND": "django.core.cache.backends.dummy.DummyCache",
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": f"redis://{getenv('REDIS_HOST')}:{getenv('REDIS_PORT')}/2",
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            "MAX_MEMORY_BYTES": 15 * 1024**2,
-            "PASSWORD": getenv("REDIS_PASSWORD"),
-        },
-        "KEY_PREFIX": "book_cache:",
+        "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+        # "BACKEND": "django_redis.cache.RedisCache",
+        # "LOCATION": f"redis://{getenv('REDIS_HOST')}:{getenv('REDIS_PORT')}/2",
+        # "OPTIONS": {
+        #     "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        #     "MAX_MEMORY_BYTES": 15 * 1024**2,
+        #     "PASSWORD": getenv("REDIS_PASSWORD"),
+        # },
+        # "KEY_PREFIX": "book_cache:",
     },
     "book_recommended_cache": {
-        # "BACKEND": "django.core.cache.backends.dummy.DummyCache",
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": f"redis://{getenv('REDIS_HOST')}:{getenv('REDIS_PORT')}/3",
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            "MAX_MEMORY_BYTES": 15 * 1024**2,
-            "PASSWORD": getenv("REDIS_PASSWORD"),
-        },
-        "KEY_PREFIX": "book_recommended_cache:",
+        "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+        # "BACKEND": "django_redis.cache.RedisCache",
+        # "LOCATION": f"redis://{getenv('REDIS_HOST')}:{getenv('REDIS_PORT')}/3",
+        # "OPTIONS": {
+        #     "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        #     "MAX_MEMORY_BYTES": 15 * 1024**2,
+        #     "PASSWORD": getenv("REDIS_PASSWORD"),
+        # },
+        # "KEY_PREFIX": "book_recommended_cache:",
     },
     "quiz_cache": {
-        # "BACKEND": "django.core.cache.backends.dummy.DummyCache",
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": f"redis://{getenv('REDIS_HOST')}:{getenv('REDIS_PORT')}/4",
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            "MAX_MEMORY_BYTES": 15 * 1024**2,
-            "PASSWORD": getenv("REDIS_PASSWORD"),
-        },
-        "KEY_PREFIX": "quiz_cache:",
+        "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+        # "BACKEND": "django_redis.cache.RedisCache",
+        # "LOCATION": f"redis://{getenv('REDIS_HOST')}:{getenv('REDIS_PORT')}/4",
+        # "OPTIONS": {
+        #     "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        #     "MAX_MEMORY_BYTES": 15 * 1024**2,
+        #     "PASSWORD": getenv("REDIS_PASSWORD"),
+        # },
+        # "KEY_PREFIX": "quiz_cache:",
     },
 }
 

@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.core.validators import FileExtensionValidator, MaxLengthValidator
 
-from chytozavrik.settings.base import FILE_SIZE, IMAGE_FORMATS
+from chytozavrik.settings.base import BASE_URL, FILE_SIZE, IMAGE_FORMATS
 from .models import Partner
 
 
@@ -16,6 +16,12 @@ class PartnerSerializer(serializers.ModelSerializer):
             ),
         ],
     )
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        file = representation.get("img", None)
+        representation["img"] = f"{BASE_URL}/{('/').join(file.split('/')[-3:])}"
+        return representation
 
     class Meta:
         model = Partner

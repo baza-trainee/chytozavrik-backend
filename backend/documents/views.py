@@ -2,7 +2,7 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from rest_framework.response import Response
-from rest_framework import viewsets, mixins, status
+from rest_framework import status
 from django.core.cache import cache
 
 from chytozavrik.settings.base import TIME_HALF_DAY
