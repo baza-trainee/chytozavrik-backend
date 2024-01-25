@@ -2,8 +2,7 @@
 
 BACKUP_COMMAND := * * * * * cd "$(PWD)" && python3 scripts/backup.py
 
-prod: down
-	docker compose up -d --build
+prod: down build run
 
 build:
 	docker compose build
@@ -16,11 +15,12 @@ run:
 
 clean:
 	sudo find . | grep -E "(__pycache__|\.pyc|\.pyo$$)" | xargs sudo rm -rf
-	rm 
 
 drop_db: down
-	docker volume rm $$(basename "$$(pwd)")_postgres_chytozavryk
-	docker volume rm $$(basename "$$(pwd)")_redis_chytozavryk
+	if docker volume ls -q | grep -q "$$(basename "$$(pwd)")_postgres_chytozavryk"; then \
+		docker volume rm $$(basename "$$(pwd)")_postgres_chytozavryk; \
+	fi
+	sudo rm -rf ./media
 
 auto_backup:
 	@if crontab -l ; then \

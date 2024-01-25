@@ -146,6 +146,15 @@ class UserViewSet(
             )
         return super().create(request, *args, **kwargs)
 
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        if instance.is_superuser:
+            return Response(
+                {"detail": "Неможливо видалити користувача з правами адміністратора."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        return super().destroy(request, *args, **kwargs)
+
 
 class CustomPasswordResetConfirmView(PasswordResetConfirmView):
     serializer_class = CustomPasswordResetConfirmSerializer

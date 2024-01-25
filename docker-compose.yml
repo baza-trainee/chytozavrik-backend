@@ -3,7 +3,7 @@ version: '3.9'
 services:
 
   postgres:
-    image: postgres:16
+    image: postgres:16.1
     container_name: postgres_chytozavryk
     ports:
       - $SQL_PORT:5432
@@ -40,7 +40,7 @@ services:
       - backend/.env
     command: [ 'bash', 'scripts/backend_app.sh' ]
     volumes:
-      - backend_app_chytozavryk:/backend_app/chytozavrik/media
+      - ./media:/backend_app/media
     depends_on:
       - postgres
       # - redis
