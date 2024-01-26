@@ -17,6 +17,7 @@ import {
 import { fetch as axiosServerFetch } from '@/services/axios';
 import { Monster, MonstersResponse, MonstersResults } from '@/types/Monsters';
 import { ChildProp } from 'next/dist/server/app-render/types';
+import { ChildResults } from '@/types/ChildrenResults';
 
 const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || '';
 
@@ -109,14 +110,6 @@ export const getUserInfoService = async (): Promise<FetchResponseType<UserType>>
   return result.json();
 };
 
-export const getQuizInfoByIdService = async (
-  id: number
-): Promise<FetchResponseType<QuizInfoResponse>> => {
-  const result = await privateFetch(`${baseUrl}/quizzes/${id}`);
-
-  return result.json();
-};
-
 export const getUsersQuizzesService = async (
   childId: string,
   search: string = '',
@@ -130,26 +123,6 @@ export const getUsersQuizzesService = async (
   const result = await privateFetch(
     `${baseUrl}/users/me/children/${childId}/quizzes/?page=${page}&page_size=${PAGE_SIZE}&reverse=${IS_REVERSED}&search=${search}${selectedCategory}`
   );
-  return result.json();
-};
-
-export const sendSelectedAnswerService = async (
-  childId: number,
-  questionId: number,
-  answerId: number
-): Promise<FetchResponseType<AnswerType>> => {
-  const result = await fetch(`${baseUrl}/questions/${questionId}/submit-answer`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token.access}`,
-    },
-    body: JSON.stringify({
-      child_id: childId,
-      answer_id: answerId,
-    }),
-  });
-
   return result.json();
 };
 
@@ -250,15 +223,14 @@ export const changePasswordService = async (
   return result.json();
 };
 
-export const getChildrenService = async () => {
-  const response = await axiosServerFetch(`${baseUrl}/users/me/children/`);
-
-  return response.data;
-};
-
 export const getContactsService = async () => {
   const result = await axiosServerFetch(`${baseUrl}/contact-info/`);
   return result.data;
+};
+
+export const getChildById = async (childId: string) => {
+  const { data } = await axiosServerFetch(`${baseUrl}/users/me/children/${childId}/`);
+  return data;
 };
 
 export const getUsersService = async () => {

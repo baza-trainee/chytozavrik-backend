@@ -11,7 +11,7 @@ const NotFound = () => (
       <div className={styles.infoContainer}>
         <div className={styles.text}>
           <Typography variant="h4" component="p" className={styles.textContainer}>
-            До данної книги ще немає вікторини.
+            До даної книги ще немає вікторини.
           </Typography>
           <Typography variant="h4" component="p" className={styles.textContainer}>
             Вона зʼявиться незабаром

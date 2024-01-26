@@ -25,9 +25,7 @@ const CloseQuizButton = (props: Props) => {
   };
 
   const closeHandler = () => {
-    router.replace(`${Route.WIGWAM}/${childId}`);
-    queryClient.invalidateQueries({ queryKey: ['wigwamQuiz'] });
-    queryClient.invalidateQueries({ queryKey: ['childBooks'] });
+    window.location.href = `${Route.WIGWAM}/${childId}`;
   };
 
   return (

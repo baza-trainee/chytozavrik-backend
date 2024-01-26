@@ -44,8 +44,14 @@ restore:
 	python3 scripts/restore.py
 
 frontend_build:
+	if [ -d frontend.tar.xz ]; then \
+		sudo rm -rf frontend.tar.xz; \
+	fi
 	docker cp frontend_app_chytozavryk:frontend_app/.next .
 	tar -cJvf frontend.tar.xz .next
 
 frontend_export:
+	if [ -d frontend/.next ]; then \
+		sudo rm -rf frontend/.next; \
+	fi
 	tar -xJvf frontend.tar.xz -C frontend/

@@ -6,6 +6,8 @@ import { fetch } from '@/services/axios';
 import { notFound } from 'next/navigation';
 import { Avatar, ChildResults } from '@/types/ChildrenResults';
 import '../../../globals.scss';
+import { QueryClient } from '@tanstack/react-query';
+import { getChildById, getMonstersService } from '@/services/api';
 
 const Layout = async ({
   children,
@@ -15,23 +17,13 @@ const Layout = async ({
   params: {
     childId: string;
   };
-}) => {
-  const childReq = await fetch<ChildResults>(`/users/me/children/${childId}/`);
-
-  if (childReq.status === 'fail') notFound();
-
-  return (
-    <WigwamProvider>
-      <WigwamHeader
-        childId={childId}
-        name={childReq.data.name}
-        avatar={childReq.data.avatar_as_url}
-      />
-      <main>{children}</main>
-      <WigwamFooter childId={childId} />
-      <CookiesPanel />
-    </WigwamProvider>
-  );
-};
+}) => (
+  <WigwamProvider>
+    <WigwamHeader childId={childId} />
+    <main>{children}</main>
+    <WigwamFooter childId={childId} />
+    <CookiesPanel />
+  </WigwamProvider>
+);
 
 export default Layout;

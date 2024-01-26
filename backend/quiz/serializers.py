@@ -35,13 +35,20 @@ class BookSerializer(serializers.ModelSerializer):
             ),
         ],
     )
+    quiz_id = serializers.SerializerMethodField()
+
+    def get_quiz_id(self, obj):
+        if getattr(obj, "quiz", None):
+            return obj.quiz.id
+        else:
+            return None
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
         cover_image = representation.get("cover_image", None)
-        representation[
-            "cover_image"
-        ] = f"{BASE_URL}/{('/').join(cover_image.split('/')[-3:])}"
+        representation["cover_image"] = (
+            f"{BASE_URL}/{('/').join(cover_image.split('/')[-3:])}"
+        )
         return representation
 
     def get_state(self, obj: Book):
@@ -91,6 +98,12 @@ class QuizSerializer(BookWithIDSerializer):
     def get_quizz_id(self, obj):
         quiz = obj.quiz
         return quiz.id if quiz else None
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        file = representation.get("cover_image", None)
+        representation["cover_image"] = f"{BASE_URL}/{('/').join(file.split('/')[-3:])}"
+        return representation
 
 
 class AnswerAdminSerializer(serializers.ModelSerializer):

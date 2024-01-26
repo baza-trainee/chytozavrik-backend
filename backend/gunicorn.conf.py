@@ -3,5 +3,3 @@ worker_class = "gevent"
 workers = 2
 loglevel = "debug"
 worker_connections = 1000
-timeout = 300
-keepalive = 2

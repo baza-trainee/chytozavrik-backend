@@ -54,9 +54,10 @@ const EditWigwam = ({ id, kidName, kidAvatar, closeEditWigwam }: Props) => {
         },
       });
     },
-    onSuccess: () => {
+    onSettled: () => {
       resetField('name');
       queryClient.invalidateQueries({ queryKey: ['kids'] });
+      queryClient.invalidateQueries({ queryKey: ['childReq'] });
     },
   });
 

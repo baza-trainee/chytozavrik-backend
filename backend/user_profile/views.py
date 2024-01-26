@@ -245,7 +245,7 @@ class ChildListCreateAPIView(ListCreateAPIView):
         serializer.save(parent=user)
 
     def get_queryset(self):
-        return Child.objects.filter(parent=self.request.user.pk)
+        return Child.objects.filter(parent=self.request.user.pk).order_by("id")
 
     @swagger_auto_schema(responses={"200": LIST_CHILD_SERIALIZER})
     def get(self, request, *args, **kwargs):
