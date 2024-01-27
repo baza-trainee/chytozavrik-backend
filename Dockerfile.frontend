@@ -8,6 +8,6 @@ COPY frontend .
 
 RUN npm i
 ENV NODE_ENV=production
-# RUN npm run build
+RUN npm run build
 
 CMD bash -c "npm start"

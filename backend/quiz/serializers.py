@@ -340,6 +340,12 @@ class BookForChildSerializer(serializers.ModelSerializer):
         model = Book
         fields = ["id", "title", "author", "cover_image"]
 
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        file = representation.get("cover_image", None)
+        representation["cover_image"] = f"{BASE_URL}/{('/').join(file.split('/')[-3:])}"
+        return representation
+
 
 class ChildQuizSerializer(serializers.ModelSerializer):
     current_score = serializers.SerializerMethodField()

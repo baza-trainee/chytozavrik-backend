@@ -25,7 +25,9 @@ const UserItem = ({ user, onCheckboxChange, isDeleting }: UserItemProps) => {
   return (
     <div className={styles.userItem}>
       <div className={styles.checkbox}>
-        <AdminCheckBox id={user.id} onChange={e => onCheckboxChange(e.target.checked, user.id)} />
+        {user.is_superuser ? null : (
+          <AdminCheckBox id={user.id} onChange={e => onCheckboxChange(e.target.checked, user.id)} />
+        )}
       </div>
       <div className={styles.userInfo}>
         <p className={styles.email}>{user.email}</p>
@@ -47,7 +49,7 @@ const UserItem = ({ user, onCheckboxChange, isDeleting }: UserItemProps) => {
           setIsOpen(true);
         }}
       >
-        {isPending || isDeleting ? <Spinner /> : <Trash2 />}
+        {user.is_superuser ? null : isPending || isDeleting ? <Spinner /> : <Trash2 />}
       </div>
       {isOpen && (
         <Modal

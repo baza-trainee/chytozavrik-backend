@@ -3,6 +3,7 @@ export interface RecBookType {
   state: string[];
   created_at: string;
   updated_at: string;
+  quiz_id: number | null;
   title: string;
   author: string;
   cover_image: string;

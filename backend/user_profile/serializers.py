@@ -98,6 +98,12 @@ class ChildAvatarSerializer(serializers.ModelSerializer):
         model = ChildAvatar
         fields = "__all__"
 
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        file = representation.get("avatar", None)
+        representation["avatar"] = f"{BASE_URL}/{('/').join(file.split('/')[-3:])}"
+        return representation
+
 
 class ChildSerializer(serializers.ModelSerializer):
     unique_quizzes_passed = serializers.SerializerMethodField()

@@ -27,7 +27,7 @@ const WigwamHeader: FC<WigwamHeaderProps> = ({ childId }) => {
     },
     enabled: status === 'authenticated',
   });
-  console.log(child);
+
   return child && deviceType === 'mobile' ? (
     <NavbarMob avatar={child?.avatar_as_url} />
   ) : (

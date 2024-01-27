@@ -70,5 +70,5 @@ networks:
 volumes:
   postgres_chytozavryk:
   # redis_chytozavryk:
-  backend_app_chytozavryk:
+  # backend_app_chytozavryk:
   frontend_app_chytozavryk:

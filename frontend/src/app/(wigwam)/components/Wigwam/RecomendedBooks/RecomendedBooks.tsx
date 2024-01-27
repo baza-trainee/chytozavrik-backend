@@ -35,11 +35,8 @@ const RecomendedBooks: React.FC<RecomendedBooksProps> = ({ booksData = [], recBo
   const router = useRouter();
   const pathname = usePathname();
 
-  const handleCardClick = (id: number) => {
-    const quiz = booksData.find(quiz => quiz.book?.id === id);
-
-    if (quiz) {
-      const quizId = quiz.id;
+  const handleCardClick = (id: number, quizId: number | null) => {
+    if (quizId) {
       router.push(`${pathname}/${quizId}`);
     } else {
       router.push(`${pathname}/${id}`);
@@ -90,8 +87,8 @@ const RecomendedBooks: React.FC<RecomendedBooksProps> = ({ booksData = [], recBo
       </Typography>
       <div className={styles.slider_container}>
         <Slider {...settings}>
-          {recBooksData?.map(({ title, cover_image: coverImage, id }, index) => (
-            <div key={id} className={styles.card} onClick={() => handleCardClick(id)}>
+          {recBooksData?.map(({ title, cover_image: coverImage, id, quiz_id: quizId }, index) => (
+            <div key={id} className={styles.card} onClick={() => handleCardClick(id, quizId)}>
               <div className={styles.card_image}>
                 <Image src={coverImage} alt={title} width={128} height={158} />
               </div>

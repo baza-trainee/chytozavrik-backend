@@ -4,6 +4,46 @@ import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend } from 'recharts';
 import { ChartQuizzes } from '@/types';
 
+const CustomTick = (props: any) => {
+  const { x, y, payload } = props;
+  const splitText = (text: string, maxLength: number) => {
+    const words = text.split(' ');
+    const lines = [];
+    let currentLine = words[0];
+
+    for (let i = 1; i < words.length; i++) {
+      const word = words[i];
+      const width = currentLine.length + word.length + 1;
+      if (width < maxLength) {
+        currentLine += ` ${word}`;
+      } else {
+        lines.push(currentLine);
+        currentLine = word;
+      }
+    }
+    lines.push(currentLine);
+    return lines;
+  };
+  const lines = splitText(payload.value, 12);
+  return (
+    <g transform={`translate(${10},${y - 25})`}>
+      {lines.map((line, index) => (
+        <text
+          key={index}
+          x={-11}
+          y={index * 12}
+          dy={16}
+          textAnchor="start"
+          fill="#5E5E5E"
+          style={{ fontSize: '12px' }}
+        >
+          {line}
+        </text>
+      ))}
+    </g>
+  );
+};
+
 const CustomLegendContent = (props: any) => {
   const { payload } = props;
 
@@ -35,34 +75,29 @@ const CustomLegendContent = (props: any) => {
 const BarChartCommon = ({ data }: { data: ChartQuizzes[] }) => (
   <BarChart
     width={710}
-    height={data.length * 64}
-    barGap={0}
-    barSize={16}
-    barCategoryGap={16}
+    height={data.length * 84}
+    barGap={8}
+    barSize={17}
+    barCategoryGap={6}
     data={data}
     layout="vertical"
     margin={{
       top: 6,
       right: 20,
-      left: 20,
+      left: 26,
       bottom: 5,
     }}
   >
     <CartesianGrid stroke="#AFAFAF" />
-    <YAxis
-      type="category"
-      dataKey="quiz_title"
-      style={{ fontSize: '12px', fill: '#5E5E5E' }}
-      tickMargin={6}
-      tickSize={0}
-    />
+    <YAxis type="category" dataKey="quiz_title" tick={CustomTick} tickSize={0} />
+
     <XAxis
       type="number"
       xAxisId="one"
       stroke="#8884d8"
       orientation="top"
       tickSize={0}
-      tickMargin={6}
+      tickMargin={8}
     />
     <Bar xAxisId="one" dataKey="num_unique_children" fill="#132D96" />
     <XAxis
@@ -71,11 +106,11 @@ const BarChartCommon = ({ data }: { data: ChartQuizzes[] }) => (
       stroke="#8884d8"
       orientation="bottom"
       tickSize={0}
-      tickMargin={6}
+      tickMargin={8}
     />
     <Bar xAxisId="two" dataKey="total_attempts" fill="#7791FA" />
     <Legend
-      width={302}
+      width={300}
       wrapperStyle={{
         top: '50%',
         left: 740,
