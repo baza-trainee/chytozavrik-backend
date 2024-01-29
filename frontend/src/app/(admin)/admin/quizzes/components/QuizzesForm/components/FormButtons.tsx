@@ -8,9 +8,11 @@ import styles from '@/app/(admin)/admin/quizzes/components/QuizzesForm/QuizForm.
 const FormButtons = ({
   isPendingAdd,
   isPendingEdit,
+  id,
 }: {
   isPendingAdd: boolean;
   isPendingEdit: boolean;
+  id?: number;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
@@ -34,7 +36,7 @@ const FormButtons = ({
           isLoading={isPendingAdd || isPendingEdit}
           disabled={isPendingAdd || isPendingEdit}
         >
-          Додати
+          {id ? 'Зберегти' : 'Додати'}
         </Button>
       </div>
       {isOpen && (

@@ -24,12 +24,20 @@ const KidProfile = ({ kid }: Props) => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [isDeleted, setIsDeleted] = useState(false);
   const editWigwamRef = useRef<HTMLDivElement | null>(null);
+  const editInvokeRef = useRef<HTMLLIElement | null>(null);
 
   const handleEdit = () => {
     if (!edit) {
       setEdit(true);
     } else {
       setEdit(false);
+      if (editInvokeRef.current) {
+        editInvokeRef.current.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'start',
+        });
+      }
     }
   };
 
@@ -59,7 +67,7 @@ const KidProfile = ({ kid }: Props) => {
 
   return (
     <>
-      <li key={kid.id} className={styles.item}>
+      <li key={kid.id} className={styles.item} ref={editInvokeRef}>
         <Link className={styles.link} href={`${Route.WIGWAM}/${kid.id}`} data-avatar>
           <div className={styles.thumb}>
             <Image

@@ -14,9 +14,10 @@
   body {
     display: flex;
     flex-direction: column;
-    overflow-x: hidden;
+    box-sizing: border-box;
     max-width: 100vw;
     height: 100%;
+    overflow-x: hidden;
 
     font-family: var(--raleway-font);
     font-weight: 300;
@@ -46,10 +47,6 @@
     background: #e3f0ff;
     border-radius: 6px;
   }
-
-  //main {
-  //  flex-grow: 1;
-  //}
 
   a {
     color: inherit;

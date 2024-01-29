@@ -16,8 +16,8 @@
     "incremental": true,
     "plugins": [
       {
-        "name": "next"
-      }
+        "name": "next",
+      },
     ],
 
     "baseUrl": ".",
@@ -25,15 +25,15 @@
       "@/*": ["src/*"],
       "components/*": ["src/components/*"],
       "scss/*": ["src/scss/*"],
-      "public/*": ["public/*"]
-    }
+      "public/*": ["public/*"],
+    },
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/app/(main)/parents/lobby/components/Avatar/Avatar1tsx"
+    "src/app/(main)/parents/lobby/components/Avatar/Avatar1tsx",
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
 }

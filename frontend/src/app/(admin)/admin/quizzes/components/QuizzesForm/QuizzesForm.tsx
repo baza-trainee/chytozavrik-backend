@@ -158,7 +158,7 @@ const QuizzesForm = ({ id }: { id?: number }) => {
             </div>
           )}
         </div>
-        <FormButtons isPendingAdd={isPendingAdd} isPendingEdit={isPendingEdit} />
+        <FormButtons isPendingAdd={isPendingAdd} isPendingEdit={isPendingEdit} id={id} />
       </form>
       {(isAddSuccess || isEditSuccess) && (
         <Modal

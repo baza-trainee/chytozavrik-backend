@@ -43,14 +43,17 @@ const UserItem = ({ user, onCheckboxChange, isDeleting }: UserItemProps) => {
         </div>
         <p className={styles.date}> {format(new Date(user.date_joined), 'dd.MM.yyyy')}</p>
       </div>
-      <div
-        className={styles.delete}
-        onClick={() => {
-          setIsOpen(true);
-        }}
-      >
-        {user.is_superuser ? null : isPending || isDeleting ? <Spinner /> : <Trash2 />}
-      </div>
+      {user.is_superuser ? null : (
+        <div
+          className={styles.delete}
+          onClick={() => {
+            setIsOpen(true);
+          }}
+        >
+          {isPending || isDeleting ? <Spinner /> : <Trash2 />}
+        </div>
+      )}
+
       {isOpen && (
         <Modal
           type="question"

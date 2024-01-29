@@ -1,12 +1,7 @@
 import { getServerSession } from 'next-auth';
-import { useSession } from 'next-auth/react';
-import axios from 'axios';
 import { authOptions } from '@/config';
 import {
-  AnswerType,
   FetchResponseType,
-  QuizInfoResponse,
-  AllQuizzesResponse,
   TokenType,
   UserType,
   UsersQuizzesResponse,
@@ -15,9 +10,7 @@ import {
   resetPasswordType,
 } from '@/types';
 import { fetch as axiosServerFetch } from '@/services/axios';
-import { Monster, MonstersResponse, MonstersResults } from '@/types/Monsters';
-import { ChildProp } from 'next/dist/server/app-render/types';
-import { ChildResults } from '@/types/ChildrenResults';
+import { MonstersResponse } from '@/types/Monsters';
 
 const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || '';
 
@@ -184,21 +177,6 @@ export const getMonstersService = async (childId: string) => {
   }
 
   throw new Error(data.message);
-};
-
-export const getChildBooksService = async (childId: string) => {
-  const { data } = await axiosServerFetch(`${baseUrl}/users/me/children/${childId}/quizzes`);
-  return data;
-};
-
-export const getRecommendationBooksService = async () => {
-  const { data } = await axiosServerFetch(`${baseUrl}/recommendation-books`);
-  return data;
-};
-
-export const getWigwamQuizService = async (childId: string) => {
-  const { data } = await axiosServerFetch(`${baseUrl}/users/me/children/${childId}`);
-  return data;
 };
 
 export const changePasswordService = async (

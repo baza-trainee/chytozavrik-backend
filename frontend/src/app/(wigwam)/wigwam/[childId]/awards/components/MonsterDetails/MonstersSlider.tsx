@@ -30,7 +30,12 @@ const MonstersSlider = ({
     setCurrentSlide(prevSlide => prevSlide + 1);
   };
   const goToPrev = () => {
-    setCurrentSlide(prevSlide => prevSlide - 1);
+    setCurrentSlide(prevSlide => {
+      if (prevSlide === 0) {
+        return prevSlide;
+      }
+      return prevSlide - 1;
+    });
   };
 
   const sliderStyle = {
@@ -80,7 +85,11 @@ const MonstersSlider = ({
       onTouchEnd={onTouchEnd}
     >
       <button
-        style={sliderItems.length === 1 ? { visibility: 'hidden' } : { visibility: 'visible' }}
+        style={
+          sliderItems.length === 1 || currentSlide === 0
+            ? { visibility: 'hidden' }
+            : { visibility: 'visible' }
+        }
         className={styles.prev}
         onClick={goToPrev}
         aria-label="Попередній"

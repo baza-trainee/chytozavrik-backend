@@ -30,7 +30,7 @@ const Auth = () => {
   const { signOut } = useSignOut();
 
   const closeModal = () => {
-    router.replace('/', { shallow: true });
+    router.replace('/');
   };
 
   useEffect(() => {

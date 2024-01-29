@@ -1,27 +1,28 @@
 'use client';
 
-import { useState, type ButtonHTMLAttributes } from 'react';
+import { useState, type ButtonHTMLAttributes, useContext } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { XButton } from '@/components/common';
 import { Route } from '@/constants';
-import { useQueryClient } from '@tanstack/react-query';
+import { useQuizContext } from '@/hooks/useQuizContext';
 import { Notification, DefaultToast } from '../Notification';
 
 type Props = ButtonHTMLAttributes<HTMLButtonElement>;
 
 const CloseQuizButton = (props: Props) => {
-  const [isShowNotification, setIsShowNotification] = useState(false);
   const { childId } = useParams();
-  const queryClient = useQueryClient();
-
-  const router = useRouter();
+  const { isCloseQuiz, setIsCloseQuiz, isAnswerModal, setIsAnswerModal } = useQuizContext();
 
   const showNotificationHandler = () => {
-    setIsShowNotification(true);
+    setIsCloseQuiz(true);
+    if (isAnswerModal) {
+      setIsAnswerModal(false);
+    }
   };
 
   const hideNotification = () => {
-    setIsShowNotification(false);
+    setIsCloseQuiz(false);
+    setIsAnswerModal(true);
   };
 
   const closeHandler = () => {
@@ -30,8 +31,8 @@ const CloseQuizButton = (props: Props) => {
 
   return (
     <>
-      <XButton {...props} onClick={showNotificationHandler} />
-      {isShowNotification && (
+      <XButton {...props} onClick={showNotificationHandler} style={{ zIndex: '1001' }} />
+      {isCloseQuiz && (
         <Notification backdrop>
           <DefaultToast onAction={hideNotification} onClose={closeHandler} />
         </Notification>

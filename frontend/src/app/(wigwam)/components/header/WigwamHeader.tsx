@@ -4,12 +4,8 @@ import React, { FC } from 'react';
 import Navbar from '@/app/(wigwam)/components/header/Navbar/Navbar';
 import { useAuthAxiosInstance, useMedia } from '@/hooks';
 import NavbarMob from '@/app/(wigwam)/components/header/NavbarMob/NavbarMob';
-import { ChildResults } from '@/types/ChildrenResults';
-import { getChildById } from '@/services/api';
-import { useQuery } from '@tanstack/react-query';
-import { ChildType } from '@/types';
 import { useSession } from 'next-auth/react';
-import { fetch as axiosServerFetch } from '@/services/axios';
+import { useQuery } from '@tanstack/react-query';
 
 interface WigwamHeaderProps {
   childId: string;

@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation';
 import { AnswerType, QuestionAnswerType } from '@/types';
 import { useFetch } from '@/hooks';
 import { Button } from '@/components/common';
-import { useQueryClient } from '@tanstack/react-query';
+import { useQuizContext } from '@/hooks/useQuizContext';
 import { ErrorToast, Notification, SuccessToast } from '../../Notification';
 import styles from './AnswersList.module.scss';
 
@@ -23,10 +23,9 @@ type AnswerRequestType = {
 
 const AnswersList = ({ questionId, answers, onNext }: Props) => {
   const { childId } = useParams();
-  const [isShowNotification, setIsShowNotification] = useState(false);
   const [selectAnswer, setSelectAnswer] = useState<number | null>(null);
   const { data: answerResult, isLoading, fetch } = useFetch<AnswerType, AnswerRequestType>();
-  const queryClient = useQueryClient();
+  const { isAnswerModal, setIsAnswerModal } = useQuizContext();
 
   const clickHandler = (answerId: number) => async () => {
     setSelectAnswer(answerId);
@@ -41,7 +40,7 @@ const AnswersList = ({ questionId, answers, onNext }: Props) => {
         'POST'
       );
 
-      setIsShowNotification(true);
+      setIsAnswerModal(true);
     } catch (err) {
       // eslint-disable-next-line no-console
       console.log(err);
@@ -50,14 +49,12 @@ const AnswersList = ({ questionId, answers, onNext }: Props) => {
 
   const closeNotification = () => {
     setSelectAnswer(null);
-    setIsShowNotification(false);
+    setIsAnswerModal(false);
   };
 
   const nextStep = () => {
     if (answerResult?.child_reward_url) {
       onNext(answerResult?.child_reward_url);
-      queryClient.invalidateQueries({ queryKey: ['monsters'] });
-      queryClient.invalidateQueries({ queryKey: ['wigwamQuiz'] });
     }
     onNext();
     closeNotification();
@@ -84,7 +81,7 @@ const AnswersList = ({ questionId, answers, onNext }: Props) => {
           </li>
         ))}
       </ul>
-      {isShowNotification &&
+      {isAnswerModal &&
         answerResult &&
         (answerResult.is_answer_correct ? (
           <Notification type="success">
