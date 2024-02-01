@@ -22,7 +22,7 @@ const CloseQuizButton = (props: Props) => {
 
   const hideNotification = () => {
     setIsCloseQuiz(false);
-    setIsAnswerModal(true);
+    // setIsAnswerModal(true);
   };
 
   const closeHandler = () => {

@@ -30,7 +30,7 @@ const Partners = () => {
           loop
           modules={[Autoplay]}
           autoplay={{ delay: 1500, disableOnInteraction: false }}
-          speed={600}
+          speed={1500}
           centeredSlides
           breakpoints={{
             320: {
@@ -50,9 +50,9 @@ const Partners = () => {
         >
           {partners?.results.map((partner: Partner) => (
             <SwiperSlide key={partner.id}>
-              <Link href={partner.link} className={styles.item}>
+              <a href={partner.link} target='_blank' rel="nofollow noopener"  className={styles.item}>
                 <img src={partner.img} alt={partner.name} />
-              </Link>
+              </a>
             </SwiperSlide>
           ))}
         </Swiper>

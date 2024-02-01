@@ -28,7 +28,8 @@ const Quiz = ({ quizInfo }: QuizProps) => {
   const currentQuestion = questions.at(questionNumber);
   const [isCloseQuiz, setIsCloseQuiz] = useState(false);
   const [isAnswerModal, setIsAnswerModal] = useState(false);
-
+  console.log('questionNumber', questionNumber);
+  console.log('currentQuestion', currentQuestion);
   const nextStep = (prize?: string) => {
     if (prize) {
       return setQuizPrize(prize);
@@ -50,6 +51,8 @@ const Quiz = ({ quizInfo }: QuizProps) => {
     }),
     [isCloseQuiz, setIsCloseQuiz, isAnswerModal, setIsAnswerModal]
   );
+
+  const isAnswerNotification = questionNumber;
 
   return (
     <QuizContext.Provider value={contextValue}>
