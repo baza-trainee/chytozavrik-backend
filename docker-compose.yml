@@ -16,6 +16,10 @@ services:
     restart: always
     networks:
       - chytozavryk
+    healthcheck:
+      test: "pg_isready -d $SQL_DATABASE -U $SQL_USER"
+      interval: 2s
+      timeout: 15s
 
   # redis:
   #   container_name: redis_chytozavryk
@@ -28,7 +32,11 @@ services:
   #   restart: always
   #   networks:
   #     - chytozavryk
-
+  #   healthcheck:
+  #     test: "redis-cli --raw ping"
+  #     interval: 2s
+  #     timeout: 15s
+      
   backend_app:
     build:
       context: .
@@ -42,8 +50,10 @@ services:
     volumes:
       - ./media:/backend_app/media
     depends_on:
-      - postgres
-      # - redis
+      postgres:
+        condition: service_healthy
+      # redis:
+      #   condition: service_healthy
     restart: always
     networks:
       - chytozavryk

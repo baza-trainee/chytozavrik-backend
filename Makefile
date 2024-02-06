@@ -1,6 +1,6 @@
 .PHONY: prod frontend_build frontend_export build run down clean drop_db backup auto_backup restore stop_backup
 
-BACKUP_COMMAND := * * * * * cd "$(PWD)" && python3 scripts/backup.py
+BACKUP_COMMAND := "0 0 * * * cd \"$(PWD)\" && python3 scripts/backup.py"
 
 prod: down build run
 
@@ -28,13 +28,13 @@ auto_backup:
 	else \
 		touch mycron ; \
 	fi
-	@echo '$(BACKUP_COMMAND)' >> mycron
+	@echo $(BACKUP_COMMAND) >> mycron
 	@crontab mycron
 	@rm mycron
 	@echo "Backup script added to cron"
-
+	
 stop_backup:
-	crontab -l | grep -v '$(BACKUP_COMMAND)' | crontab -
+	crontab -l | grep -v -F $(BACKUP_COMMAND) | crontab -
 
 backup:
 	python3 scripts/backup.py

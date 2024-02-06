@@ -50,7 +50,12 @@ const Partners = () => {
         >
           {partners?.results.map((partner: Partner) => (
             <SwiperSlide key={partner.id}>
-              <a href={partner.link} target='_blank' rel="nofollow noopener"  className={styles.item}>
+              <a
+                href={partner.link}
+                target="_blank"
+                rel="nofollow noopener"
+                className={styles.item}
+              >
                 <img src={partner.img} alt={partner.name} />
               </a>
             </SwiperSlide>

@@ -8,14 +8,23 @@ import { usePathname } from 'next/navigation';
 import { Phone, Mail } from 'lucide-react';
 import { useQueryContactInfo } from '@/hooks/useQueryContactInfo';
 import { formatPhoneNumber } from '@/utils/formatPhoneNumber';
+import { Fragment } from 'react';
+import { useGetDocuments } from '@/hooks/useGetDocuments';
 import Container from '../common/Container/Container';
 import Typography from '../common/Typography/Typography';
 import styles from './Footer.module.scss';
 
+interface IDocument {
+  file: string;
+  name: string;
+  id: number;
+  updated_at: string;
+}
 const Footer = () => {
   const pathName = usePathname();
   const isShowFooter = !pathName.includes(Route.WIGWAM);
   const { contacts } = useQueryContactInfo();
+  const { documents } = useGetDocuments();
 
   return (
     isShowFooter && (
@@ -50,25 +59,19 @@ const Footer = () => {
                   </Typography>
                 </ul>
                 <ul className={styles.class1}>
-                  <Typography className={styles.informationText} component="p" variant="footer">
-                    <Link
-                      href="/pdf/privacy policy.pdf#toolbar=0"
-                      target="_blank"
-                      className={styles.linkText}
-                    >
-                      Політика конфіденційності
-                    </Link>
-                  </Typography>
-
-                  <Typography className={styles.informationText} component="p" variant="footer">
-                    <Link
-                      href="/pdf/site-rules.pdf#toolbar=0"
-                      target="_blank"
-                      className={styles.linkText}
-                    >
-                      Правила користування сайтом
-                    </Link>
-                  </Typography>
+                  {documents?.map((document: IDocument) => (
+                    <Fragment key={document.id}>
+                      <Typography className={styles.informationText} component="p" variant="footer">
+                        <Link
+                          href={`${document.file}#toolbar=0`}
+                          target="_blank"
+                          className={styles.linkText}
+                        >
+                          {document.name}
+                        </Link>
+                      </Typography>
+                    </Fragment>
+                  ))}
                 </ul>
               </div>
 

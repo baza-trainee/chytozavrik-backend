@@ -9,6 +9,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSession } from 'next-auth/react';
 import axios from 'axios';
 import Modal from 'components/common/ModalActions/Modal';
+import * as process from 'process';
 import styles from './DocumentItem.module.scss';
 
 const DocumentItem = ({ id, name, updated_at: updated }: Document) => {
@@ -21,6 +22,7 @@ const DocumentItem = ({ id, name, updated_at: updated }: Document) => {
   const { data: session } = useSession();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL || '';
   const {
     mutate: submitDocument,
     error,
@@ -31,7 +33,7 @@ const DocumentItem = ({ id, name, updated_at: updated }: Document) => {
       if (file) {
         formData.append('file', file);
       }
-      await axios.patch(`documents/${id}/`, formData, {
+      await axios.patch(`${BASE_URL}/documents/${id}/`, formData, {
         headers: {
           Authorization: `Bearer ${session?.user.token.access}`,
         },

@@ -1,5 +1,6 @@
 import { Montserrat_Alternates as Montserrat, Raleway } from 'next/font/google';
 import Providers from '@/app/providers';
+import { Metadata } from 'next';
 
 const raleway = Raleway({
   variable: '--raleway-font',
@@ -16,6 +17,33 @@ const montserratAlternates = Montserrat({
   subsets: ['latin'],
   display: 'swap',
 });
+
+export const metadata: Metadata = {
+  icons: [
+    {
+      rel: 'icon',
+      type: 'image/png',
+      sizes: '32x32',
+      url: '/favicon/favicon-32x32.png',
+    },
+    {
+      rel: 'icon',
+      type: 'image/x-icon',
+      url: '/favicon/favicon.ico',
+    },
+    {
+      rel: 'icon',
+      type: 'image/png',
+      sizes: '16x16',
+      url: '/favicon/favicon-16x16.png',
+    },
+    {
+      rel: 'apple-touch-icon',
+      sizes: '180x180',
+      url: '/favicon/apple-touch-icon.png',
+    },
+  ],
+};
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => (
   <html lang="uk" className={`${raleway.variable} ${montserratAlternates.variable}`}>

@@ -20,6 +20,10 @@ const LastQuiz: React.FC<WigwamQuizProps> = ({ booksItem, wigwamQuizItem }) => {
     lastQuizAuthor = booksItem?.book?.author;
   }
 
+  const onNextQuiz = () => {
+    window.location.href = `${pathname}/${lastQuizId}`;
+  };
+
   return (
     <section className={styles.last_wraper}>
       <div className={styles.last_box}>
@@ -50,8 +54,8 @@ const LastQuiz: React.FC<WigwamQuizProps> = ({ booksItem, wigwamQuizItem }) => {
         variant="filled"
         color="secondary"
         size="big"
-        component="link"
-        href={`${pathname}/${lastQuizId}`}
+        component="button"
+        onClick={onNextQuiz}
       >
         {wigwamTextData[4]}
       </Button>
