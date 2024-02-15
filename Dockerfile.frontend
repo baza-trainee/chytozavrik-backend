@@ -4,10 +4,12 @@ RUN mkdir /frontend_app
 
 WORKDIR /frontend_app
 
-COPY frontend .
-
+COPY frontend/package.json .
 RUN npm i
 ENV NODE_ENV=production
+
+COPY frontend .
+
 # RUN npm run build
 
 CMD bash -c "npm start"

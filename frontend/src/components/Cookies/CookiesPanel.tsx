@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Button } from 'components/common';
+import { X } from 'lucide-react';
 import styles from './styles.module.scss';
 
 const CookiesPanel = () => {
@@ -26,9 +27,16 @@ const CookiesPanel = () => {
     document.cookie = 'cookies-consent=true; path=/; max-age=31536000';
   };
 
+  const closePanel = () => {
+    setShowPanel(false);
+  }
+
   if (showPanel) {
     return (
       <div className={styles.cookies}>
+        <button className={styles.close} type = "button" onClick ={closePanel} aria-label = "Закрити">
+          <X size = {16}/> 
+        </button> 
         <div>
           <p>
             Цей сайт використовує файли <span>cookies</span> для правильної роботи і покращення
@@ -40,7 +48,7 @@ const CookiesPanel = () => {
             .
           </p>
         </div>
-        <Button variant="filled" color="secondary" onClick={handleOkClick}>
+        <Button className={styles.button} variant="filled" color="secondary" onClick={handleOkClick}>
           Ok
         </Button>
       </div>

@@ -57,32 +57,50 @@ export const validation = {
   recommended: yup.boolean().required(),
   first_phone: yup
     .string()
-    .max(13, 'Введіть коректний номер телефону')
-    .test('starts-with-plus', 'Номер телефону має починатися з +', value => {
-      if (!value) return false;
-      if (!value.startsWith('+38'))
-        throw new yup.ValidationError('Номер телефону має починатися з +38');
+    .required('Введіть номер телефону')
+    .test('phone-validation', 'Введіть номер телефону', function checkPhone(value) {
+      if (!value.startsWith('+'))
+        return this.createError({ message: 'Номер телефону має починатися з +', path: this.path });
+      if (!value.startsWith('+380'))
+        return this.createError({
+          message: 'Номер телефону має починатися з +380XXXXXXXXX',
+          path: this.path,
+        });
+      if (!phoneRegExp.test(value))
+        return this.createError({
+          message: 'Введіть коректний номер телефону у форматі +380XXXXXXXXX',
+          path: this.path,
+        });
+      if (value.length !== 13)
+        return this.createError({
+          message: 'Введіть коректний номер телефону у форматі +380XXXXXXXXX',
+          path: this.path,
+        });
       return true;
-    })
-    .test('format-plus380', 'Номер телефону в форматі +380XXXXXXXXX', value => {
-      if (!value) return false;
-      if (value === '+') return true;
-      return phoneRegExp.test(value);
-    })
-    .required('Введіть номер телефону '),
+    }),
+
   second_phone: yup
     .string()
-    .max(13, 'Введіть коректний номер телефону')
-    .test('starts-with-plus', 'Номер телефону має починатися з +', value => {
-      if (!value) return false;
-      if (!value.startsWith('+38'))
-        throw new yup.ValidationError('Номер телефону має починатися з +38');
+    .required('Введіть номер телефону')
+    .test('phone-validation', 'Введіть номер телефону', function checkPhone(value) {
+      if (!value.startsWith('+'))
+        return this.createError({ message: 'Номер телефону має починатися з +', path: this.path });
+      if (!value.startsWith('+380'))
+        return this.createError({
+          message: 'Номер телефону має починатися з +380XXXXXXXXX',
+          path: this.path,
+        });
+      if (!phoneRegExp.test(value))
+        return this.createError({
+          message: 'Введіть коректний номер телефону у форматі +380XXXXXXXXX',
+          path: this.path,
+        });
+      if (value.length !== 13)
+        return this.createError({
+          message: 'Введіть коректний номер телефону у форматі +380XXXXXXXXX',
+          path: this.path,
+        });
       return true;
-    })
-    .test('format-plus380', 'Номер телефону в форматі +380XXXXXXXXX', value => {
-      if (!value) return false;
-      if (value === '+') return true;
-      return phoneRegExp.test(value);
     }),
   id: yup.string(),
   partnerInput: yup
