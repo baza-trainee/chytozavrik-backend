@@ -1,0 +1,84 @@
+version: '3.9'
+
+services:
+
+  postgres:
+    image: postgres:16.1
+    container_name: postgres_chytozavryk
+    ports:
+      - $SQL_PORT:5432
+    environment:
+      - POSTGRES_USER=$SQL_USER
+      - POSTGRES_PASSWORD=$SQL_PASSWORD
+      - POSTGRES_DB=$SQL_DATABASE
+    volumes:
+      - postgres_chytozavryk:/var/lib/postgresql/data
+    restart: always
+    networks:
+      - chytozavryk
+    healthcheck:
+      test: "pg_isready -d $SQL_DATABASE -U $SQL_USER"
+      interval: 2s
+      timeout: 15s
+
+  # redis:
+  #   container_name: redis_chytozavryk
+  #   image: redis:7.2.4
+  #   ports:
+  #     - 6379:6379
+  #   command: redis-server --port 6379 --requirepass $REDIS_PASSWORD --maxmemory 100mb
+  #   volumes:
+  #     - redis_chytozavryk:/data
+  #   restart: always
+  #   networks:
+  #     - chytozavryk
+  #   healthcheck:
+  #     test: "redis-cli --raw ping"
+  #     interval: 2s
+  #     timeout: 15s
+      
+  backend_app:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: backend_app_chytozavryk
+    ports:
+      - $BACKEND_PORT:8000
+    env_file:
+      - backend/.env
+    command: [ 'bash', 'scripts/backend_app.sh' ]
+    volumes:
+      - ./media:/backend_app/media
+    depends_on:
+      postgres:
+        condition: service_healthy
+      # redis:
+      #   condition: service_healthy
+    restart: always
+    networks:
+      - chytozavryk
+
+  frontend_app:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: frontend_app_chytozavryk
+    env_file:
+      - frontend/.env
+    ports:
+      - $FRONTEND_PORT:3000
+    depends_on:
+      - backend_app
+    restart: always
+    networks:
+      - chytozavryk
+
+networks:
+  chytozavryk:
+    driver: bridge
+
+volumes:
+  postgres_chytozavryk:
+  # redis_chytozavryk:
+  # backend_app_chytozavryk:
+  frontend_app_chytozavryk:

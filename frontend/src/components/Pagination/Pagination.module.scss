@@ -1,0 +1,96 @@
+@import '../../scss/utils/variables';
+@import '../../scss/utils/mixin';
+
+.wrapper {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  margin-bottom: 32px;
+  justify-content: flex-end;
+
+  .pagination {
+    display: flex;
+    gap: 16px;
+  }
+
+  .link,
+  .label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    border: 2px solid $primary;
+    color: $primary;
+    font-family: var(--montserrat-alternates-font);
+    font-weight: 600;
+    line-height: 120%;
+    cursor: pointer;
+
+    &:hover {
+      color: $white;
+      background: $ref-blue-50;
+    }
+  }
+
+  .large {
+    width: 64px;
+    height: 64px;
+    padding: 11px 12px;
+    font-size: 24px;
+  }
+
+  .small {
+    width: 54px;
+    height: 54px;
+    padding: 14px 15px;
+    font-size: 18px;
+  }
+
+  .extraSmall {
+    width: 37px;
+    height: 37px;
+    padding: 11px 12px;
+    font-size: 14px;
+  }
+
+  .active {
+    background: #637de6;
+    color: $white;
+  }
+
+  .labelExtraSmall {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    width: 36px;
+    height: 36px;
+
+    & a {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .labelSmall {
+    height: 54px;
+    padding: 16px 28px;
+    font-size: 18px;
+  }
+
+  .labelLarge {
+    height: 64px;
+    padding: 20px 36px;
+    font-size: 24px;
+  }
+
+  .disabled {
+    pointer-events: none;
+    opacity: 0.4;
+  }
+
+  .breakClass {
+    display: flex;
+    align-items: flex-end;
+    font-size: 24px;
+  }
+}

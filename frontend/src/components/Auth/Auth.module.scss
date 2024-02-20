@@ -1,0 +1,167 @@
+@import 'scss/utils/variables';
+@import 'scss/utils/mixin';
+
+.dialog {
+  --py: 56px;
+  --px: 16px;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: var(--py) var(--px);
+
+  height: 100%;
+
+  @include breakpoint(tablet) {
+    --py: 32px;
+    --px: 24px;
+    max-width: 480px;
+  }
+}
+
+.title {
+  --title-margin-bottom: 40px;
+
+  margin-bottom: var(--title-margin-bottom);
+
+  @include breakpoint(tablet) {
+    --title-margin-bottom: 24px;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+
+  height: 100%;
+
+  @include breakpoint(tablet) {
+  }
+
+  @include breakpoint(desktop) {
+  }
+}
+
+.inputs-group {
+  display: flex;
+  flex-direction: column;
+  gap: 38px;
+
+  margin-bottom: 32px;
+}
+
+.link {
+  font-size: 16px;
+}
+
+.forgot {
+  font-size: 16px;
+
+  @include breakpoint(tablet) {
+    padding-right: 12px;
+  }
+}
+
+.checkboxes-groups {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #000000;
+
+  @include breakpoint(tablet) {
+    margin-bottom: 13px;
+    padding: 10px 0;
+  }
+}
+
+.checkboxes-groups-signup {
+  display: flex;
+  flex-direction: column;
+  gap: 19px;
+  font-size: 12px;
+  color: #000;
+
+  & label span {
+    color: #000;
+  }
+
+  & a {
+    font-size: 14px;
+    text-decoration: underline;
+
+    @include breakpoint(tablet) {
+      font-size: 16px;
+    }
+  }
+}
+
+.checkbox label {
+  font-size: 16px;
+}
+
+.signup-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+  margin-top: 32px;
+  margin-bottom: 76px;
+
+  @include breakpoint(tablet) {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 23px;
+    margin-bottom: 24px;
+  }
+}
+
+.link {
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
+}
+
+.form-footer {
+  position: relative;
+
+  @include breakpoint(false, tablet) {
+    margin-top: auto;
+  }
+}
+
+.error {
+  display: flex;
+  gap: 5px;
+  font-size: 14px;
+  color: $error;
+  transform: translateY(-100%);
+
+  @include breakpoint(tablet) {
+    margin-top: 24px;
+  }
+}
+
+.error-icon {
+  --error-icon-size: 16px;
+
+  width: var(--error-icon-size);
+  height: var(--error-icon-size);
+}
+
+.button-submit {
+  width: 100%;
+
+  min-height: 54px;
+  padding: 16px 28px;
+
+  font-size: 18px;
+
+  @include breakpoint(tablet) {
+    min-height: 69px;
+    padding: 20px 36px;
+
+    font-size: 24px;
+  }
+}

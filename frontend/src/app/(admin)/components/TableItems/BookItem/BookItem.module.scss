@@ -1,0 +1,128 @@
+@import '../../../../../scss/utils/variables';
+
+.bookItem {
+  display: flex;
+  align-items: center;
+  width: 1048px;
+  padding: 12px 24px;
+  gap: 32px;
+  border-bottom: 1px solid $primary-next-variant;
+
+  .checkbox {
+    display: flex;
+    width: 20px;
+    height: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-shrink: 0;
+  }
+
+  .info {
+    display: flex;
+    width: 880px;
+    gap: 44px;
+    align-items: center;
+
+    .title {
+      width: 410px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+
+      .image {
+        width: 39.252px;
+        height: 60px;
+        flex-shrink: 0;
+
+        & img {
+          object-fit: cover;
+        }
+      }
+
+      .bookInfo {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 278px;
+
+        .name,
+        .author {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          line-height: 120%;
+          color: #000;
+        }
+
+        .name {
+          font-family: var(--montserrat-alternates-font);
+          font-size: 14px;
+          font-weight: 600;
+        }
+
+        .author {
+          font-family: var(--raleway-font);
+          font-size: 12px;
+          font-weight: 400;
+        }
+      }
+    }
+
+    .infoBlock {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 426px;
+
+      .state,
+      .date {
+        font-family: var(--raleway-font);
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 120%;
+      }
+
+      .state {
+        color: #121212;
+
+        & p {
+          display: inline-flex;
+          padding: 8px 10px;
+          align-items: center;
+          gap: 10px;
+          border-radius: 8px;
+        }
+
+        .blue {
+          background-color: $primary-next-variant;
+        }
+
+        .green {
+          background-color: $ref-green-green-90;
+        }
+      }
+
+      .date {
+        color: #1e1e1e;
+        font-variant-numeric: lining-nums proportional-nums;
+        width: 180px;
+      }
+    }
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    & > div {
+      display: flex;
+      width: 36px;
+      height: 36px;
+      padding: 10px;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+  }
+}

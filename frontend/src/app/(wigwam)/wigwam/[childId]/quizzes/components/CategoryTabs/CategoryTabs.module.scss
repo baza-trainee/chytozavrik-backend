@@ -1,0 +1,53 @@
+@import 'scss/utils/variables';
+@import 'scss/utils/mixin';
+
+.tabs {
+  display: flex;
+  overflow-x: auto;
+  margin-top: 16px;
+  box-sizing: border-box;
+  width: calc(100% + 32px);
+  -webkit-overflow-scrolling: touch; // smoother scrolling on iOS devices
+  position: relative;
+  left: -16px;
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @include breakpoint(tablet) {
+    justify-content: space-around;
+  }
+
+  .tab {
+    flex: 0 0 auto; // flex-grow, flex-shrink, flex-basis
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 16px;
+    color: #637de6;
+    text-align: center;
+    border-bottom: solid 6px #637de6;
+    transition: border-color linear 1s;
+    width: 228px;
+
+    @include breakpoint(tablet) {
+      padding: 12px 35.5px;
+      width: calc(100% / 3);
+    }
+  }
+
+  .tab:not(.selected):hover {
+    border-color: #fff07d;
+    transition: border-color linear 0.4s;
+  }
+
+  .selected {
+    border-bottom: solid 6px $secondary;
+    transition: linear 1s all;
+  }
+}

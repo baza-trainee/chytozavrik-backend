@@ -1,0 +1,71 @@
+@import '../../../../../scss/utils/variables';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+
+  .document {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 32px;
+
+    .date {
+      color: $black;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 120%;
+      font-variant-numeric: lining-nums proportional-nums;
+    }
+  }
+
+  .buttons {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+
+    & button {
+      height: 54px;
+      width: 170px;
+      font-size: 18px;
+    }
+  }
+}
+
+.error {
+  display: flex;
+  gap: 8px;
+  color: $error;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+  font-variant-numeric: lining-nums proportional-nums;
+  margin-top: 8px;
+  margin-left: 2px;
+
+  & div {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+}
+
+.input_wrapper {
+  display: grid;
+  margin-top: 24px;
+}
+
+.input_container {
+  width: 364px;
+}
+
+.data_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 124px;
+  border-bottom: 1px solid #e3f0ff;
+  padding: 12px 24px;
+}

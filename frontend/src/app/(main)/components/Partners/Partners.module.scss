@@ -1,0 +1,94 @@
+@import 'scss/utils/variables';
+@import 'scss/utils/mixin';
+
+.section {
+  --mt: 0px;
+  --mb: 42px;
+
+  margin-top: var(--mt);
+  margin-bottom: var(--mb);
+
+  background-color: getColor(blue, 20);
+
+  &--margin-top {
+    --mt: var(--mb);
+  }
+
+  @include breakpoint(tablet) {
+    --mb: 72px;
+  }
+
+  @include breakpoint(desktop) {
+    --mb: 136px;
+  }
+}
+
+.container {
+  padding: 20px 0;
+
+  @include breakpoint(tablet) {
+    padding: 24px 0;
+  }
+
+  @include breakpoint(desktop) {
+    padding-block: 32px;
+  }
+}
+
+.list {
+  display: flex;
+
+  @include breakpoint(tablet) {
+    gap: 65px;
+  }
+
+  @include breakpoint(desktop) {
+    gap: 40px;
+  }
+}
+
+.item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+
+  & img {
+    height: 100%;
+    width: auto;
+  }
+
+  &--nspu {
+    padding-block: 6px;
+  }
+
+  @include breakpoint(tablet) {
+    height: 94px;
+
+    &--nspu {
+      padding-block: 18px;
+    }
+  }
+
+  @include breakpoint(desktop) {
+    height: 132px;
+
+    &--nspu {
+      padding-block: 27px;
+    }
+  }
+}
+
+.swiperContainer {
+  overflow-y: visible !important;
+  width: 100% !important;
+  text-rendering: auto;
+}
+
+//:global(.swiper-slide) {
+//  transition: transform 0.4s ease-in-out;
+//}
+
+.swiper-slide-active {
+  transform: scale(1.59);
+}

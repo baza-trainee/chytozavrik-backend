@@ -1,0 +1,370 @@
+@import 'scss/utils/variables';
+@import 'scss/utils/mixin';
+
+.start_wraper {
+  grid-area: monster;
+
+  @include breakpoint(tablet) {
+    margin-bottom: 0;
+    height: 341px;
+  }
+
+  @include breakpoint(laptop) {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 35px;
+    margin-bottom: 6px;
+  }
+
+  @include breakpoint(desktop) {
+    height: 290px;
+    margin-top: 0px;
+  }
+}
+
+.last_wraper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 12px;
+  width: 324px;
+  height: 279px;
+  border-radius: 8px;
+  border: 1.616px dashed #{getColor(blue, 40)};
+
+  @include breakpoint(tablet) {
+    width: 332px;
+    height: 340px;
+  }
+
+  @include breakpoint(laptop) {
+    width: 521px;
+    height: 252px;
+  }
+
+  @include breakpoint(desktop) {
+    padding: 32px 12px 20px 12px;
+    width: 411px;
+    height: 418px;
+    border: 2px dashed #{getColor(blue, 40)};
+  }
+}
+
+.start_box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 328px;
+  height: 161px;
+  margin-top: 118px;
+  background-color: $white;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.31);
+
+  @include breakpoint(tablet) {
+    width: 332px;
+    height: 241px;
+    margin-top: 96px;
+  }
+
+  @include breakpoint(laptop) {
+    width: 298px;
+    height: 163px;
+    margin-top: 40px;
+  }
+
+  @include breakpoint(desktop) {
+    width: 410px;
+    height: 279px;
+    margin-top: 247px;
+    margin-bottom: 0;
+  }
+}
+
+.last_box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 185px;
+  margin-bottom: 16px;
+  background-color: $white;
+  border-radius: 8px;
+
+  @include breakpoint(tablet) {
+    margin-bottom: 72px;
+    height: auto;
+  }
+
+  @include breakpoint(laptop) {
+    align-items: start;
+    margin-bottom: 12px;
+  }
+
+  @include breakpoint(desktop) {
+    margin-bottom: 72px;
+    justify-content: space-between;
+    gap: 32px;
+  }
+}
+
+.image {
+  position: absolute;
+  bottom: 136px;
+
+  & svg {
+    width: 194.997px;
+    height: 125.369px;
+  }
+
+  @include breakpoint(tablet) {
+    bottom: 220px;
+
+    & svg {
+      width: 156.913px;
+      height: 100.884px;
+    }
+  }
+
+  @include breakpoint(laptop) {
+    bottom: 143px;
+    object-fit: cover;
+
+    & svg {
+      width: 136.59px;
+      height: 87.818px;
+    }
+  }
+
+  @include breakpoint(desktop) {
+    bottom: 253px;
+
+    & svg {
+      width: 206.14px;
+      height: 132.534px;
+    }
+  }
+}
+
+.text_wrap {
+  width: 312px;
+
+  @include breakpoint(laptop) {
+    width: 297px;
+  }
+
+  @include breakpoint(desktop) {
+    width: 312px;
+  }
+}
+
+.hidden_text {
+  display: none;
+}
+
+.text_wraper {
+  width: 312px;
+  height: 64px;
+  display: flex;
+  flex-direction: column;
+  padding: 0px 6.462px;
+  margin-bottom: 24px;
+  justify-content: center;
+  gap: 3.231px;
+  border-radius: 6.462px;
+  background: $primary-next-variant;
+
+  @include breakpoint(tablet) {
+    padding: 0px 8px;
+  }
+
+  @include breakpoint(laptop) {
+    width: 497px;
+    height: 64px;
+    margin-bottom: 8px;
+  }
+
+  @include breakpoint(desktop) {
+    width: 387px;
+    height: 64px;
+    margin-bottom: 0px;
+  }
+}
+
+.text_welcome {
+  margin-bottom: 16px;
+  text-align: center;
+  color: $secondary-black;
+  font-family: var(--montserrat-alternates-font);
+  font-size: 18px;
+  font-weight: 600;
+
+  @include breakpoint(desktop) {
+    font-size: 24px;
+  }
+}
+
+.last_text {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 27px;
+  text-align: start;
+  color: $secondary-black;
+  font-family: var(--montserrat-alternates-font);
+  font-size: 20px;
+  font-weight: 600;
+
+  @include breakpoint(tablet) {
+    margin-bottom: 24px;
+    font-size: 18px;
+  }
+
+  @include breakpoint(laptop) {
+    margin-bottom: 12px;
+  }
+
+  @include breakpoint(desktop) {
+    margin-bottom: 0px;
+    font-size: 24px;
+  }
+}
+
+.text {
+  text-align: center;
+  color: $secondary-black;
+  font-family: var(--montserrat-alternates-font);
+  font-size: 16px;
+  font-weight: 400;
+
+  @include breakpoint(desktop) {
+    font-size: 18px;
+  }
+}
+
+.item_wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 64px;
+  margin-bottom: 24px;
+  padding: 0px 6.462px;
+  border-radius: 8px;
+  background-color: $primary-next-variant;
+
+  @include breakpoint(tablet) {
+    padding: 0px 8px;
+  }
+
+  @include breakpoint(laptop) {
+    margin-bottom: 8px;
+  }
+}
+
+.book_name {
+  font-family: var(--montserrat-alternates-font);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.book_author {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.status_bar {
+  display: flex;
+  width: 100%;
+  height: 56px;
+  align-items: flex-end;
+  gap: 10px;
+
+  @include breakpoint(laptop) {
+    width: 431px;
+    justify-content: space-between;
+  }
+
+  @include breakpoint(desktop) {
+    width: 100%;
+    height: 68px;
+    justify-content: left;
+    gap: 16px;
+  }
+}
+
+.bolt {
+  display: flex;
+  width: 53px;
+  height: 56px;
+  padding: 20px;
+  align-items: flex-start;
+  gap: 8px;
+  flex-shrink: 0;
+  border-radius: 6.462px;
+  border: 0.808px solid #{getColor(neutral, 70)};
+
+  @include breakpoint(desktop) {
+    width: 64px;
+    height: 68px;
+    padding: 24px;
+    border-radius: 8px;
+    border: 1px solid #{getColor(neutral, 70)};
+  }
+}
+
+.green {
+  display: flex;
+  width: 53px;
+  height: 56px;
+  padding: 20px;
+  align-items: flex-start;
+  gap: 8px;
+  flex-shrink: 0;
+  border-radius: 6.462px;
+  border: 0.808px solid #{getColor(neutral, 70)};
+  background-color: green($color: #000000);
+
+  @include breakpoint(desktop) {
+    width: 64px;
+    height: 68px;
+    padding: 24px;
+    border-radius: 8px;
+    border: 1px solid #{getColor(neutral, 70)};
+  }
+}
+
+.button {
+  --button-pressd-color: #{getColor(yellow, 30)};
+
+  display: block;
+  background-color: $secondary;
+  color: $black;
+  transition: background-color 250ms;
+  font-size: 18px;
+  width: 100%;
+  padding: 16px 24px;
+
+  &:hover {
+    background-color: $secondary-btn;
+  }
+
+  &:active {
+    background-color: var(--button-pressd-color);
+  }
+
+  @include breakpoint(laptop) {
+    width: 283px;
+    padding: 16px 18px;
+  }
+
+  @include breakpoint(desktop) {
+    width: 100%;
+    font-size: 24px;
+  }
+}

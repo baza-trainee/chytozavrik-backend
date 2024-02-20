@@ -1,0 +1,29 @@
+@import '../../../../../../scss/utils/variables';
+@import '../../../../../../scss/utils/mixin';
+
+.buttonsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 36px;
+
+  @include breakpoint(tablet) {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 0;
+  }
+}
+
+.button {
+  height: 54px;
+  width: 100%;
+  padding: 16px 28px;
+
+  @include breakpoint(tablet) {
+    width: 170px;
+  }
+
+  @include breakpoint(desktop) {
+    width: 194px;
+  }
+}

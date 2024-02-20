@@ -1,0 +1,36 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+
+  .inputs {
+    display: flex;
+    gap: 24px;
+
+    .textInputs {
+      width: 722px;
+      display: flex;
+      flex-direction: column;
+      gap: 46px;
+    }
+  }
+
+  .actions {
+    display: flex;
+    gap: 24px;
+    width: 364px;
+    height: 54px;
+
+    & button {
+      font-size: 18px;
+    }
+  }
+}
+
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 70px;
+  height: 70px;
+}

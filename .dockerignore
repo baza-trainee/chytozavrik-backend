@@ -1,0 +1,7 @@
+.git*
+.env_example
+
+backend/.env_example
+backend/build.sh
+backend/README.md
+backend/vercel.json
