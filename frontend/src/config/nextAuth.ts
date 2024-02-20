@@ -8,7 +8,6 @@ import {
   refreshTokenService,
 } from '@/services/api';
 import { Route } from '@/constants';
-import { log } from 'next/dist/server/typescript/utils';
 
 /* eslint-disable prefer-arrow/prefer-arrow-functions */
 /* eslint-disable no-param-reassign */
@@ -76,7 +75,6 @@ export const authOptions: NextAuthOptions = {
       if (token.user) {
         session.user = { ...token.user };
       }
-
       return session;
     },
     async jwt({ token, user, account }) {

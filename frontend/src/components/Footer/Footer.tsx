@@ -58,21 +58,27 @@ const Footer = () => {
                     <Link href={Route.WIGWAM_LOBBY}>До вігваму</Link>
                   </Typography>
                 </ul>
-                <ul className={styles.class1}>
-                  {documents?.map((document: IDocument) => (
-                    <Fragment key={document.id}>
-                      <Typography className={styles.informationText} component="p" variant="footer">
-                        <Link
-                          href={`${document.file}#toolbar=0`}
-                          target="_blank"
-                          className={styles.linkText}
+                {Array.isArray(documents) && documents.length > 0 && (
+                  <ul className={styles.class1}>
+                    {documents?.map((document: IDocument) => (
+                      <Fragment key={document.id}>
+                        <Typography
+                          className={styles.informationText}
+                          component="p"
+                          variant="footer"
                         >
-                          {document.name}
-                        </Link>
-                      </Typography>
-                    </Fragment>
-                  ))}
-                </ul>
+                          <Link
+                            href={`${document.file}#toolbar=0`}
+                            target="_blank"
+                            className={styles.linkText}
+                          >
+                            {document.name}
+                          </Link>
+                        </Typography>
+                      </Fragment>
+                    ))}
+                  </ul>
+                )}
               </div>
 
               <div className={classNames(styles.list, styles.contacts)}>
@@ -108,7 +114,7 @@ const Footer = () => {
           </div>
 
           <Typography className={styles.footerText} component="p" variant="footer-end">
-            Розробка Baza Trainee Ukraine 2024 Усі права захищені
+            Розробка Baza Trainee Ukraine 2024 &copy; Усі права захищені
           </Typography>
         </Container>
       </footer>

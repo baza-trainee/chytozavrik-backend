@@ -10,7 +10,7 @@ export const useWigwamQuizzQuery = (childId: string) => {
   const { data } = useQuery({
     queryKey: ['wigwamQuiz', childId],
     queryFn: async () => {
-      const { data } = await axios(`${BASE_URL}/users/me/children/${childId}`);
+      const { data } = await axios(`${BASE_URL}/users/me/children/${childId}/`);
       return data.data;
     },
     enabled: status === 'authenticated',

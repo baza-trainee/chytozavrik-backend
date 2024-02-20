@@ -68,7 +68,7 @@ const KidProfile = ({ kid }: Props) => {
   return (
     <>
       <li key={kid.id} className={styles.item} ref={editInvokeRef}>
-        <Link className={styles.link} href={`${Route.WIGWAM}/${kid.id}`} data-avatar>
+        <Link className={styles.link} href={`${Route.WIGWAM}/${kid.id}`} data-avatar prefetch>
           <div className={styles.thumb}>
             <Image
               src={kid.avatar_as_url}

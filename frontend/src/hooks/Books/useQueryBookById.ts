@@ -14,7 +14,7 @@ export const useQueryBookById = (id: number | undefined) => {
   } = useQuery({
     queryKey: ['bookById', id],
     queryFn: async () => {
-      const res = await axios(`${BASE_URL}/books/${id}`);
+      const res = await axios(`${BASE_URL}/books/${id}/`);
       return res.data.data;
     },
     enabled: status === 'authenticated' && !!id,

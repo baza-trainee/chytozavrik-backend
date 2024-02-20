@@ -29,14 +29,14 @@ const CookiesPanel = () => {
 
   const closePanel = () => {
     setShowPanel(false);
-  }
+  };
 
   if (showPanel) {
     return (
       <div className={styles.cookies}>
-        <button className={styles.close} type = "button" onClick ={closePanel} aria-label = "Закрити">
-          <X size = {16}/> 
-        </button> 
+        <button className={styles.close} type="button" onClick={closePanel} aria-label="Закрити">
+          <X size={16} />
+        </button>
         <div>
           <p>
             Цей сайт використовує файли <span>cookies</span> для правильної роботи і покращення
@@ -48,7 +48,12 @@ const CookiesPanel = () => {
             .
           </p>
         </div>
-        <Button className={styles.button} variant="filled" color="secondary" onClick={handleOkClick}>
+        <Button
+          className={styles.button}
+          variant="filled"
+          color="secondary"
+          onClick={handleOkClick}
+        >
           Ok
         </Button>
       </div>

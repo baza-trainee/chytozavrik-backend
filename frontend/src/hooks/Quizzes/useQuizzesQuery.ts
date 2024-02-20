@@ -10,7 +10,7 @@ export const useQuizzesQuery = (childId: string) => {
   const { data } = useQuery({
     queryKey: ['childBooks', childId],
     queryFn: async () => {
-      const { data } = await axios(`${BASE_URL}/users/me/children/${childId}/quizzes`);
+      const { data } = await axios(`${BASE_URL}/users/me/children/${childId}/quizzes/`);
       return data.data;
     },
     enabled: status === 'authenticated',

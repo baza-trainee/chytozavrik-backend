@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -30,10 +30,15 @@ const ParentsPage = () => {
     staleTime: 0,
   });
 
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
+
   const toggleCreateWigwam = () => {
     if (!wigwam && kids.length <= 6) setWigwam(true);
     else setWigwam(false);
   };
+
   return (
     <>
       <Parents handleClick={toggleCreateWigwam} kids={kids} />

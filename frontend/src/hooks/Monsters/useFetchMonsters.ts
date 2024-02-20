@@ -16,7 +16,7 @@ export const useFetchMonsters = (childId: string) => {
   } = useQuery({
     queryKey: ['monsters', childId],
     queryFn: async () => {
-      const { data } = await axios(`${BASE_URL}/users/me/children/${childId}/rewards`);
+      const { data } = await axios(`${BASE_URL}/users/me/children/${childId}/rewards/`);
       return data.data.results;
     },
     enabled: status === 'authenticated',

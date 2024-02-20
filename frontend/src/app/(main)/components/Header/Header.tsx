@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button, Container } from 'components/common';
@@ -11,6 +12,10 @@ import HeaderButton from './HeaderButton';
 const Header = () => {
   const { data: session } = useSession();
   const { deviceType } = useMedia();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <header>

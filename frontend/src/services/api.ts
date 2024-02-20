@@ -11,6 +11,7 @@ import {
 } from '@/types';
 import { fetch as axiosServerFetch } from '@/services/axios';
 import { MonstersResponse } from '@/types/Monsters';
+import { useQuizzesQuery } from '@/hooks/Quizzes/useQuizzesQuery';
 
 const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || '';
 

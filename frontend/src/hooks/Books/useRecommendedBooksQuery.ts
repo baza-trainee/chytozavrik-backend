@@ -12,7 +12,7 @@ export const useFetchMonsters = () => {
   const { data } = useQuery({
     queryKey: ['recommendation'],
     queryFn: async () => {
-      const { data } = await axios(`${BASE_URL}/recommendation-books`);
+      const { data } = await axios(`${BASE_URL}/recommendation-books/`);
       return data.data.results;
     },
     enabled: status === 'authenticated',
