@@ -1,0 +1,51 @@
+@import 'scss/utils/variables';
+@import 'scss/utils/mixin';
+
+.backdrop {
+  --background-color: transparent;
+
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+
+  &[data-backdrop='true'] {
+    background-color: rgba($color: $black, $alpha: 0.6);
+  }
+
+  &[data-result='default'] {
+    --background-color: #{getNotificationColor(default)};
+  }
+
+  &[data-result='success'] {
+    --background-color: #{getNotificationColor(success)};
+  }
+
+  &[data-result='error'] {
+    --background-color: #{getNotificationColor(error)};
+  }
+}
+
+.content {
+  --py: 24px;
+
+  position: absolute;
+  left: 0;
+  bottom: 0;
+
+  width: 100%;
+  padding-top: var(--py);
+  padding-bottom: var(--py);
+
+  background-color: var(--background-color);
+
+  @include breakpoint(tablet) {
+    --py: 32px;
+  }
+
+  @include breakpoint(desktop) {
+    --py: 52px;
+  }
+}

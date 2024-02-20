@@ -1,0 +1,150 @@
+@import 'scss/utils/variables';
+@import 'scss/utils/mixin';
+
+.imageInput {
+  border: dashed #7791fa 2px;
+  background-color: #fdfdfd;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 22px 22px;
+
+  &.validatedInput {
+    border-color: #f40000 !important;
+  }
+
+  &.books {
+    width: 302px;
+    height: 262px;
+    padding: 16px;
+
+    .uploadedImageContainer {
+      width: 121px;
+      height: 176px;
+
+      .uploadedImage {
+        flex-shrink: 0;
+        object-fit: cover;
+
+        & img {
+          width: 121px;
+          height: 176px;
+        }
+      }
+    }
+  }
+
+  &.partners {
+    width: 302px;
+    height: 262px;
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .uploadedImageContainer {
+      width: 261px;
+      height: 134px;
+      background: $primary;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .uploadedImage {
+        width: 214px;
+        height: 94px;
+        flex-shrink: 0;
+        object-fit: contain;
+      }
+    }
+  }
+
+  &.quizzes {
+    width: 1048px;
+    height: 262px;
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .uploadedImageContainer {
+      width: 95px;
+      height: 182px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .uploadedImage {
+        max-width: 102px;
+        height: 182px;
+        flex-shrink: 0;
+        object-fit: cover;
+      }
+    }
+  }
+
+  input {
+    opacity: 0;
+    position: absolute;
+  }
+
+  .closeButton {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    padding: 5px;
+    box-sizing: unset;
+    z-index: 1000;
+
+    img {
+      display: block;
+      z-index: 1000;
+    }
+  }
+  .uploadInfoContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 240px;
+
+    .formatAndSizeWarning {
+      text-align: center;
+    }
+
+    img {
+      padding-bottom: 10px;
+    }
+
+    span {
+      content: '';
+      font-size: 12px;
+      font-weight: 400;
+      color: #9b9b9b;
+      line-height: 1.4;
+      display: block;
+
+      &.blueText {
+        color: #455fc8;
+        cursor: pointer;
+        padding-bottom: 7px;
+      }
+
+      &.errorMessage {
+        margin-bottom: 10px;
+        color: #eb2828;
+        text-align: center;
+        border-left: #eb2828 2px solid;
+        padding: 4px 10px;
+      }
+    }
+  }
+}
+.validation {
+  text-align: center;
+  color: #f40000;
+  margin-top: 3px;
+  font-size: 14px;
+  font-family: var(--montserrat-alternates-font);
+}

@@ -1,0 +1,124 @@
+@import '../../scss/utils/variables';
+@import '../../scss/utils/mixin';
+
+.section {
+  @include breakpoint(tablet) {
+    background: url('../../../public/images/aboutDet_plane.svg'),
+      url('../../../public/images/aboutDet_line.svg');
+    background-repeat: no-repeat;
+    background-size:
+      298px 98px,
+      262px 1199px;
+    background-position:
+      calc(100% + 30px) 23px,
+      54% 59%;
+  }
+
+  @include breakpoint(laptop) {
+    background-size:
+      387px 127px,
+      330px 1450px;
+    background-position:
+      calc(100% + 30px) 23px,
+      51% 51%;
+  }
+
+  @include breakpoint(desktop) {
+    background-size:
+      589px 194px,
+      401px 1773px;
+    background-position:
+      calc(100% + 30px) 0,
+      51% 51%;
+  }
+}
+
+.container {
+  padding-top: 48px;
+  padding-bottom: 48px;
+
+  @include breakpoint(tablet) {
+    padding: 72px 40px;
+  }
+
+  @include breakpoint(laptop) {
+    padding: 100px 60px;
+  }
+
+  @include breakpoint(desktop) {
+    padding: 136px 0px;
+    max-width: 1062px;
+  }
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+
+  @include breakpoint(tablet) {
+    flex-direction: row;
+    gap: 32px;
+
+    &:nth-child(2n) {
+      flex-direction: row-reverse;
+    }
+  }
+  @include breakpoint(desktop) {
+    gap: 40px;
+  }
+}
+
+.img {
+  max-width: 260px;
+  height: 100%;
+  @include breakpoint(tablet) {
+    max-width: 325px;
+  }
+
+  @include breakpoint(laptop) {
+    max-width: 432px;
+  }
+
+  @include breakpoint(desktop) {
+    max-width: 510px;
+  }
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-bottom: 24px;
+
+  @include breakpoint(tablet) {
+    max-width: 332px;
+    padding-bottom: 0;
+  }
+
+  @include breakpoint(laptop) {
+    max-width: 440px;
+  }
+
+  @include breakpoint(desktop) {
+    max-width: 512px;
+    gap: 32px;
+  }
+}
+
+.title {
+  text-align: left;
+
+  @include breakpoint(desktop) {
+    font-size: 32px;
+  }
+}
+
+.text {
+  font-weight: 400;
+
+  @include breakpoint(desktop) {
+    font-size: 20px;
+  }
+}

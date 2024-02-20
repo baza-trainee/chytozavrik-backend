@@ -1,0 +1,87 @@
+@import '@/scss/utils/func';
+@import '@/scss/utils/mixin';
+
+.section {
+  background: getColor(blue, 90);
+  padding-top: 16px;
+  padding-bottom: 16px;
+  height: 70px;
+  width: 100vw;
+
+  @include breakpoint(desktop) {
+    min-height: 100px;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 103px;
+
+  &:hover {
+    color: rgba(255, 200, 85, 1);
+  }
+
+  &:hover svg,
+  &:hover svg path {
+    color: rgba(255, 200, 85, 1);
+    stroke: rgba(255, 200, 85, 1);
+  }
+
+  & svg {
+    width: 24px;
+    height: 24px;
+    color: rgba(119, 145, 250, 1);
+    margin-bottom: 8px;
+
+    @include breakpoint(desktop) {
+      width: 32px;
+      height: 32px;
+    }
+  }
+}
+
+.wrapper {
+  display: flex;
+
+  align-items: center;
+  gap: 8px;
+  @include breakpoint(laptop) {
+    gap: 32px;
+  }
+  @include breakpoint(desktop) {
+    gap: 70px;
+  }
+}
+
+.user {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-weight: 400;
+}
+
+.avatar {
+  margin-left: 12px;
+
+  @include breakpoint(desktop) {
+    margin-left: 19px;
+    width: 48px;
+    height: 48px;
+  }
+}
+
+.generalLogo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 103px;
+}

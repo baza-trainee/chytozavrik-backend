@@ -1,0 +1,94 @@
+@import 'scss/main';
+
+:root {
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  html,
+  body {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    max-width: 100vw;
+    height: 100%;
+    font-family: var(--raleway-font);
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.2;
+
+    &.modal-open {
+      overflow: hidden;
+    }
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #7791fa;
+    border-radius: 6px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #7791fa;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #e3f0ff;
+    border-radius: 6px;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button {
+    cursor: pointer;
+
+    display: block;
+
+    color: inherit;
+
+    border: none;
+    background: none;
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  svg {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.initialLoading {
+  min-height: 70vh;
+  position: relative;
+
+  & .loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    & span {
+      width: 80px;
+      height: 80px;
+    }
+  }
+}

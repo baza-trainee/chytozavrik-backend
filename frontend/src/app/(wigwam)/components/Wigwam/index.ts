@@ -1,0 +1,12 @@
+export { default as WigwamBooks } from './Books/WigwamBooks';
+export { default as RecommendedBooks } from './RecomendedBooks/RecomendedBooks';
+export { default as WigwamMyMonsters } from './Monsters/WigwamMyMonsters';
+export { default as WigwamQuiz } from './Quiz/WigwamQuiz';
+export { default as WigwamReadBooks } from './ReadBooks/WigwamReadBooks';
+export { default as WelcomeWigwam } from './Quiz/components/WelcomeWigwam';
+export { default as LastQuiz } from './Quiz/components/LastQuiz';
+export { default as NoLastQuiz } from './Quiz/components/NoLastQuiz';
+export { default as SearchInput } from './Books/SearchInput/SearchInput';
+export { default as BooksList } from './Books/BooksList/BooksList';
+export { default as BookItem } from './Books/BookItem/BookItem';
+export { default as NotFoundBook } from './Books/NotFound/NotFoundBook';

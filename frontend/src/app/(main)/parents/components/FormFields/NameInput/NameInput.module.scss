@@ -1,0 +1,31 @@
+@import '../../../../../../scss/utils/variables';
+@import '../../../../../../scss/utils/mixin';
+
+.container {
+  position: relative;
+}
+
+.label {
+  margin-bottom: 8px;
+  font-family: var(--montserrat-alternates-font);
+  font-size: 16px;
+  color: $neutral;
+}
+
+.input {
+  height: 48px;
+  width: 100%;
+  margin-bottom: 36px;
+  padding: 12px 16px;
+  font-size: 16px;
+  border: 1px solid $neutral;
+  border-radius: 8px;
+  color: $neutral;
+}
+
+.name {
+  position: absolute;
+  top: 70px;
+  left: 0;
+  color: getColor(error, 40);
+}

@@ -1,0 +1,64 @@
+@import 'scss/utils/variables';
+@import 'scss/utils/mixin';
+
+.gratitude {
+  padding-top: 40px;
+  margin: auto;
+  width: 328px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    .title {
+      color: $black;
+      text-align: center;
+      font-family: var(--montserrat-alternates-font);
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 120%;
+    }
+
+    p {
+      color: $black;
+      text-align: center;
+      font-family: var(--raleway-font);
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 120%;
+    }
+  }
+
+  .image {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    object-fit: cover;
+  }
+
+  @include breakpoint(tablet) {
+    width: 440px;
+    gap: 0;
+    padding-top: 32px;
+    padding-bottom: 32px;
+
+    .image {
+      & img {
+        width: 211px;
+        height: 194px;
+      }
+    }
+  }
+
+  @include breakpoint(laptop) {
+    width: 410px;
+    margin-right: 133px;
+    margin-left: 133px;
+  }
+}

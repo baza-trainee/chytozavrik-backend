@@ -1,0 +1,152 @@
+@import 'scss/utils/variables';
+@import 'scss/utils/mixin';
+
+.section {
+  background-color: getColor(blue, 10);
+  background-image: url('/images/background-wave.svg'), url('/images/space-mob.svg'),
+    url('/images/stars.svg'), url('/images/path.svg');
+  background-repeat: repeat-x, no-repeat, no-repeat, no-repeat;
+  background-position:
+    center top,
+    center bottom,
+    center bottom -20px,
+    left bottom -6px;
+  background-size:
+    auto 27px,
+    auto,
+    auto,
+    contain;
+  padding-top: 52px;
+  height: 726px;
+
+  @include breakpoint(tablet) {
+    background-image: url('/images/background-wave.svg'), url('/images/space-tab.svg'),
+      url('/images/stars-tab.svg'), url('/images/path-tab.svg');
+    background-position:
+      center top,
+      right bottom,
+      center top 40px,
+      left bottom;
+    background-size:
+      auto 54px,
+      auto,
+      auto,
+      100% auto;
+    padding-top: 167px;
+    padding-left: 40px;
+    height: 674px;
+  }
+
+  @include breakpoint(laptop) {
+    background-image: url('/images/cloud-laptop.svg'), url('/images/space-laptop.svg'),
+      url('/images/stars-laptop.svg'), url('/images/path-laptop.svg');
+    background-position:
+      center top,
+      right bottom,
+      center top 72px,
+      left bottom 134px;
+    background-size:
+      auto,
+      auto,
+      auto,
+      100% auto;
+    padding-top: 177px;
+    padding-left: 68px;
+    height: 681px;
+  }
+
+  @include breakpoint(desktop) {
+    background-image: url('/images/cloud-desktop.svg'), url('/images/space-desktop.svg'),
+      url('/images/stars-desktop.svg'), url('/images/path-desktop.svg');
+    background-position:
+      center top,
+      right bottom,
+      center top 72px,
+      left top 74px;
+    background-size:
+      auto,
+      auto,
+      auto,
+      100% auto;
+    padding-top: 230px;
+    padding-left: 130px;
+    height: 872px;
+  }
+}
+
+.container {
+  width: 331px;
+  display: flex;
+  gap: 36px;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+
+  @include breakpoint(tablet) {
+    margin: 0;
+  }
+
+  @include breakpoint(laptop) {
+    width: 358px;
+    gap: 24px;
+  }
+
+  @include breakpoint(desktop) {
+    width: 470px;
+  }
+}
+
+.image {
+  margin: 0 auto;
+  width: 331px;
+  height: 204px;
+  @include breakpoint(laptop) {
+    width: 306px;
+    height: 185px;
+  }
+  @include breakpoint(desktop) {
+    width: 432px;
+    height: 260px;
+  }
+}
+
+.text {
+  margin: 0 auto;
+  font-size: 20px;
+  font-weight: 400;
+  color: $white;
+  text-align: center;
+  @include breakpoint(tablet) {
+    width: 328px;
+  }
+  @include breakpoint(laptop) {
+    width: 358px;
+    font-size: 18px;
+  }
+  @include breakpoint(desktop) {
+    width: 395px;
+    font-size: 20px;
+  }
+}
+
+.button {
+  width: 327px;
+  height: 54px;
+  padding: 16px 28px;
+  font-family: var(--montserrat-alternates-font);
+  font-weight: 600;
+  font-size: 18px;
+  @include breakpoint(tablet) {
+    width: 328px;
+    height: 56px;
+    font-size: 20px;
+  }
+  @include breakpoint(laptop) {
+    width: 291px;
+    padding: 20px 36px;
+  }
+  @include breakpoint(desktop) {
+    width: 405px;
+    height: 64px;
+  }
+}

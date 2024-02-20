@@ -1,0 +1,49 @@
+@import '../../../../scss/utils/variables';
+
+.wrapper {
+  width: 505px;
+  height: 40px;
+  display: flex;
+  gap: 19px;
+}
+
+.title_wrapper {
+  display: flex;
+  gap: 8px;
+  padding: 8px 0px;
+}
+
+.icon {
+  display: flex;
+  width: 24px;
+  height: 24px;
+}
+
+.counter_title {
+  width: 260px;
+  display: flex;
+  color: $secondary-black;
+  font-family: var(--montserrat-alternates-font);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 120%;
+  align-items: flex-end;
+}
+
+.counter_wrapper {
+  display: flex;
+  width: 194px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  border: 1px solid #{getColor(blue, 40)};
+}
+
+.counter {
+  color: $secondary-black;
+  font-family: var(--montserrat-alternates-font);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 120%;
+}

@@ -1,0 +1,157 @@
+@import 'scss/utils/variables';
+@import 'scss/utils/mixin';
+@import '@/scss/utils/func';
+
+.section {
+  background-color: getColor(blue, 90);
+  @include addWaveBackground('/images/bg-wave-blue.svg');
+  padding-top: 28px;
+
+  @include breakpoint(tablet) {
+    padding-top: 36px;
+  }
+
+  @include breakpoint(desktop) {
+    padding-top: 36px;
+  }
+}
+
+.form {
+  background-color: $white;
+  min-width: 328px;
+  min-height: 547px;
+  padding: 36px 16px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+
+  @include breakpoint(tablet) {
+    padding: 24px 20px;
+    min-height: 272px;
+  }
+
+  @include breakpoint(laptop) {
+    width: 749px;
+  }
+
+  @include breakpoint(desktop) {
+    width: 737px;
+  }
+}
+
+.title {
+  margin-bottom: 48px;
+  text-align: start;
+}
+
+.formWrapper {
+  @include breakpoint(tablet) {
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+  }
+
+  @include breakpoint(laptop) {
+    gap: 122px;
+  }
+
+  @include breakpoint(desktop) {
+    gap: 110px;
+  }
+}
+
+.inputsWrapper {
+  @include breakpoint(tablet) {
+    width: 387px;
+  }
+}
+
+.label {
+  margin-bottom: 8px;
+  font-family: var(--montserrat-alternates-font);
+  font-size: 16px;
+  color: $neutral;
+}
+
+.input {
+  height: 48px;
+  width: 100%;
+  margin-bottom: 36px;
+  padding: 12px 16px;
+  font-size: 16px;
+  border: 1px solid $neutral;
+  border-radius: 8px;
+  color: $neutral;
+}
+
+.buttonsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 36px;
+
+  @include breakpoint(tablet) {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 0;
+  }
+}
+
+.button {
+  height: 54px;
+  width: 100%;
+  padding: 16px 28px;
+
+  @include breakpoint(tablet) {
+    width: 170px;
+  }
+}
+
+.fieldset {
+  border: none;
+}
+
+.text {
+  margin-bottom: 12px;
+}
+
+.radioWrapper {
+  height: 128px;
+  width: 256px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  margin: 0 auto;
+
+  @include breakpoint(tablet) {
+    gap: 28px;
+    width: 201px;
+  }
+  @include breakpoint(desktop) {
+    gap: 24px;
+  }
+}
+
+.radio {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.image {
+  width: 48px;
+  height: 48px;
+  margin-left: -10px;
+
+  &:hover,
+  &:focus,
+  &:active {
+    border: 3px solid #455fc8;
+    border-radius: 100px;
+  }
+
+  @include breakpoint(tablet) {
+    margin-left: -28px;
+  }
+}

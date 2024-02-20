@@ -1,0 +1,118 @@
+@import 'scss/utils/func';
+@import 'scss/utils/mixin';
+
+.header {
+  height: 78px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin: auto;
+  padding-left: var(--padding-x);
+  padding-right: var(--padding-x);
+
+  @include breakpoint(tablet) {
+    height: 86px;
+  }
+
+  @include breakpoint(desktop) {
+    height: 101px;
+  }
+}
+
+.headerContainer {
+  // height: 54px;
+  // padding-top: 24px;
+  display: flex;
+
+  align-items: center;
+}
+
+.logo {
+  // margin-top: 12px;
+  //align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 40px;
+  height: 34px;
+  @include breakpoint(tablet) {
+    width: 64px;
+    height: 54px;
+  }
+
+  @include breakpoint(desktop) {
+    width: 72px;
+    height: 61px;
+  }
+}
+
+.logoText {
+  width: 105px;
+  height: 14px;
+  margin-left: 4px;
+  @include breakpoint(tablet) {
+    width: 211px;
+    height: 28px;
+    margin-left: 24px;
+  }
+}
+
+.buttonContainer {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+
+  @include breakpoint(laptop) {
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+
+    & a {
+      height: 52px;
+    }
+  }
+
+  @include breakpoint(desktop) {
+    & a {
+      height: 60px;
+    }
+  }
+}
+
+a.button {
+  padding: 6px 14px;
+  gap: 8px;
+
+  @include breakpoint(tablet) {
+    padding: 12px 28px;
+  }
+
+  @include breakpoint(desktop) {
+    padding: 16px 28px;
+  }
+}
+
+.userLogo {
+  width: 16px;
+  height: 100%;
+
+  @include breakpoint(tablet) {
+    width: 24px;
+  }
+}
+
+a.buttonIn,
+.buttonOut {
+  width: 128px;
+  padding: 10px 20px;
+
+  @include breakpoint(tablet) {
+    width: 169px;
+    padding: 12px 28px;
+  }
+
+  @include breakpoint(desktop) {
+    width: 185px;
+    padding: 16px 28px;
+  }
+}

@@ -1,0 +1,30 @@
+@import 'scss/utils/variables';
+@import 'scss/utils/mixin';
+
+.inputContainer {
+  margin-top: 24px;
+  .customInput {
+    span:first-child {
+      background-color: #f6faff;
+      border: 2px solid #7791fa;
+      display: flex;
+      order: 1;
+
+      input {
+        order: 2;
+      }
+    }
+  }
+}
+
+// .customInput {
+//   span:first-child {
+//     background-color: #f6faff;
+//     border: 2px solid #7791fa;
+//     display: flex;
+
+//     input {
+//       order: 2;
+//     }
+//   }
+// }

@@ -1,0 +1,23 @@
+@import '@/scss/utils/func';
+@import '@/scss/utils/mixin';
+
+.header {
+  background: getColor(blue, 90);
+  position: sticky;
+  top: 0;
+  z-index: 1004;
+  padding: 14px 0;
+  max-height: 64px;
+}
+
+.logo {
+  width: 32px;
+  height: 32px;
+  color: rgba(119, 145, 250, 1);
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

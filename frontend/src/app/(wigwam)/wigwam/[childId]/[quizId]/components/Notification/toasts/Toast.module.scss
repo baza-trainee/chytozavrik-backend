@@ -1,0 +1,222 @@
+@import 'scss/utils/variables';
+@import 'scss/utils/mixin';
+
+.toast {
+  --toast-px: 0;
+
+  @include breakpoint(tablet) {
+    [data-result='success'] &,
+    [data-result='error'] & {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+  }
+
+  @include breakpoint(laptop) {
+    padding-left: var(--toast-px);
+    padding-right: var(--toast-px);
+
+    [data-result='default'] & {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+  }
+
+  @include breakpoint(desktop) {
+    [data-result='success'] &,
+    [data-result='error'] & {
+      --toast-px: 217px;
+    }
+
+    [data-result='default'] & {
+      --toast-px: 109px;
+    }
+  }
+}
+
+.body {
+  margin-bottom: 16px;
+
+  [data-result='success'] &,
+  [data-result='error'] & {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+
+    @include breakpoint(tablet) {
+      flex-grow: 1;
+      gap: 40px;
+
+      margin-bottom: 0;
+    }
+  }
+
+  [data-result='default'] & {
+    @include breakpoint(tablet) {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      flex-grow: 1;
+
+      margin-bottom: 24px;
+    }
+
+    @include breakpoint(laptop) {
+      flex-grow: 1;
+      margin-bottom: 0;
+    }
+  }
+}
+
+.thumb {
+  --thumb-size: 96px;
+
+  position: relative;
+
+  width: var(--thumb-size);
+  height: var(--thumb-size);
+  margin: 0 auto;
+  overflow: hidden;
+
+  border-radius: 50%;
+  background-color: $white;
+
+  [data-result='default'] & {
+    @include breakpoint(false, tablet) {
+      margin-bottom: 24px;
+    }
+  }
+
+  [data-result='success'] &,
+  [data-result='error'] & {
+    @include breakpoint(false, tablet) {
+      --thumb-size: 56px;
+    }
+  }
+}
+
+.image {
+  --image-width: 0px;
+
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+
+  display: block;
+
+  width: var(--image-width);
+  height: auto;
+
+  transform: translateX(-50%);
+
+  [data-result='success'] &,
+  [data-result='error'] & {
+    --image-width: 62px;
+
+    @include breakpoint(tablet) {
+      --image-width: 100px;
+    }
+  }
+
+  [data-result='default'] & {
+    --image-width: 124px;
+  }
+}
+
+.body-wrapper {
+  flex-grow: 1;
+
+  text-align: center;
+
+  [data-result='success'] &,
+  [data-result='error'] & {
+    text-align: left;
+  }
+
+  @include breakpoint(tablet) {
+    text-align: left;
+  }
+
+  @include breakpoint(laptop) {
+    flex-grow: 1;
+  }
+}
+
+.title {
+  margin-bottom: 16px;
+
+  text-align: inherit;
+}
+
+.message {
+}
+
+.button-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  [data-result='success'] &,
+  [data-result='error'] & {
+    @include breakpoint(tablet) {
+      justify-content: flex-end;
+    }
+  }
+
+  @include breakpoint(tablet) {
+    flex-direction: row;
+    gap: 24px;
+  }
+
+  @include breakpoint(laptop) {
+    justify-content: flex-end;
+    gap: 16px;
+  }
+}
+
+.button {
+  padding: 16px 28px;
+
+  font-size: 18px;
+
+  @include breakpoint(false, laptop) {
+    width: 100%;
+  }
+
+  @include breakpoint(tablet) {
+    [data-result='success'] &,
+    [data-result='error'] & {
+      width: fit-content;
+    }
+  }
+
+  @include breakpoint(tablet, laptop) {
+    [data-result='default'] & {
+      width: calc((100% - 24px) / 2);
+    }
+  }
+
+  @include breakpoint(laptop) {
+    &:last-of-type {
+      width: fit-content;
+    }
+  }
+
+  @include breakpoint(desktop) {
+    width: fit-content;
+    padding: 16px 36px;
+
+    font-size: 24px;
+  }
+}
+
+.confetti {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+}

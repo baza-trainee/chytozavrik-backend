@@ -1,0 +1,306 @@
+@import 'scss/utils/variables';
+@import 'scss/utils/mixin';
+
+.books_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 328px;
+  height: 410px;
+  padding: 24px 25px 26px 25px;
+  background-color: $primary;
+  border-radius: 8px;
+  grid-area: books;
+
+  @include breakpoint(tablet) {
+    width: 333px;
+    height: 414px;
+  }
+
+  @include breakpoint(laptop) {
+    width: 367px;
+    height: 629px;
+  }
+
+  @include breakpoint(desktop) {
+    width: 412px;
+    height: 724px;
+  }
+}
+
+.form {
+  display: flex;
+  gap: 10px;
+}
+
+.notfound {
+  width: 239px;
+  margin-top: 10px;
+  color: $white;
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 130%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+
+  & img {
+    width: 212px;
+    height: 128px;
+  }
+
+  @include breakpoint(laptop) {
+    font-size: 18px;
+    width: 304px;
+    height: 265px;
+    margin-top: 86px;
+
+    & img {
+      width: 269px;
+      height: 179px;
+    }
+  }
+
+  @include breakpoint(desktop) {
+    margin-top: 90px;
+  }
+}
+
+.title {
+  margin-bottom: 16px;
+  font-size: 18px;
+  text-align: center;
+  color: $white;
+
+  @include breakpoint(laptop) {
+    margin-bottom: 24px;
+  }
+  @include breakpoint(desktop) {
+    font-size: 24px;
+  }
+}
+
+.input {
+  width: 278px;
+  height: 56px;
+  border-radius: 8px;
+  border: 2px solid $primary;
+  outline: none;
+  padding: 16px 12px 16px 46px;
+  font-family: var(--montserrat-alternates-font);
+  background-color: $search-background;
+  color: $primary;
+  pointer-events: auto;
+
+  &::placeholder {
+    color: $neutral;
+    font-family: var(--raleway-font);
+  }
+
+  &:focus + .icon_wraper .icon {
+    color: $primary;
+  }
+
+  @include breakpoint(tablet) {
+    width: 285px;
+  }
+  @include breakpoint(laptop) {
+    width: 319px;
+  }
+  @include breakpoint(desktop) {
+    width: 364px;
+    height: 48px;
+    padding-left: 48px;
+  }
+}
+
+.icon_wraper {
+  position: absolute;
+  top: 15px;
+  left: 16px;
+  width: 24px;
+  height: 24px;
+
+  @include breakpoint(desktop) {
+    top: 10px;
+  }
+}
+
+.icon_circle {
+  position: absolute;
+  top: 15px;
+  right: 16px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.icon {
+  color: $neutral;
+  pointer-events: fill;
+}
+
+.search_wraper {
+  position: relative;
+}
+
+.button {
+  width: 278px;
+  height: 56px;
+  margin-top: auto;
+  padding-left: 0;
+  padding-right: 0;
+  background-color: $white;
+  color: $primary;
+  font-size: 16px;
+  font-weight: 600;
+
+  @include breakpoint(tablet) {
+    width: 285px;
+    height: 54px;
+  }
+  @include breakpoint(laptop) {
+    width: 335px;
+  }
+  @include breakpoint(desktop) {
+    width: 364px;
+    height: 64px;
+    font-size: 20px;
+  }
+}
+
+.button_icon {
+  margin-left: 8px;
+  width: 24px;
+  height: 24px;
+}
+
+.button_list {
+  margin-top: 24px;
+  height: 155px;
+  margin-bottom: 32px;
+  padding-left: 11px;
+  padding-right: 11px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: $white transparent;
+
+  &:hover {
+    scrollbar-width: thin;
+    scrollbar-color: $white transparent;
+  }
+
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 1px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: white;
+    border-radius: 24px;
+    border-bottom: 2px solid transparent;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+    box-shadow: inset 0 0 15px $white;
+    border-radius: 24px;
+    border-left: 2px solid transparent;
+    border-right: 2px solid transparent;
+  }
+
+  @include breakpoint(tablet) {
+    margin-bottom: 24px;
+    height: auto;
+  }
+}
+
+.book_items {
+  display: flex;
+  justify-content: space-between;
+  width: 278px;
+  padding: 7px;
+  border-radius: 8px;
+  background-color: $primary-next-variant;
+  border: 2px solid $primary;
+
+  @include breakpoint(tablet) {
+    width: 285px;
+  }
+
+  @include breakpoint(laptop) {
+    width: 319px;
+  }
+
+  @include breakpoint(desktop) {
+    width: 364px;
+  }
+}
+
+.book_about {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.book_name {
+  font-family: var(--montserrat-alternates-font);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 120%;
+}
+
+.book_author {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 120%;
+  font-variant-numeric: lining-nums proportional-nums;
+}
+
+.arrow {
+  display: flex;
+  padding: 16px;
+  justify-content: center;
+  align-items: center;
+  color: $primary;
+  cursor: pointer;
+  width: 56px;
+  height: 56px;
+
+  & svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  @include breakpoint(tablet) {
+    padding: 20px;
+    width: 64px;
+    height: 64px;
+  }
+
+  &:hover {
+    color: getColor(blue, 50);
+  }
+
+  &:active {
+    color: getColor(blue, 30);
+  }
+}
+
+.book_counter {
+  margin-left: 8px;
+  font-family: var(--montserrat-alternates-font);
+  font-size: 16px;
+  font-weight: 400;
+  color: $on-next-primary-variant;
+}
+
+.book_counter_wraper {
+  display: flex;
+}

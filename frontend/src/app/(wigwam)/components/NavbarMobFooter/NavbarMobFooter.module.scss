@@ -1,0 +1,31 @@
+@import 'scss/utils/func';
+@import 'scss/utils/mixin';
+
+.footer {
+  background: getColor(blue, 90);
+  padding: 12px 16px;
+  position: sticky;
+  bottom: 0;
+  width: 100vw;
+  z-index: 999;
+  height: 70px;
+}
+
+.link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90px;
+
+  & svg {
+    width: 32px;
+    height: 32px;
+    color: rgba(119, 145, 250, 1);
+  }
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

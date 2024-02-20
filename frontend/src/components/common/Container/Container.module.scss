@@ -1,0 +1,28 @@
+@import '@/scss/utils/func';
+@import '@/scss/utils/mixin';
+@import 'scss/utils/variables';
+
+:where(.container) {
+  --padding-x: 16px;
+
+  max-width: getBreakpoint(mobile);
+  height: 100%;
+  margin: 0 auto;
+  padding-left: var(--padding-x);
+  padding-right: var(--padding-x);
+
+  @include breakpoint(tablet) {
+    --padding-x: 40px;
+    max-width: getBreakpoint(tablet);
+  }
+
+  @include breakpoint(laptop) {
+    --padding-x: 60px;
+    max-width: getBreakpoint(laptop);
+  }
+
+  @include breakpoint(desktop) {
+    --padding-x: 80px;
+    max-width: getBreakpoint(desktop);
+  }
+}
