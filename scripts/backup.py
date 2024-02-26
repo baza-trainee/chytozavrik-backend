@@ -40,10 +40,14 @@ os.system(cmd_static)
 
 backup_list = os.listdir(BACKUP_DIR)
 if len(backup_list) > MAX_BACKUPS:
-    old_backup = sorted(backup_list, key=lambda x: datetime.strptime(x, f"backup_{TIME_FORMAT}.sql"))[0]
+    old_backup = sorted(
+        backup_list, key=lambda x: datetime.strptime(x, f"backup_{TIME_FORMAT}.sql")
+    )[0]
     os.remove(os.path.join(BACKUP_DIR, old_backup))
 
 static_backup_list = os.listdir(STATIC_BACKUP_DIR)
 if len(static_backup_list) > MAX_BACKUPS:
-    old_static_backup = sorted(static_backup_list, key=lambda x: datetime.strptime(x, f"static_{TIME_FORMAT}"))[0]
+    old_static_backup = sorted(
+        static_backup_list, key=lambda x: datetime.strptime(x, f"static_{TIME_FORMAT}")
+    )[0]
     shutil.rmtree(os.path.join(STATIC_BACKUP_DIR, old_static_backup))

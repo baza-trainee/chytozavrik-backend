@@ -53,8 +53,13 @@ class DocumentViewSet(ModelViewSet, GenericViewSet):
 
     def partial_update(self, request, *args, **kwargs):
         instance = self.get_object()
+        file_field = request.data.get("file", None)
+        if file_field and file_field.name.endswith(".pdf"):
+            file_field.name = file_field.file.name = instance.file.name
+            request.data["file"] = file_field
         serializer = self.get_serializer(instance, data=request.data, partial=True)
-        serializer.is_valid(raise_exception=True)
+        if serializer.is_valid(raise_exception=True):
+            instance.file.delete(save=False)
         self.perform_update(serializer)
 
         cache.delete("document_list_cache")

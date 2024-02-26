@@ -27,22 +27,22 @@ const CookiesPanel = () => {
     document.cookie = 'cookies-consent=true; path=/; max-age=31536000';
   };
 
-  const closePanel = () => {
-    setShowPanel(false);
-  };
+  // const closePanel = () => {
+  //   setShowPanel(false);
+  // };
 
   if (showPanel) {
     return (
       <div className={styles.cookies}>
-        <button className={styles.close} type="button" onClick={closePanel} aria-label="Закрити">
+        {/* <button className={styles.close} type="button" onClick={closePanel} aria-label="Закрити">
           <X size={16} />
-        </button>
+        </button> */}
         <div>
           <p>
             Цей сайт використовує файли <span>cookies</span> для правильної роботи і покращення
             сервісу. Якщо ви погоджуєтесь з їхнім використанням, <span>натисніть ОК</span>. Більше
             інформації в{' '}
-            <Link href="/pdf/site-rules.pdf#toolbar=0" target="_blank">
+            <Link href="/media/documents/privacy_policy.pdf#toolbar=0" target="_blank">
               Політика конфіденційності
             </Link>
             .
