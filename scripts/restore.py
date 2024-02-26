@@ -50,11 +50,17 @@ for i, backup in enumerate(BACKUPS, start=1):
 choice = int(input("Ваш вибір: "))
 
 # db
-os.system(f"docker exec {DB_CONTAINER} psql {DATABASE_URI} -c 'DROP SCHEMA public CASCADE;'")
+os.system(
+    f"docker exec {DB_CONTAINER} psql {DATABASE_URI} -c 'DROP SCHEMA public CASCADE;'"
+)
 os.system(f"docker exec {DB_CONTAINER} psql {DATABASE_URI} -c 'CREATE SCHEMA public;'")
-os.system(f"docker exec -i {DB_CONTAINER} psql {DATABASE_URI} < {BACKUP_DIR}/{BACKUPS[choice - 1]}")
+os.system(
+    f"docker exec -i {DB_CONTAINER} psql {DATABASE_URI} < {BACKUP_DIR}/{BACKUPS[choice - 1]}"
+)
 
 # media
 os.system(f"docker exec -it {WEB_CONTAINER} rm -r /backend_app/media")
 
-os.system(f"cd {STATIC_BACKUP_DIR}/{BACKUPS_STATIC[choice - 1]} && docker cp . {WEB_CONTAINER}:/backend_app/media/")
+os.system(
+    f"cd {STATIC_BACKUP_DIR}/{BACKUPS_STATIC[choice - 1]} && docker cp . {WEB_CONTAINER}:/backend_app/media/"
+)
